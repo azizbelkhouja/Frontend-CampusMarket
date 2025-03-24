@@ -4,6 +4,7 @@ import Divider from '@mui/material/Divider';
 import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wallet, WorkspacePremium } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import SimilarProduct from './SimilarProduct';
+import ReviewCard from '../Review/ReviewCard';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -94,7 +95,7 @@ const ProductDetails = () => {
           </div>
 
           <div className='mt-7 space-y-4'>
-            {/* <ReviewCard /> */}
+            <ReviewCard />
             <Divider />
           </div>
 

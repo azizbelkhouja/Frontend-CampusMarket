@@ -4,6 +4,8 @@ import Navbar from './customer/components/Navbar/Navbar';
 import Home from './customer/pages/Home/Home';
 import { Route, Routes } from 'react-router-dom';
 import Product from './customer/pages/Product/Product';
+import ProductDetails from './customer/pages/PageDetails/ProductDetails';
+import Review from './customer/pages/Review/Review';
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
       <Navbar/>
       <Routes>
         {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/" element={<Product />} />
+        {/* <Route path="/" element={<Product />} /> */}
+        {/* <Route path="/" element={<ProductDetails />} /> */}
+        <Route path="/" element={<Review />} />
       </Routes>
     </div>
   );
