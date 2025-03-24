@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Product from './customer/pages/Product/Product';
 import ProductDetails from './customer/pages/PageDetails/ProductDetails';
 import Review from './customer/pages/Review/Review';
+import Cart from './customer/pages/Cart/Cart';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
         {/* <Route path="/" element={<Product />} /> */}
         {/* <Route path="/" element={<ProductDetails />} /> */}
-        <Route path="/" element={<Review />} />
+        {/* <Route path="/" element={<Review />} /> */}
+        <Route path="/" element={<Cart />} />
       </Routes>
     </div>
   );
