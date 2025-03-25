@@ -8,6 +8,7 @@ import ProductDetails from './customer/pages/PageDetails/ProductDetails';
 import Review from './customer/pages/Review/Review';
 import Cart from './customer/pages/Cart/Cart';
 import Checkout from './customer/pages/Checkout/Checkout';
+import Account from './customer/pages/Account/Account';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         {/* <Route path="/" element={<ProductDetails />} /> */}
         {/* <Route path="/" element={<Review />} /> */}
         {/* <Route path="/" element={<Cart />} /> */}
-        <Route path="/" element={<Checkout />} />
+        {/* <Route path="/" element={<Checkout />} /> */}
+        <Route path="/account/*" element={<Account />} />
       </Routes>
     </div>
   );
