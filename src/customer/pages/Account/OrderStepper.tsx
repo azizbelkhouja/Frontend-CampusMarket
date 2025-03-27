@@ -42,7 +42,7 @@ export const OrderStepper = ({orderStatus}: any) => {
                         sx={{ zIndex: -1 }}
                         className={`w-8 h-8 rounded-full flex items-center justify-center z-10 ${
                             index <= currentStep
-                            ? "bg-gray-200 text-teal-500"
+                            ? "bg-gray-200 text-black"
                             : "bg-gray-300 text-gray-600"
                         }`}
                     >
@@ -56,7 +56,7 @@ export const OrderStepper = ({orderStatus}: any) => {
                         <div
                             className={`border h-20 w-[2px] ${
                             index < currentStep
-                                ? "bg-teal-500"
+                                ? "bg-black"
                                 : "bg-gray-300 text-gray-600"
                             }`}
                         ></div>
@@ -67,7 +67,7 @@ export const OrderStepper = ({orderStatus}: any) => {
                     <div
                         className={`${
                         step.value === orderStatus
-                            ? "bg-teal-500 p-2 text-white font-medium rounded-md -translate-y-3"
+                            ? "bg-black p-2 text-white font-medium rounded-md -translate-y-3"
                             : ""
                         } ${
                         orderStatus === "CANCELLED" && step.value === orderStatus

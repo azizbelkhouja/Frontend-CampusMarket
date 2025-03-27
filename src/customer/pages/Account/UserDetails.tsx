@@ -10,7 +10,7 @@ const UserDetails = () => {
                 <h1 className="text-2xl font-bold text-gray-600">Profile Details</h1>
             </div>
             <div className="space-y-5">
-                <ProfileFieldCard keys="Name" value={"Aziz"} />
+                <ProfileFieldCard keys="Name" value={"Aziz the user"} />
                 <Divider />
                 <ProfileFieldCard keys="Mobile" value={"3951222222"} />
                 <Divider />

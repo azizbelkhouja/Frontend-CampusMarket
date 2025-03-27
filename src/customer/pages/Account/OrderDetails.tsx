@@ -21,10 +21,10 @@ const OrderDetails = () => {
                 <p>
                     Michele Iphones is a renowned seller known for offering the latest and most sought-after iPhone models.
                 </p>
-                <p><strong>Size:</strong>STANDARD</p>
+                <p><strong>Size: </strong>STANDARD</p>
                 </div>
                 <div>
-                <Button onClick={() => navigate(`/reviews/${5}/create`)}>Write Review</Button>
+                <Button onClick={() => navigate(`/reviews/${5}/create`)} sx={{ backgroundColor: "black", color: "white", borderRadius: 0}}>Write Review</Button>
                 </div>
             </section>
 
@@ -41,7 +41,7 @@ const OrderDetails = () => {
                     <p>{3511111111}</p>
                     </div>
                     <p>
-                        Via Sagratt 1, 44444, Rome, Italy
+                        Via Sagratt 1, 44444, Cento, Italy
                     </p>
                 </div>
             </div>
@@ -50,10 +50,10 @@ const OrderDetails = () => {
                 <div className='flex justify-between text-sm pt-5 px-5'>
                     <div className='space-y-1'>
                         <p className='font-bold'>Total Price</p>
-                        <p>You saved <span className='text-green-500 font-medium text-xs'>€{123}.00</span> on your order</p>
+                        <p>You saved <span className='text-green-500 font-bold text-xs'>€{123}.00</span> on your order</p>
                     </div>
                     
-                    <p className='font-medium'>₹{412}.00</p>
+                    <p className='font-medium'>€{412}.00</p>
                 </div>
 
                 <div className='px-5'>
@@ -73,17 +73,23 @@ const OrderDetails = () => {
                 </div>
 
                 <div className='p-10'>
-                    <Button
-                        disabled={false}
-                        // onClick={handleCancelOrder}
-                        color='error'
-                        sx={{ py: "0.7rem" }}
-                        className=''
-                        variant='outlined'
-                        fullWidth
-                    >
-                        {false ? "Order Canceled" : "Cancel Order"}
-                    </Button>
+                <Button
+                    disabled={false}
+                    color="error"
+                    sx={{
+                        py: "0.7rem",
+                        borderRadius: 0,
+                        "&:hover": {
+                            backgroundColor: "red",
+                            color: "white",
+                        },
+                    }}
+                    variant="outlined"
+                    fullWidth
+                >
+                    {false ? "Order Canceled" : "Cancel Order"}
+                </Button>
+
                 </div>
 
             </div>  
