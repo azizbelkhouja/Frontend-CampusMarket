@@ -39,7 +39,7 @@ const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
                     )
                   }
                 </div>
-
+                <Divider className='my-5'/>
                 <div className="space-y-2">
                   {
                     menu2.map((item, index:number) =>
