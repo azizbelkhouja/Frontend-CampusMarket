@@ -1,8 +1,11 @@
 import React from 'react'
+import HomeCAtegoryTable from './HomeCategoryTable';
 
 const ElectronicsTable = () => {
   return (
-    <div>ElectronicsTable</div>
+    <div>
+      <HomeCAtegoryTable />
+    </div>
   )
 }
 
