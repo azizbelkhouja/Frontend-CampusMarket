@@ -72,7 +72,7 @@ export default function HomeCAtegoryTable() {
               <StyledTableCell align="right">{row.carbs}</StyledTableCell>
               <StyledTableCell align="right">
                 <Button>
-                    <Edit />
+                    <Edit sx={{color : "black"}} />
                 </Button>
               </StyledTableCell>
             </StyledTableRow>
