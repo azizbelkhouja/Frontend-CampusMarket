@@ -10,7 +10,7 @@ import Transaction from '../seller/pages/Payment/Transaction'
 
 const SellerRoutes = () => {
   return (
-         <Routes>
+      <Routes>
         <Route path='/' element={<Dashboard />} />
         <Route path='/products' element={<Products />} />
         <Route path='/add-product' element={<AddProduct />} />
@@ -18,7 +18,7 @@ const SellerRoutes = () => {
         <Route path='/account' element={<Profile />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/transaction' element={<Transaction/>} />
-       </Routes>
+      </Routes>
   )
 }
 
