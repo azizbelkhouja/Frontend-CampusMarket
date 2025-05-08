@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/*MAIN BUTTONS STYLING*/
+.main-button {
+  border-radius: 0;
+  border: 0;
+  background-color: #213D72;
+  color: white;
+}
+.main-button:hover {
+  background-color: #24437c;
+}
+
+.dark-hover:hover {
+  background-color: #213D72;
+}
+.light-hover:hover {
+  background-color: #00B1D3;
+}
+.my-light-blue {
+  color: #00B1D3;
+}
+.my-dark-blue {
+  color: #213D72;
+}
