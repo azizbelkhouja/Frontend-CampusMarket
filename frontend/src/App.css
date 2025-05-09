@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 /*MAIN BUTTONS STYLING*/
-.main-button {
-  border-radius: 0;
-  border: 0;
-  background-color: #213D72;
-  color: white;
+.my-main-button {
+  border-radius: 0 !important;
+  border: 0 !important;
+  background-color: #213D72 !important;
+  color: white !important;
 }
-.main-button:hover {
-  background-color: #24437c;
+.my-main-button:hover {
+  background-color: #2d55a0 !important;
 }
 
 .dark-hover:hover {
