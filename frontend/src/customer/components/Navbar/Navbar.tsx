@@ -13,16 +13,18 @@ const Navbar = () => {
 
     const theme = useTheme();
     const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
-    // const [showCategorySheet, setShowCategorySheet] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [showCategorySheet, setShowCategorySheet] = useState(false);
 
 
-    // const handleMouseEnter = () => {
-    //     setShowCategorySheet(true);
-    // };
+    const handleMouseEnter = (categoryId: string) => {
+      setSelectedCategory(categoryId.toLowerCase());
+      setShowCategorySheet(true);
+    };
 
-    // const handleMouseLeave = () => {
-    //     setShowCategorySheet(false);
-    // };
+    const handleMouseLeave = () => {
+      setShowCategorySheet(false);
+    };
 
   return (
     <div>
@@ -41,10 +43,10 @@ const Navbar = () => {
             <ul className="flex items-center text-black font-light relative">
               {mainCategory.map((item) => (
                 <li
+                  onMouseEnter={() => handleMouseEnter(item.categoryId)}
+                  onMouseLeave={handleMouseLeave}
                   key={item.categoryId}
-                  className={`mainCategories px-4 flex items-center cursor-pointer ${
-                    item.isHighlighted ? "my-dark-blue font-bold underline" : "hover:text-gray-600"
-                  }`}
+                  className="mainCategories px-4 flex items-center cursor-pointer hover:text-gray-600"
                 >
                   {item.name}
                 </li>
@@ -79,15 +81,19 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* <div
-          className="categorySheet absolute top-[4.41rem] left-20 right-20"
+        <div
+          onMouseEnter={() => setShowCategorySheet(true)}
+          onMouseLeave={handleMouseLeave}
+          className="categorySheet absolute pt-[1.5rem] top-[2.95rem] left-20 right-20"
         >
-          { showCategorySheet && (
+          <div>
+            { showCategorySheet && (
             <div className="absolute top-full left-0 w-full">
-              <CategorySheet />
+              <CategorySheet selectedCategory={selectedCategory} />
             </div>
-          )}
-        </div> */}
+            )}
+          </div>
+        </div>
       </Box>
     </div>
   )
