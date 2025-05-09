@@ -13,20 +13,20 @@ const Navbar = () => {
 
     const theme = useTheme();
     const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
-    const [showCategorySheet, setShowCategorySheet] = useState(false);
+    // const [showCategorySheet, setShowCategorySheet] = useState(false);
 
 
-    const handleMouseEnter = () => {
-        setShowCategorySheet(true);
-    };
+    // const handleMouseEnter = () => {
+    //     setShowCategorySheet(true);
+    // };
 
-    const handleMouseLeave = () => {
-        setShowCategorySheet(false);
-    };
+    // const handleMouseLeave = () => {
+    //     setShowCategorySheet(false);
+    // };
 
   return (
     <div>
-        <Box className="sticky top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
+        <Box className="fixed top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
         <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] bg-white border-b-black border-b">
           <div className="flex items-center gap-9">
             <div className="flex items-center gap-2">
@@ -43,7 +43,7 @@ const Navbar = () => {
                 <li
                   key={item.categoryId}
                   className={`mainCategories px-4 flex items-center cursor-pointer ${
-                    item.isHighlighted ? "my-dark-blue font-bold underline" : "hover:text-gray-400"
+                    item.isHighlighted ? "my-dark-blue font-bold underline" : "hover:text-gray-600"
                   }`}
                 >
                   {item.name}
@@ -79,7 +79,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div
+        {/* <div
           className="categorySheet absolute top-[4.41rem] left-20 right-20"
         >
           { showCategorySheet && (
@@ -87,7 +87,7 @@ const Navbar = () => {
               <CategorySheet />
             </div>
           )}
-        </div>
+        </div> */}
       </Box>
     </div>
   )
