@@ -3,13 +3,15 @@ import './App.css'
 import Navbar from './customer/components/Navbar/Navbar'
 import Home from './customer/pages/Home/Home'
 import Footer from './customer/components/Footer/Footer'
+import Products from './customer/pages/Products/Products'
 
 function App() {
 
   return (
     <>
       <Navbar />
-      <Home />
+      <Products />
+      {/* <Home /> */}
       <Footer />
     </>
   )
