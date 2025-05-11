@@ -3,12 +3,22 @@
 /*MAIN BUTTONS STYLING*/
 .my-main-button {
   border-radius: 0 !important;
-  border: 0 !important;
+  border: solid 1px #213D72  !important;
   background-color: #213D72 !important;
   color: white !important;
 }
 .my-main-button:hover {
   background-color: #294c8f !important;
+}
+.my-main-button-outlined {
+  border-radius: 0 !important;
+  border: solid 1px #213D72 !important;
+  background-color: white !important;
+  color: #213D72 !important;
+}
+.my-main-button-outlined:hover {
+  background-color: #213D72 !important;
+  color: white !important;
 }
 
 .dark-hover:hover {
