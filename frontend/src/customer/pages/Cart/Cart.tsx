@@ -19,7 +19,7 @@ const Cart = () => {
 
   return (
     <>
-      {true ? (
+      {false ? (
         <div className="pt-30 px-5 sm:px-10 md:px-60 lg:px-60 min-h-screen">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 ">
             <div className="lg:col-span-2 space-y-3 ">
@@ -98,7 +98,7 @@ const Cart = () => {
               there is nothing in your bag, lets add some items
             </p>
           </div>
-          <Button variant="outlined" sx={{ py: "11px" }}>
+          <Button className='my-main-button-outlined' sx={{ py: "11px" }}>
             Add From Wishlist
           </Button>
         </div>
