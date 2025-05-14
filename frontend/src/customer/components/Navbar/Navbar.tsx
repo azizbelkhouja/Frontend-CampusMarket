@@ -76,7 +76,7 @@ const Navbar = () => {
                 startIcon={<StorefrontIcon />}
                 className='my-main-button'
               >
-                Become a Seller
+                Sell
               </Button>
             )}
           </div>
