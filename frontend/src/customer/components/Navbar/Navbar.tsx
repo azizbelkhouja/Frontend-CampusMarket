@@ -59,10 +59,10 @@ const Navbar = () => {
               <SearchIcon sx={{ color: 'black' }} />
             </IconButton>
             
-              {true ? <Button className="flex items-center gap-2">
+              {true ? <Button onClick={() => navigate("/account/orders")} className="flex items-center gap-2">
                 <Avatar sx={{ width: 29, height: 29 }} src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" />
                 <h1 className="font-semibold hidden lg:block text-black">Aziz</h1>
-              </Button> : <Button variant='contained' sx={{backgroundColor: "black", color:"white"}} >Login</Button>}
+              </Button> : <Button onClick={() => navigate("/login")} variant='contained' sx={{backgroundColor: "black", color:"white"}} >Login</Button>}
             
             <IconButton>
               <FavoriteBorderIcon sx={{ fontSize: 29, color: 'black' }} />
@@ -73,6 +73,7 @@ const Navbar = () => {
 
             { isLarge && (
               <Button
+                onClick={() => navigate("/become-seller")}
                 startIcon={<StorefrontIcon />}
                 className='my-main-button'
               >
