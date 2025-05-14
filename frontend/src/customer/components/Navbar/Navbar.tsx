@@ -8,6 +8,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import CategorySheet from './CategorySheet';
 import { mainCategory } from '../../../data/category/mainCategory';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -15,7 +16,7 @@ const Navbar = () => {
     const isLarge = useMediaQuery(theme.breakpoints.up('lg'));
     const [selectedCategory, setSelectedCategory] = useState("");
     const [showCategorySheet, setShowCategorySheet] = useState(false);
-
+    const navigate = useNavigate();
 
     const handleMouseEnter = (categoryId: string) => {
       setSelectedCategory(categoryId.toLowerCase());
@@ -31,7 +32,7 @@ const Navbar = () => {
         <Box className="fixed top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
         <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] bg-white border-b-black border-b">
           <div className="flex items-center gap-9">
-            <div className="flex items-center gap-2">
+            <div onClick={() => navigate("/")} className="flex items-center gap-2">
               { !isLarge && (
                 <IconButton>
                   <MenuIcon sx={{ color: 'black' }} />
@@ -66,7 +67,7 @@ const Navbar = () => {
             <IconButton>
               <FavoriteBorderIcon sx={{ fontSize: 29, color: 'black' }} />
             </IconButton>
-            <IconButton>
+            <IconButton onAbort={() => navigate("/cart")}>
               <AddShoppingCartIcon sx={{ fontSize: 29, color: 'black' }} />
             </IconButton>
 

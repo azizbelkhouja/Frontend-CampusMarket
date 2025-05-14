@@ -5,21 +5,25 @@ import Home from './customer/pages/Home/Home'
 import Footer from './customer/components/Footer/Footer'
 import Products from './customer/pages/Products/Products'
 import ProductDetails from './customer/pages/PageDetails/ProductDetails'
-import Reviews from './customer/pages/Reviews/Review'
 import Cart from './customer/pages/Cart/Cart'
 import Checkout from './customer/pages/Checkout/Checkout'
+import Account from './customer/pages/Account/Account'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
 
   return (
     <>
       <Navbar />
-      {/* <Products /> */}
-      {/* <Home /> */}
-      {/* <ProductDetails /> */}
-      {/* <Reviews /> */}
-      {/* <Cart /> */}
-      <Checkout />
+      <Routes>
+        
+        <Route path="/" element={<Home />} />
+        <Route path="/products/:category" element={<Products />} />
+        <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/account/*" element={<Account />} />
+      </Routes>
       <Footer />
     </>
   )
