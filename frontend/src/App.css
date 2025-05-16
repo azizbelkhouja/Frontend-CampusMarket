@@ -10,6 +10,10 @@
 .my-main-button:hover {
   background-color: #294c8f !important;
 }
+.my-main-button:disabled {
+  background-color: #777 !important;
+  color: #ccc !important;
+}
 .my-main-button-outlined {
   border-radius: 0 !important;
   border: solid 1px #213D72 !important;

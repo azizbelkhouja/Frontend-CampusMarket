@@ -83,7 +83,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div
+        {/* <div
           onMouseEnter={() => setShowCategorySheet(true)}
           onMouseLeave={handleMouseLeave}
           className="categorySheet absolute pt-[1.5rem] top-[2.95rem] left-20 right-20"
@@ -95,7 +95,7 @@ const Navbar = () => {
             </div>
             )}
           </div>
-        </div>
+        </div> */}
       </Box>
     </div>
   )
