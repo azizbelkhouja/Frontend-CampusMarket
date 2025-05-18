@@ -20,7 +20,7 @@ const SellerAccountForm = () => {
   const handleStep = (value:number) => () => {
     (activeStep < steps.length-1 || (activeStep > 0 && value==-1)) && setActiveStep(activeStep + value);
     activeStep == (steps.length-1) && handleCreateAccount();
-  } 
+  }
   const handleCreateAccount=()=>{
     console.log("Create Account")
   }
@@ -79,7 +79,7 @@ const SellerAccountForm = () => {
   return (
     <div>
       <Stepper
-        activeStep={3}
+        activeStep={activeStep}
         alternativeLabel
         sx={{
           ".MuiStepIcon-root.Mui-active": {
@@ -102,7 +102,10 @@ const SellerAccountForm = () => {
 
       <section className='mt-10 space-y-9'>
         <div className="">
-          <BecomeSellerFormStep4 formik={formik}/>
+          { activeStep==0?<BecomeSellerFormStep1 formik={formik} handleOtpChange={handleOtpChange} /> : null  }
+          { activeStep==1?<BecomeSellerFormStep2 formik={formik}/>:null }
+          { activeStep==2?<BecomeSellerFormStep3 formik={formik}/>:null }
+          { activeStep==3?<BecomeSellerFormStep4 formik={formik}/>:null }
         </div>
         <div className="flex items-center justify-between">
           <Button
