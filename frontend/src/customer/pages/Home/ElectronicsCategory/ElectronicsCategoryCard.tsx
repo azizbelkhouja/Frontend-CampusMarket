@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ElectronicsCategoryCard = () => {
+const ElectronicsCategoryCard = ({item}:any) => {
 
   return (
     <div className='flex items-center justify-center flex-col gap-2 border-[#213D72] border cursor-pointer p-3 hover:shadow-md transition-all duration-300 ease-in-out'>

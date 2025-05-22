@@ -17,13 +17,9 @@ const SellerAccountForm = () => {
 
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleStep = (value:number) => () => {
-    (activeStep < steps.length-1 || (activeStep > 0 && value==-1)) && setActiveStep(activeStep + value);
-    activeStep == (steps.length-1) && handleCreateAccount();
-  }
-  const handleCreateAccount=()=>{
-    console.log("Create Account")
-  }
+  const handleStep = (value: number) => () => {
+  setActiveStep(activeStep + value);
+};
 
   const [otp, setOpt] = useState<any>();
 
@@ -32,7 +28,6 @@ const SellerAccountForm = () => {
       mobile: "",
       otp: "",
       cf: "",
-      gstin: "",
       pickupAddress: {
         name: "",
         mobile: "",
@@ -116,14 +111,13 @@ const SellerAccountForm = () => {
           </Button>
           <Button 
             className='my-main-button'
-            disabled={false}
             onClick={
                 activeStep === steps.length - 1
                     ? handleSubmit
                     : () => handleStep(1)
             }
           >
-            {activeStep == (steps.length-1) ? "Finish" : "Next"}
+            {activeStep == (steps.length - 1) ? "Finish" : "Next"}
           </Button>
         </div>
       </section>
