@@ -14,7 +14,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate, useParams } from 'react-router-dom';
 import { AddPhotoAlternate } from '@mui/icons-material';
-import { uploadToCloudinary } from '../../util/uploadToCloudinary';
+import { uploadToCloudinary } from '../../../util/uploadToCloudinary';
 
 
 interface CreateReviewRequest {
