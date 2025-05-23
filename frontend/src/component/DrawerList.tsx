@@ -53,7 +53,7 @@ const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
                   }
                 }} 
                 className='pr-9 cursor-pointer ' key={index}>
-                  <div className={`${item.path==location.pathname?"bg-black text-white":"text-black"} flex items-center px-5 py-3 rounded-r-full`}>
+                  <div className={`${item.path==location.pathname?"bg-[#213D72] text-white":"text-[#213D72]"} flex items-center px-5 py-3 rounded-r-full`}>
                     <ListItemIcon>
                       {item.path==location.pathname?item.activeIcon:item.icon}
                     </ListItemIcon>

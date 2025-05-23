@@ -6,6 +6,7 @@ import Products from '../seller/pages/Products/Products'
 import Transaction from '../seller/pages/Payment/Transaction'
 import Payment from '../seller/pages/Payment/Payment'
 import AddProduct from '../seller/pages/Products/AddProduct'
+import Profile from '../seller/pages/Account/Profile'
 
 const SellerRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const SellerRoutes = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/transaction' element={<Transaction />} />
         <Route path='/add-product' element={<AddProduct />} />
+        <Route path='/account' element={<Profile />} />
 
       </Routes>
   )
