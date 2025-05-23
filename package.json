@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@mui/x-date-pickers": "^8.4.0",
     "@types/react-router-dom": "^5.3.3",
+    "dayjs": "^1.11.13",
     "react-router-dom": "^7.6.0"
   }
 }
