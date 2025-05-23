@@ -15,8 +15,8 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <div className="lg:flex lg:h-[90vh] pt-25">
-        <Navbar DrawerList={AdminDrawerList} />
+      <div className="lg:flex lg:h-[90vh] py-25">
+        {/* <Navbar DrawerList={AdminDrawerList} /> */}
         <section className="lg:flex lg:h-[90vh]">
           <div className="hidden lg:block h-full">
             <AdminDrawerList />

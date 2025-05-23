@@ -52,7 +52,7 @@ const menu2 = [
 
   {
       name: "Account",
-      path: "/seller/account",
+      path: "/admin/account",
       icon: <AccountBox className="text-[#213D72]" />,
       activeIcon: <AccountBox className="text-white" />,
   },
