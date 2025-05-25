@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import Navbar from './customer/components/Navbar/Navbar'
 import Home from './customer/pages/Home/Home'
@@ -12,9 +12,15 @@ import { Route, Routes } from 'react-router-dom'
 import BecomeSeller from './customer/pages/Become Seller/BecomeSeller'
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
+import { fetchProducts } from './State/fetchProduct'
 
 function App() {
 
+
+  useEffect(() => {
+
+    fetchProducts();
+  })
   return (
     <>
       <Navbar />
