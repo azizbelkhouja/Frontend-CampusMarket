@@ -15,6 +15,8 @@ import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
 import { fetchProducts } from './State/fetchProduct'
 import AdminAuth from './admin/Pages/Auth/AdminAuth'
 import CustomerRoutes from './Routes/CustomerRoutes'
+import SellerAccountVerification from './seller/pages/SellerAccountVerification'
+import SellerAccountVerified from './seller/pages/SellerAccountVerified'
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path='/admin-login' element={<AdminAuth />} />
         <Route path='*' element={<CustomerRoutes />} />
+        <Route path='/verify-seller/:otp' element={<SellerAccountVerification />} />
+        <Route path='/seller-account-verified' element={<SellerAccountVerified />} />
       </Routes>
       <Footer />
     </>
