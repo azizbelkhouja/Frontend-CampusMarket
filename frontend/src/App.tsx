@@ -14,7 +14,7 @@ import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
 import { fetchProducts } from './State/fetchProduct'
 import AdminAuth from './admin/Pages/Auth/AdminAuth'
-import NotFound from './customer/pages/NotFound/NotFound'
+import CustomerRoutes from './Routes/CustomerRoutes'
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
   })
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:category" element={<Products />} />
@@ -37,11 +37,9 @@ function App() {
         <Route path="/seller/*" element={<SellerDashboard />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path='/admin-login' element={<AdminAuth />} />
-        <Route path='*' element={<NotFound />} />
-
-
+        <Route path='*' element={<CustomerRoutes />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }
