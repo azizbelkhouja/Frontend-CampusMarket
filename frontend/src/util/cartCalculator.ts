@@ -1,4 +1,4 @@
-import { CartItem } from "../types/cartTypes"
+import { type CartItem } from "../types/cartTypes"
 
 export const sumCartItemSellingPrice=(items:CartItem[]):number=>{
 

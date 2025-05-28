@@ -1,6 +1,6 @@
 
-import { Product } from './productTypes';
-import { Address, User } from './userTypes';
+import { type Product } from './productTypes';
+import { type Address, type User } from './userTypes';
 
 export interface OrderState {
     orders: Order[];

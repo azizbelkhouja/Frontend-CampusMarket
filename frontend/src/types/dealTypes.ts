@@ -1,4 +1,4 @@
-import { HomeCategory } from "./homeDataTypes";
+import { type HomeCategory } from "./homeDataTypes";
 
 export interface Deal {
     id?: number;

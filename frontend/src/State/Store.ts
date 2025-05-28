@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { type TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { thunk } from "redux-thunk";
 import AuthSlice from "./AuthSlice";
 import UserSlice from "./customer/UserSlice";
@@ -17,6 +17,9 @@ import payoutSlice from "./seller/payoutSlice";
 import transactionSlice from "./seller/transactionSlice";
 import revenueChartSlice from "./seller/revenueChartSlice";
 import sellerSlice from './seller/sellerSlice';
+import AdminCouponSlice from "./admin/AdminCouponSlice";
+import DealSlice from "./admin/DealSlice";
+import AdminSlice from "./admin/AdminSlice";
 
 const rootReducer = combineReducers({
   
@@ -50,8 +53,8 @@ deal:DealSlice
 
 const store = configureStore({
 reducer: rootReducer,
-middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
+
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof rootReducer>;
 

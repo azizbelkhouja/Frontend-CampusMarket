@@ -1,11 +1,3 @@
-// types.ts
-// export interface HomeData {
-//     id: string;
-//     title: string;
-//     description: string;
-//     imageUrl: string;
-//   }
-
 interface Deal{
   category:HomeCategory;
   discount:number;

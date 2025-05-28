@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Order, OrderStatus } from '../../types/orderTypes'; 
-import { ApiResponse } from '../../types/authTypes';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import { type Order, OrderStatus } from '../../types/orderTypes'; 
+import { type ApiResponse } from '../../types/authTypes';
 import { api } from '../../config/Api';
 
 interface SellerOrderState {

@@ -13,6 +13,7 @@ import BecomeSeller from './customer/pages/Become Seller/BecomeSeller'
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
 import { fetchProducts } from './State/fetchProduct'
+import AdminAuth from './admin/Pages/Auth/AdminAuth'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/account/*" element={<Account />} />
         <Route path="/seller/*" element={<SellerDashboard />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
+        <Route path='/admin-login' element={<AdminAuth />} />
 
       </Routes>
       <Footer />

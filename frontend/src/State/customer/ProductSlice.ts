@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../types/productTypes";
-import { RootState } from "../Store";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import { type Product } from "../../types/productTypes";
+import { type RootState } from "../Store";
 import { api } from "../../config/Api";
 
 // Define the base URL for the API

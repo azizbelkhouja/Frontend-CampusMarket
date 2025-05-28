@@ -1,8 +1,9 @@
 // dealSlice.ts
 
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { ApiResponse, Deal, DealsState } from "../../types/dealTypes";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import type { ApiResponse, Deal, DealsState } from "../../types/dealTypes";
 import { api } from "../../config/Api";
+
 // Define the initial state
 const initialState: DealsState = {
   deals: [],

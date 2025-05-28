@@ -1,5 +1,3 @@
-// src/types/seller.ts
-
 export interface PickupAddress {
     name: string;
     mobile: string;

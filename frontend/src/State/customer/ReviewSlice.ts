@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import {
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import type {
   ApiResponse,
   CreateReviewRequest,
   Review,

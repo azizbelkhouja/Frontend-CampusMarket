@@ -1,4 +1,4 @@
-import { Seller } from "./sellerTypes";
+import { type Seller } from "./sellerTypes";
 
 export interface Category {
     id?: number; // Optional since id is auto-generated

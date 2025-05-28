@@ -1,6 +1,6 @@
-import { Order } from "./orderTypes";
-import { Seller } from "./sellerTypes";
-import { User } from "./userTypes";
+import { type Order } from "./orderTypes";
+import { type Seller } from "./sellerTypes";
+import { type User } from "./userTypes";
 
 export interface Transaction {
   id: number;

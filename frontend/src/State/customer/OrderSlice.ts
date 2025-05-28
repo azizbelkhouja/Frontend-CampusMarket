@@ -1,12 +1,10 @@
-// src/slices/orderSlice.ts
-
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { RootState } from "../Store";
-import { Order, OrderItem, OrderState } from "../../types/orderTypes";
-import { Address } from "../../types/userTypes";
+import { type RootState } from "../Store";
+import { type Order, type OrderItem, type OrderState } from "../../types/orderTypes";
+import { type Address } from "../../types/userTypes";
 import { api } from "../../config/Api";
-import { ApiResponse } from "../../types/authTypes";
+import { type ApiResponse } from "../../types/authTypes";
 
 const initialState: OrderState = {
   orders: [],

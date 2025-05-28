@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Payouts } from "../../types/payoutsType";
+import { type Payouts } from "../../types/payoutsType";
 import { api } from "../../config/Api";
 
 interface PayoutsState {

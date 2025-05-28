@@ -1,8 +1,8 @@
 // src/slices/userSlice.ts
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { User, UserState } from "../../types/userTypes";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import { type User, type UserState } from "../../types/userTypes";
 import { api } from "../../config/Api";
-import { RootState } from "../Store";
+import { type RootState } from "../Store";
 
 const initialState: UserState = {
   user: null,

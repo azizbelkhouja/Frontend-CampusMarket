@@ -9,11 +9,13 @@ export interface Address {
     state: string;
 }
 
-export enum UserRole {
-    ROLE_CUSTOMER = 'ROLE_CUSTOMER',
-    ROLE_ADMIN = 'ROLE_ADMIN',
-    ROLE_SELLER = 'ROLE_SELLER',
-}
+export const UserRole = {
+    ROLE_CUSTOMER: 'ROLE_CUSTOMER',
+    ROLE_ADMIN: 'ROLE_ADMIN',
+    ROLE_SELLER: 'ROLE_SELLER',
+} as const;
+
+export type UserRole = typeof UserRole[keyof typeof UserRole];
 
 export interface User {
     id?: number;

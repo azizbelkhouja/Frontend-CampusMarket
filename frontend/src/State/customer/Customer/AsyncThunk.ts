@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { HomeCategory, HomeData } from '../../../types/homeDataTypes';
+import type { HomeCategory, HomeData } from '../../../types/homeDataTypes';
 import { api } from '../../../config/Api';
 
 export const fetchHomePageData = createAsyncThunk<HomeData>(
