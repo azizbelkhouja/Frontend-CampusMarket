@@ -14,10 +14,8 @@ import Auth from '../customer/pages/Auth/Auth'
 import PaymentSuccessHandler from '../customer/pages/Pyement/PaymentSuccessHandler'
 import NotFound from '../customer/pages/NotFound/NotFound'
 import Products from '../customer/pages/Products/Products'
-import WriteReviews from '../customer/pages/Reviews/WriteReview'
 import ProductDetails from '../customer/pages/PageDetails/ProductDetails'
 import Account from '../customer/pages/Account/Account'
-import Review from '../customer/pages/Reviews/Review'
 
 
 const CustomerRoutes = () => {
@@ -37,8 +35,6 @@ const CustomerRoutes = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/products/:categoryId' element={<Products />} />
                 <Route path='/search-products' element={<SearchProducts />} />
-                <Route path='/reviews/:productId' element={<Review />} />
-                <Route path='/reviews/:productId/create' element={<WriteReviews />} />
                 <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetails />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/wishlist' element={<Wishlist />} />

@@ -5,7 +5,6 @@ import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wa
 import { Button } from '@mui/material';
 import SimilarProduct from './SimilarProduct';
 import { useParams } from 'react-router-dom';
-import ReviewCard from '../Reviews/ReviewCard';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -98,12 +97,6 @@ const ProductDetails = () => {
           <div className="mt-5">
             <p>The Stefano Electric Bike is a high-performance, full-suspension e-bike designed for both urban commuting and off-road adventures. Equipped with a powerful Bosch Smart motor, it ensures a smooth and efficient ride. Its premium build quality, advanced features, and stylish design make it a perfect choice for eco-conscious riders seeking reliability and comfort.</p>
           </div>
-
-          <div className='mt-7 space-y-4'>
-            <ReviewCard />
-            <Divider />
-          </div>
-
         </section>
       </div>
 

@@ -1,13 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { type TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { thunk } from "redux-thunk";
 import AuthSlice from "./AuthSlice";
 import UserSlice from "./customer/UserSlice";
 import ProductSlice from "./customer/ProductSlice";
 import CartSlice from "./customer/CartSlice";
 import OrderSlice from "./customer/OrderSlice";
 import CouponSlice from "./customer/CouponSlice";
-import ReviewSlice from "./customer/ReviewSlice";
 import WishlistSlice from "./customer/WishlistSlice";
 import CustomerSlice from "./customer/Customer/CustomerSlice";
 import sellerAuthenticationSlice from "./seller/sellerAuthenticationSlice";
@@ -30,7 +28,6 @@ product: ProductSlice,
 cart: CartSlice,
 orders: OrderSlice,
 coupone: CouponSlice,
-review: ReviewSlice,
 wishlist: WishlistSlice,
 homePage:CustomerSlice,
 
