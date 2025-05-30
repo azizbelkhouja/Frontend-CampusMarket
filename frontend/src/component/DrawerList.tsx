@@ -1,6 +1,8 @@
 import { Divider, ListItemIcon, ListItemText } from '@mui/material'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../State/Store'
+import { logout } from '../State/AuthSlice'
 
 interface menuItem {
   name:string,
@@ -19,8 +21,9 @@ const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleLogout =()=>[
-    console.log("Logout")
+    dispatch(logout(navigate))
   ]
 
   return (
