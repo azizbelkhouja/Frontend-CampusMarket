@@ -1,6 +1,8 @@
 import { DeleteOutline } from '@mui/icons-material';
 import { FormControl, IconButton, InputLabel, MenuItem, Paper, Select, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from '@mui/material'
 import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { deleteCoupon } from '../../../State/admin/AdminCouponSlice';
 
 const accountStatus = [
   { status: 'ACTIVE', title: 'Active', description: 'The coupon is valid and can be used for discounts.' },
@@ -35,10 +37,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function CouponTable () {
   
     const [status, setStatus] = React.useState(accountStatus[0].status)
+    const { sellers, adminCoupon } = useAppSelector(store => store)
+    const dispatch = useAppDispatch();
 
     const handleDeleteCoupon = (id:number) => {
-      // Call the delete coupon API here
-      console.log("Delete coupon with ID:", id);
+        dispatch(deleteCoupon({ id, jwt: localStorage.getItem("jwt") || "" }))
     }
 
     return (
@@ -79,18 +82,18 @@ export default function CouponTable () {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {[1,1,1,1,1].map(() => (
-                        <StyledTableRow key={1}>
+                      {adminCoupon.coupons?.map((coupon: Coupon) => (
+                        <StyledTableRow key={coupon.id}>
                           <StyledTableCell component="th" scope="row">
-                            OFF25TILLJULY
+                            {coupon.code}
                           </StyledTableCell>
-                          <StyledTableCell >23.05.2025</StyledTableCell>
-                          <StyledTableCell >30.06.2025</StyledTableCell>
-                          <StyledTableCell >10</StyledTableCell>
-                          <StyledTableCell >25</StyledTableCell>
-                          <StyledTableCell align="right">Active</StyledTableCell>
+                          <StyledTableCell >{coupon.startDate}</StyledTableCell>
+                          <StyledTableCell >{coupon.expiryDate}</StyledTableCell>
+                          <StyledTableCell >{coupon.minOrderValue}</StyledTableCell>
+                          <StyledTableCell >{coupon.discountPercentage}</StyledTableCell>
+                          <StyledTableCell align="right">{coupon.active ? "Active" : "Deactive"}</StyledTableCell>
                           <StyledTableCell align="right">
-                            <IconButton onClick={() => handleDeleteCoupon(1)}>
+                            <IconButton onClick={() => handleDeleteCoupon(coupon.id)}>
                                 <DeleteOutline className='text-red-700 cursor-pointer' />
                             </IconButton>
                           </StyledTableCell>
