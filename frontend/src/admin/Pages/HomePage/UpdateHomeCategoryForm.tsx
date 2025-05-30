@@ -11,6 +11,9 @@ import { clothingItems } from "../../../data/category/level-three/clothinglevelt
 import { studyResourcesItems } from "../../../data/category/level-three/studyresourceslevelthree";
 import { furnitureAndDormItems } from "../../../data/category/level-three/furnitureslevelthree";
 import { electronicsItems } from "../../../data/category/level-three/electronicslevelthree";
+import type { HomeCategory } from "../../../types/homeDataTypes";
+import { useAppDispatch } from "../../../State/Store";
+import { updateHomeCategory } from "../../../State/admin/AdminSlice";
 
 // Define validation schema using Yup
 const validationSchema = Yup.object({
@@ -41,6 +44,7 @@ const UpdateHomeCategoryForm = ({
   category: HomeCategory | undefined;
   handleClose: () => void;
 }) => {
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
       image: "",
@@ -50,18 +54,21 @@ const UpdateHomeCategoryForm = ({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // const data =
       console.log("Form Data:", values, category);
       if (category?.id) {
-        console.log("Update Category ID:", category.id);
+        dispatch(
+          updateHomeCategory({
+            id: category.id,
+            data: { image: values.image, categoryId: values.category3 },
+          })
+        );
       }
-      handleClose()
+      handleClose();
     },
   });
 
   const childCategory = (category: any, parentCategoryId: any) => {
     return category.filter((child: any) => {
-      // console.log("Category", parentCategoryId, child)
       return child.parentCategoryId == parentCategoryId;
     });
   };
@@ -168,10 +175,9 @@ const UpdateHomeCategoryForm = ({
 
       {/* Submit Button */}
       <Button
-        variant="contained"
         fullWidth
         type="submit"
-        sx={{ py: ".9rem", backgroundColor: "black", color: "white", borderRadius: "0" }}
+        className="my-main-button"
       >
         Submit
       </Button>

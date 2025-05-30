@@ -2,8 +2,13 @@ import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select,
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { createDeal } from '../../../State/admin/DealSlice';
 
 const CreateDealForm = () => {
+
+    const { homePage } = useAppSelector(store => store);
+    const dispatch = useAppDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -19,6 +24,12 @@ const CreateDealForm = () => {
         }),
         onSubmit: (values) => {
             console.log(values);
+
+            dispatch(createDeal({
+                discount: values.discount, category: {
+                  id: values.category
+                }
+            }))
         },
     });
 
@@ -60,8 +71,8 @@ const CreateDealForm = () => {
                     onChange={formik.handleChange}
                     label="Category"
                 >
-                    {[1,1,1].map((item) => (
-                        <MenuItem key={1} value={1}>2255</MenuItem>
+                    {homePage.homePageData?.dealCategories.map((item) => (
+                        <MenuItem value={item.id}>{item.categoryId}</MenuItem>
                     ))}
                     </Select>
                     {formik.touched.category && formik.errors.category && (
@@ -70,11 +81,9 @@ const CreateDealForm = () => {
             </FormControl>
 
             <Button
-                color="primary"
-                variant="contained"
                 fullWidth
                 type="submit"
-                sx={{ py: ".9rem", backgroundColor: "black", color: "white", borderRadius: "0" }}
+                className='my-main-button'
             >
                 Add
             </Button>

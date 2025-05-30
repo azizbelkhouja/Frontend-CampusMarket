@@ -2,6 +2,8 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Box, IconButton, Modal, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import UpdateDealForm from './UpdateDealForm';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { deleteDeal, getAllDeals } from '../../../State/admin/DealSlice';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,9 +39,10 @@ const style = {
 
 const DealTable = () => {
 
+  const { homePage, deal } = useAppSelector(store => store);
   const [selectedDealId, setSelectedDealId] = useState<number>();
   const [open, setOpen] = React.useState(false);
-
+  const dispatch = useAppDispatch();
 
   const handleOpen = (id: number | undefined) => () => {
     setSelectedDealId(id);
@@ -47,11 +50,11 @@ const DealTable = () => {
   };
   const handleClose = () => setOpen(false);
   const handleDelete = (id: any) => () => {
-
+    dispatch(deleteDeal(id))
   }
   useEffect(() => {
-
-  }, [])
+    dispatch(getAllDeals())
+  }, [dispatch])
   
   return (
     <>
@@ -68,26 +71,34 @@ const DealTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {[1,1,1,1].map(() => (
-                <StyledTableRow key={1}>
-                  <StyledTableCell component="th" scope="row">1</StyledTableCell>
+            {deal.deals.map(
+              (deal: any, index) => (
+                <StyledTableRow key={deal.id}>
                   <StyledTableCell component="th" scope="row">
-                    <img className="w-20 rounded-md" src="https://files.refurbed.com/ii/samsung-galaxy-s24-ultra-1705563165.jpg" alt="" />
+                    {index + 1}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row">
-                    <h1 className='text-sm'>Electronics</h1>
+                    <img
+                      className="w-20 rounded-md"
+                      src={deal.category.image}
+                      alt=""
+                    />
+                  </StyledTableCell>
+
+                  <StyledTableCell component="th" scope="row">
+                    {deal.category.categoryId}
                   </StyledTableCell>
                   <StyledTableCell component="th" scope="row">
-                    10%
+                    {deal.discount}%
                   </StyledTableCell>
 
                   <StyledTableCell align="right">
-                    <IconButton onClick={handleOpen(1)}>
+                    <IconButton onClick={handleOpen(deal.id)}>
                       <Edit className="text-orange-400 cursor-pointer" />
                     </IconButton>
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <IconButton onClick={handleDelete(1)}>
+                    <IconButton onClick={handleDelete(deal.id)}>
                       <Delete className="text-red-600 cursor-pointer" />
                     </IconButton>
                   </StyledTableCell>

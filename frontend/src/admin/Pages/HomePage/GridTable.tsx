@@ -1,11 +1,14 @@
 import React from 'react'
 import HomeCategoryTable from './HomeCategoryTable'
+import { useAppSelector } from '../../../State/Store';
 
 const GridTable = () => {
 
+  const { homePage } = useAppSelector((store) => store);
+
   return (
     <div>
-      <HomeCategoryTable />
+      <HomeCategoryTable categories={homePage.homePageData?.grid} />
     </div>
   )
 }

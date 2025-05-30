@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button, TextField, Typography } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../../State/Store";
+import { updateDeal } from "../../../State/admin/DealSlice";
+import { fetchHomeCategories } from "../../../State/admin/AdminSlice";
 
 const validationSchema = Yup.object({
     discount: Yup.number()
@@ -16,17 +19,29 @@ const initialValues = {
 };
 
 const UpdateDealForm = ({ id }: { id: number }) => {
+    const { admin } = useAppSelector((store) => store);
+    const dispatch = useAppDispatch();
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: (values) => {
             console.log("Deal submit", values);
+            dispatch(
+                updateDeal(
+                    {
+                        id,
+                        deal: {
+                            discount: values.discount,
+                            category: { id: Number(values.category) },
+                        }
+                    })
+            );
         },
     });
 
     useEffect(() => {
-        
-    }, []);
+        dispatch(fetchHomeCategories());
+    }, [dispatch]);
 
     return (
         <form className="space-y-4" onSubmit={formik.handleSubmit}>
@@ -48,10 +63,9 @@ const UpdateDealForm = ({ id }: { id: number }) => {
             />
 
             <Button
-                sx={{ py: ".8rem", backgroundColor: "black", color: "white" }}
-                variant="contained"
                 fullWidth
                 type="submit"
+                className="my-main-button"
             >
                 Update Deal
             </Button>
@@ -60,3 +74,5 @@ const UpdateDealForm = ({ id }: { id: number }) => {
 };
 
 export default UpdateDealForm;
+
+

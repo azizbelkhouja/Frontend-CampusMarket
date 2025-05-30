@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import type { HomeCategory } from '../../../types/homeDataTypes';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +31,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function HomeCategoryTable() {
+export default function HomeCategoryTable({categories}:{categories:HomeCategory[] | undefined}) {
+
+  const [selectedCategory, setSelectedCategory] = React.useState<HomeCategory>();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (category: HomeCategory | undefined) => () => {
+    setSelectedCategory(category);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -46,21 +55,34 @@ export default function HomeCategoryTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {[1,1,1,1,1].map(() => (
-              <StyledTableRow key="1">
-                <StyledTableCell align="left">1</StyledTableCell>
-                <StyledTableCell component="th" scope="row">2</StyledTableCell>
-                <StyledTableCell><img className='w-20 rounded-md' src="https://files.refurbed.com/ii/samsung-galaxy-s24-ultra-1705563165.jpg" alt="" /></StyledTableCell>
-                <StyledTableCell>
-                  <h1 className='text-sm'>Electronics</h1>
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <IconButton>
-                    <Edit className="text-orange-400 cursor-pointer" />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+            {categories?.map(
+              (category: HomeCategory, index) => (
+                <StyledTableRow key={category.categoryId}>
+                  <StyledTableCell component="th" scope="row">
+                    {index + 1}
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row">
+                    {category.id}
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row">
+                    <img
+                      className="w-20 rounded-md"
+                      src={category.image}
+                      alt=""
+                    />
+                  </StyledTableCell>
+                  <StyledTableCell align="right" component="th" scope="row">
+                    {category.categoryId}
+                  </StyledTableCell>
+
+                  <StyledTableCell align="right">
+                    <IconButton onClick={handleOpen(category)}>
+                      <Edit className="text-orange-400 cursor-pointer" />
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>
