@@ -25,7 +25,7 @@ const categoryThree: { [key: string]: any[] } = {
   furniture_dorm: furnitureAndDormItems,
 };
 
-const CategorySheet = ({selectedCategory, setShowSheet}:any) => {
+const CategorySheet = ({ selectedCategory }: { selectedCategory: string }) => {
 
   const navigate=useNavigate();
   const childCategory = (category: any, parentCategoryId: any) => category.filter((child: any) => child.parentCategoryId === parentCategoryId);
