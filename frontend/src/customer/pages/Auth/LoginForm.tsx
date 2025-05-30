@@ -55,7 +55,7 @@ const LoginForm = () => {
   
 
     useEffect(() => {
-        let interval: NodeJS.Timeout | undefined;
+        let interval: number | undefined;
 
         if (isTimerActive) {
             interval = setInterval(() => {

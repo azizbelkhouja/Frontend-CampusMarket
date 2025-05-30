@@ -28,7 +28,7 @@ const Auth = () => {
 
                     <div className='flex items-center justify-center mt-5'>
                         <p>{isLoginPage && "Don't"} have Account ?
-                            <Button onClick={() => setIsLoginPage(!isLoginPage)} sx={{color: 'black', fontSize: '11px' }}>{isLoginPage ? "Create account" : "Login"}</Button>
+                            <Button onClick={() => setIsLoginPage(!isLoginPage)} sx={{color: 'black', fontSize: '11px' }}>{isLoginPage ? "Create Account" : "Login"}</Button>
                         </p>
                         
                     </div>
@@ -45,7 +45,7 @@ const Auth = () => {
                     variant="filled"
                     sx={{ width: '100%' }}
                 >
-                    {auth.error?auth.error : " otp sent to your email!"}
+                    {auth.error?auth.error : " Otp sent to your email!"}
                 </Alert>
             </Snackbar>
         </div>

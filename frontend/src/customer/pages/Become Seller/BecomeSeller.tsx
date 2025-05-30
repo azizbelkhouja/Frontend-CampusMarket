@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 const BecomeSeller = () => {
 
     const [isLogin, setIsLogin] = useState(false);
-    
+
     const handleShowPage = () => {
         setIsLogin(!isLogin);
     }
@@ -17,9 +17,9 @@ const BecomeSeller = () => {
             { !isLogin ? <SellerAccountForm /> : <SellerLoginForm /> }
 
             <div className="mt-10 space-y-2">
-                <h1 className="text-center text-sm font-medium">{ isLogin? "Don't Have An Account ?" : "Already Have An Account ?" }</h1>
+                <h1 className="text-center text-sm font-medium">{ isLogin ? "Don't Have An Account ?" : "Already Have An Account ?" }</h1>
                 <Button fullWidth onClick={handleShowPage} className='my-main-button-outlined' >
-                    { isLogin? "Create Account" : "Login" }
+                    { isLogin ? "Create Account" : "Login" }
                 </Button>
             </div>
         </section>

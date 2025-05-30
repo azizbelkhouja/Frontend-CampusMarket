@@ -1,16 +1,18 @@
 import { Button, CircularProgress, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import OTPInput from '../../components/OtpField/OTPInput';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { sendLoginOtp } from '../../../State/seller/sellerAuthenticationSlice';
 
 const SellerLoginForm = () => {
 
-  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false)
   const [timer, setTimer] = useState<number>(30); // Timer state
   const [isTimerActive, setIsTimerActive] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { sellerAuth } = useAppSelector(store => store);
 
   const formik = useFormik({
     initialValues: {
@@ -18,7 +20,8 @@ const SellerLoginForm = () => {
       otp:""
     },
     onSubmit:(values) => {
-      console.log("form data", values)
+      console.log("form data", values);
+      dispatch(sellerLogin({email: values.email, otp: values.otp}));
     }
   })
 
@@ -26,12 +29,15 @@ const SellerLoginForm = () => {
     console.log("Send Otp")
   }
 
+  dispatch(sendLoginOtp(formik.values.email))
+
   const handleOtpChange = (otp: any) => {
     setOtp(otp);
   };
 
 const handleResendOTP = () => {
     // Implement OTP resend logic
+    dispatch(sendLoginOtp(formik.values.email));
     console.log('Resend OTP');
     setTimer(30);
     setIsTimerActive(true);
@@ -83,7 +89,7 @@ useEffect(() => {
               helperText={formik.touched.email ? formik.errors.email as string : undefined}
           />
 
-          {true && <div className="mt-5">
+          {sellerAuth.otpSent && <div className="mt-5">
               <p className="font-medium text-sm">
                   * Enter OTP sent to your email
               </p>
@@ -110,17 +116,17 @@ useEffect(() => {
               {formik.touched.otp && formik.errors.otp && <p>{formik.errors.otp as string}</p>}
           </div>}
 
-          {true &&<div>
+          {sellerAuth.otpSent &&<div>
               <Button onClick={handleLogin} 
               fullWidth className='my-main-button'>Login</Button>
           </div>}
 
-          {!true && <Button
-          disabled={!otp}
+          {!sellerAuth.otpSent && <Button
+          disabled={sellerAuth.loading}
           fullWidth
           onClick={handleSentOtp}
           className='my-main-button'>{
-              false ? <CircularProgress  />: "send otp"}</Button>
+              sellerAuth.loading ? <CircularProgress  />: "send otp"}</Button>
           }
       </form>
     </div>

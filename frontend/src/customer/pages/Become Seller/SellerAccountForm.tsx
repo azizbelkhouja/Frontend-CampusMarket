@@ -5,6 +5,8 @@ import { useFormik } from 'formik';
 import BecomeSellerFormStep2 from './BecomeSellerFormStep2';
 import BecomeSellerFormStep4 from './BecomeSellerFormStep4';
 import BecomeSellerFormStep3 from './BecomeSellerFormStep3';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { createSeller } from '../../../State/seller/sellerAuthenticationSlice';
 
 const steps=[
   "Mobile & Tax Details",
@@ -16,10 +18,16 @@ const steps=[
 const SellerAccountForm = () => {
 
   const [activeStep, setActiveStep] = useState(0);
+  const dispatch = useAppDispatch();
+  const { sellerAuth } = useAppSelector(store => store);
 
-  const handleStep = (value: number) => () => {
-  setActiveStep(activeStep + value);
-};
+  const handleStep = (value:number) => () => {
+    (activeStep < steps.length-1 || (activeStep > 0 && value==-1)) && setActiveStep(activeStep + value);
+    activeStep == (steps.length-1) && handleCreateAccount();
+  } 
+  const handleCreateAccount=()=>{
+    console.log("Create Account")
+  }
 
   const [otp, setOpt] = useState<any>();
 
@@ -56,13 +64,13 @@ const SellerAccountForm = () => {
     },
     onSubmit: (values) => {
       console.log(values, "formik submitted");
+      dispatch(createSeller(formik.values));
     },
   });
 
   const handleOtpChange = (otpValue: string) => {
     setOpt(otpValue);
     console.log(otpValue);
-    // formik.setFieldValue("opt",otpValue)
   };
 
   const handleSubmit = () => {
@@ -111,6 +119,7 @@ const SellerAccountForm = () => {
           </Button>
           <Button 
             className='my-main-button'
+            disabled={sellerAuth.loading}
             onClick={
                 activeStep === steps.length - 1
                     ? handleSubmit
