@@ -4,27 +4,58 @@ import { Button, IconButton, TextField } from '@mui/material';
 import PricingCard from './PricingCard';
 import { useNavigate } from 'react-router-dom';
 import CartItemCard from './CartItemCard';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchUserCart } from '../../../State/customer/CartSlice';
+import { applyCoupon } from '../../../State/customer/CouponSlice';
+import type { CartItem } from '../../../types/cartTypes';
 
 const Cart = () => {
+
   const navigate = useNavigate();
   const [couponCode, setCouponCode] = useState("");
+  const dispatch = useAppDispatch();
+  const { cart, auth, coupon } = useAppSelector((store) => store);
+  const [snackbarOpen, setOpenSnackbar] = useState(false);
 
   const handleChange = (e: any) => {
     setCouponCode(e.target.value);
   };
 
-  const handleApllyCoupon = (apply: string) => {
-    console.log(couponCode,apply)
+  const handleApplyCoupon = (apply: string) => {
+    // console.log(couponCode,apply)
+    var code = couponCode;
+    if (apply == "false") {
+      code = cart.cart?.couponCode || "";
+    }
+    dispatch(
+      applyCoupon({
+        apply,
+        code,
+        orderValue: cart.cart?.totalSellingPrice || 100,
+        jwt: localStorage.getItem("jwt") || "",
+      })
+    );
   }
 
+  useEffect(() => {
+    if (coupon.couponApplied || coupon.error) {
+      setOpenSnackbar(true);
+      setCouponCode("");
+    }
+  }, [coupon.couponApplied, coupon.error]);
+
+  useEffect(() => {
+    dispatch(fetchUserCart(localStorage.getItem("jwt") || ""));
+  }, [auth.jwt]);
+  
   return (
     <>
-      {false ? (
+      {cart.cart && cart.cart?.cartItems.length !== 0 ? (
         <div className="pt-30 px-5 sm:px-10 md:px-60 lg:px-60 min-h-screen">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 ">
             <div className="lg:col-span-2 space-y-3 ">
-              {[1,1,1,1,1,1,].map((item) => (
-                <CartItemCard />
+              {cart.cart?.cartItems.map((item: CartItem) => (
+                <CartItemCard key={item.id} item={item}/>
               ))}
             </div>
 
@@ -38,7 +69,7 @@ const Cart = () => {
                     <span>Apply Coupons</span>
                   </div>
                 </div>
-                {couponCode ? (
+                {!cart.cart?.couponCode ? (
                   <div className="flex justify-between items-center">
                     <TextField
                       value={couponCode}
@@ -48,7 +79,7 @@ const Cart = () => {
                       size="small"
                     />
                     <Button
-                      onClick={() => handleApllyCoupon("true")}
+                      onClick={() => handleApplyCoupon("true")}
                       disabled={couponCode ? false : true}
                       size="small"
                     >
@@ -58,9 +89,9 @@ const Cart = () => {
                 ) : (
                   <div className="flex">
                     <div className="pl-5 pr-3 border rounded-full flex gap-2 items-center">
-                      <span className="">Code Applied</span>
+                      <span className="">{cart.cart.couponCode} Applied</span>
                       <IconButton
-                        onClick={() => handleApllyCoupon("false")}
+                        onClick={() => handleApplyCoupon("false")}
                         size="small"
                       >
                         <Close className="text-red-600" />
@@ -74,6 +105,7 @@ const Cart = () => {
                 <PricingCard />
                 <div className="p-5">
                   <Button
+                    onClick={() => navigate("/checkout/address")}
                     className='my-main-button-outlined'
                     variant="contained"
                     fullWidth

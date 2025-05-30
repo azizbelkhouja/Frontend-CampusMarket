@@ -1,11 +1,26 @@
 import { Add, Close, Remove } from '@mui/icons-material'
 import { Button, Divider, IconButton } from '@mui/material'
 import React from 'react'
+import type { CartItem } from '../../../types/cartTypes'
+import { useAppDispatch } from '../../../State/Store'
+import { deleteCartItem, updateCartItem } from '../../../State/customer/CartSlice'
 
-const CartItemCard = () => {
+interface CartItemProps {
+  item:CartItem
+}
 
-  const handleUpdateQuantity=()=>{
-      
+const CartItemCard : React.FC<CartItemProps> = ({ item }) => {
+
+  const dispatch = useAppDispatch();
+    
+  const handleUpdateQuantity=(value:number)=>{
+      dispatch(updateCartItem({jwt:localStorage.getItem("jwt"),
+          cartItemId:item.id, cartItem:{quantity:item.quantity + value}}))
+  }
+  const handleRemoveCartItem=()=>{
+      dispatch(deleteCartItem({
+          jwt:localStorage.getItem("jwt") || "", 
+          cartItemId:item.id}))
   }
 
   return (
@@ -14,17 +29,17 @@ const CartItemCard = () => {
       <div className="p-5 flex gap-3">
 
         <div>
-          <img className='w-[90px] rounded-md' src="https://i5.walmartimages.com/asr/0f4d1c4e-5b59-4652-8546-b10a7dddb6eb.2fd94d1f362b4090fa72ef53127c5392.jpeg" alt="" />
+          <img className='w-[90px] rounded-md' src={item.product.images[0]} alt="" />
         </div>
 
         <div className='space-y-2'>
-        <h1 className="font-semibold text-lg">Sara's kitchen</h1>
+        <h1 className="font-semibold text-lg">{item.product?.seller?.businessDetails.businessName}</h1>
         <p className='text-gray-600 font-medium text-sm'>
-          Good containers
+          {item.product.description}
         </p>
-        <p className='text-xs text-gray-400'><strong>Sold By: </strong>Sara</p>
+        <p className='text-xs text-gray-400'><strong>Sold By: </strong>{item.product?.seller?.businessDetails.businessName}</p>
         <p className='text-sm'>3 days return available</p>
-        <p className='text-sm text-gray-500'><strong>Quantity: </strong>3</p>
+        <p className='text-sm text-gray-500'><strong>Quantity: </strong>{item.quantity}</p>
         </div>
       </div>
 
@@ -35,26 +50,26 @@ const CartItemCard = () => {
 
           <div className='flex items-center gap-2 w-[140px] justify-between'>
 
-            <Button onClick={handleUpdateQuantity} disabled={true}>
+            <Button disabled={item.quantity == 1} onClick={() => handleUpdateQuantity(-1)}>
                 <Remove/>
               </Button>
               <span>
-                {5}
+                {item.quantity}
               </span>
-              <Button onClick={handleUpdateQuantity}>
+              <Button onClick={() => handleUpdateQuantity(1)}>
                 <Add sx={{color: 'black'}}/>
               </Button>
           </div>
         </div>
 
         <div className="pr-5">
-        <p className='font-medium text-gray-700 '>8.99€</p>
+        <p className='font-medium text-gray-700 '>{item.sellingPrice}€</p>
         </div>
 
       </div>
 
       <div className='absolute top-1 right-1'>
-        <IconButton>
+        <IconButton onClick={handleRemoveCartItem}>
           <Close/>
         </IconButton>
       </div>

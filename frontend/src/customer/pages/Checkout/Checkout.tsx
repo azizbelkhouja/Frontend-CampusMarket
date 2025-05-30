@@ -4,6 +4,8 @@ import AddressCard from './AddressCard'
 import AddressForm from './AddressForm';
 import PricingCard from '../Cart/PricingCard';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { createOrder } from '../../../State/customer/OrderSlice';
 
 const style = {
     position: 'absolute',
@@ -31,13 +33,15 @@ const paymentGatewayList = [
     
 const Checkout = () => {
 
-    const navigate = useNavigate()
     const [value, setValue] = React.useState(0);
     const [paymentGateway, setPaymentGateway] = useState(paymentGatewayList[0].value);
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector(store => store);
 
     const handleChange = (event: any) => {
         console.log("-----", event.target.value)
@@ -47,6 +51,15 @@ const Checkout = () => {
     const handlePaymentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentGateway((event.target as HTMLInputElement).value);
     };
+
+    const handleCreateOrder = () => {
+        if (user.user?.addresses)
+            dispatch(createOrder({
+                paymentGateway,
+                address: user.user?.addresses[value],
+                jwt: localStorage.getItem('jwt') || ""
+            }))
+    }
 
   return (
     <>
@@ -62,7 +75,10 @@ const Checkout = () => {
                     <div className="text-xs font-medium space-y-5">
                         <p>Saved Addresses</p>
                         <div className="space-y-3">
-                        {[1,1,1,1].map((item) => <AddressCard
+                        {user.user?.addresses?.map((item, index) => <AddressCard
+                            key={item.id}
+                            item={item}
+                            selectedValue={value} value={index}
                             handleChange={handleChange} />)
                         }
                         </div>
