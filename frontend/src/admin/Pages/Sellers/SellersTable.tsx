@@ -1,5 +1,7 @@
 import { Button, FormControl, InputLabel, Menu, MenuItem, Paper, Select, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from '@mui/material'
 import React, { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchSellers, updateSellerAccountStatus } from '../../../State/seller/sellerSlice';
 
 const accountStatus = [
     { status: 'PENDING_VERIFICATION', title: 'Pending Verification', description: 'The account has been created but is awaiting verification.' },
@@ -32,12 +34,30 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const SellersTable = () => {
     const [selectedAccountStatus, setSelectedAccountStatus] = useState("ACTIVE")
+    const { sellers } = useAppSelector(store => store)
+    const dispatch = useAppDispatch();
+
     React.useEffect(() => {
-        
-    }, [])
+        dispatch(fetchSellers(selectedAccountStatus))
+    }, [selectedAccountStatus, dispatch])
+
     const handleAccountStatusChange = (event: any) => {
         setSelectedAccountStatus(event.target.value as string);
     }
+
+    const handleUpdateSellerAccountStatus = (id: number, status: string) => {
+        dispatch(updateSellerAccountStatus({ id, status }))
+    }
+
+    const [anchorEl, setAnchorEl] = React.useState<{ [key: number]: HTMLElement | null }>({});
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>, sellerId: any) => {
+        setAnchorEl((prev) => ({ ...prev, [sellerId]: event.currentTarget }));
+    };
+    const handleClose = (sellerId: number) => {
+        setAnchorEl((prev) => ({ ...prev, [sellerId]: null }));
+    };
+
+
 
     return (
         <>
@@ -77,20 +97,29 @@ const SellersTable = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                        {[1,1,1,1].map((seller) => (
-                            <StyledTableRow key={1}>
+                        {sellers.sellers?.map((seller) => (
+                            <StyledTableRow key={seller.sellerName}>
                                 <StyledTableCell component="th" scope="row">
-                                    AzizTheSeller
+                                    {seller.sellerName}
                                 </StyledTableCell>
-                                <StyledTableCell >aziz@seller.com</StyledTableCell>
-                                <StyledTableCell >+3939393939</StyledTableCell>
-                                <StyledTableCell >BLKMM258963352S</StyledTableCell>
-                                <StyledTableCell >my little business</StyledTableCell>
-                                <StyledTableCell align="right">Active</StyledTableCell>
+                                <StyledTableCell >{seller.email}</StyledTableCell>
+                                <StyledTableCell >{seller.mobile}</StyledTableCell>
+                                <StyledTableCell >{seller.gstin}</StyledTableCell>
+                                <StyledTableCell >{seller.businessDetails?.businessName}</StyledTableCell>
+                                <StyledTableCell align="right">{seller.accountStatus}</StyledTableCell>
                                 <StyledTableCell align="right">
-                                    <Button>Change Status</Button>
-                                    <Menu>
-                                        
+                                    <Button id={"basic-button" + seller.id} onClick={(e) => handleClick(e, seller.id)}>Change Status</Button>
+                                    <Menu
+                                        id={"basic-menu" + seller.id}
+                                        anchorEl={anchorEl[seller.id || 1]}
+                                        open={Boolean(anchorEl[seller.id || 1])}
+                                        onClose={() => handleClose(seller.id || 1)}
+                                    >
+                                        {accountStatus.map((status) =>
+                                            <MenuItem onClick={() => handleUpdateSellerAccountStatus(
+                                                seller.id || 1, status.status)} value={status.status}>{status.title}
+                                            </MenuItem>)
+                                        }
                                     </Menu>
                                 </StyledTableCell>
                             </StyledTableRow>
