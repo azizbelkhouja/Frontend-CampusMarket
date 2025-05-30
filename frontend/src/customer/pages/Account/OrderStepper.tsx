@@ -24,6 +24,14 @@ export const OrderStepper = ({orderStatus}: any) => {
 
     const [statusStep, setStatusStep] = useState(steps);
 
+    useEffect(() => {
+    if (orderStatus === 'CANCELLED') {
+        setStatusStep(canceledStep);
+    } else {
+        setStatusStep(steps);
+    }
+    }, [orderStatus]);
+
   return (
     <Box className="my-10">
         {statusStep.map((step, index) => (

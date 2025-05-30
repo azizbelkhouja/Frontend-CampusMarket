@@ -1,42 +1,61 @@
 import { Box, Button, Divider } from '@mui/material'
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { OrderStepper } from './OrderStepper';
 import { Payments } from '@mui/icons-material';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { cancelOrder, fetchOrderById, fetchOrderItemById } from '../../../State/customer/OrderSlice';
 
 const OrderDetails = () => {
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { auth, orders } = useAppSelector(store => store);
+    const { orderItemId, orderId } = useParams();
 
+    useEffect(() => {
+        dispatch(fetchOrderItemById({
+          orderItemId: Number(orderItemId),
+          jwt: localStorage.getItem("jwt") || ""
+        }))
+        dispatch(fetchOrderById({
+          orderId: Number(orderId),
+          jwt: localStorage.getItem("jwt") || ""
+        }))
+      }, [auth.jwt, dispatch, orderId, orderItemId])
+    
+    if (!orders.orders || !orders.orderItem) {
+    return <div className='h-[80vh] flex justify-center items-center'>
+        No Order Found
+    </div>;
+    }
+    
     return (
         <Box className='space-y-5'>
-
             <section className='flex flex-col gap-5 justify-center items-center'>
                 <img className='w-[100px]' src="https://spesaonline.conad.it/assets/products/conad-acqua-minerale-naturale-6-x-15-l--400100/Parte-anteriore-planogramma.jpeg/renditions/cq5dam.web.1280.1280.jpeg" alt="" />
                 <div className='text-sm space-y-1 text-center'>
-                <h1 className='font-bold'>Jennifer</h1>
-                <p>Acqua naturale</p>
-                <p><strong>Size: </strong>Pack Of 6</p>
-                </div>
-                <div>
-                    <Button onClick={() => navigate("/reviews")} className='my-main-button-outlined'>Write Review</Button>
+                <h1 className='font-bold'>{orders.orderItem?.product.seller?.businessDetails.businessName}</h1>
+                <p>{orders.orderItem?.product.title}</p>
+                <p><strong>Size: </strong>STANDARD</p>
                 </div>
             </section>
 
             <section className='border p-5'>
-                <OrderStepper orderStatus="Arriving" />
+                <OrderStepper orderStatus={orders.currentOrder?.orderStatus} />
             </section>
 
             <div className='border p-5'>
                 <h1 className='font-bold pb-3'>Delivery Address</h1>
                 <div className='text-sm space-y-2'>
                     <div className='flex gap-5 font-medium'>
-                    <p>Marco</p>
+                    <p>{orders.currentOrder?.shippingAddress.name}</p>
                     <Divider flexItem orientation='vertical' />
-                    <p>Via s.romano</p>
+                    <p>{orders.currentOrder?.shippingAddress.mobile}</p>
                     </div>
                     <p>
-                        ferrara, bologna, italy 17
+                        {orders.currentOrder?.shippingAddress.address}, {orders.currentOrder?.shippingAddress.city}, 
+                        {orders.currentOrder?.shippingAddress.state} - {orders.currentOrder?.shippingAddress.pinCode}
                     </p>
                 </div>
             </div>
@@ -45,10 +64,10 @@ const OrderDetails = () => {
                 <div className='flex justify-between text-sm pt-5 px-5'>
                     <div className='space-y-1'>
                         <p className='font-bold'>Total Price</p>
-                        <p>You saved <span className='my-light-blue font-bold text-xs'>25.00€</span> on your order</p>
+                        <p>You saved <span className='my-light-blue font-bold text-xs'>{orders.orderItem?.mrpPrice - orders.orderItem?.sellingPrice}.00€</span> on your order</p>
                     </div>
-                    
-                    <p className='font-medium'>€78.00</p>
+
+                    <p className='font-medium'>€{orders.orderItem?.sellingPrice}.00</p>
                 </div>
 
                 <div className='px-5'>
@@ -63,7 +82,7 @@ const OrderDetails = () => {
                 <div className='px-5 pb-5'>
                 <p className='text-xs'>
                     <strong>Sold by : </strong>
-                    Jennifer
+                    {orders.orderItem?.product.seller?.businessDetails.businessName}
                 </p>
                 </div>
 
@@ -82,7 +101,7 @@ const OrderDetails = () => {
                     variant="outlined"
                     fullWidth
                 >
-                    {false?"Order Cancelled":"Cancel Order"}
+                    {orders.currentOrder?.orderStatus==="CANCELLED"?"Order Cancelled":"Cancel Order"}
                 </Button>
                 </div>
             </div>
