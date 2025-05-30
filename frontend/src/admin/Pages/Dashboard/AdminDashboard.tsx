@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react'
 import AdminDrawerList from '../../components/AdminDrawerList'
 import Navbar from './Navbar'
 import AdminRoutes from '../../../Routes/AdminRoutes';
+import { useAppSelector } from '../../../State/Store';
+import { Alert, Snackbar } from '@mui/material';
 
 const AdminDashboard = () => {
+
+  const { deal,admin } = useAppSelector(store => store)
   const [snackbarOpen, setOpenSnackbar] = useState(false);
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   }
+  useEffect(() => {
+    if (deal.dealCreated || deal.dealUpdated ||deal.error || admin.categoryUpdated) {
+      setOpenSnackbar(true)
+    }
+  }, [deal.dealCreated, deal.dealUpdated, deal.error,admin.categoryUpdated])
   useEffect(() => {
     
   }, [])
@@ -16,7 +25,6 @@ const AdminDashboard = () => {
   return (
     <>
       <div className="lg:flex lg:h-[90vh] py-25">
-        {/* <Navbar DrawerList={AdminDrawerList} /> */}
         <section className="lg:flex lg:h-[90vh]">
           <div className="hidden lg:block h-full">
             <AdminDrawerList />
@@ -26,6 +34,21 @@ const AdminDashboard = () => {
         </div>
         </section>
       </div>
+
+      <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={snackbarOpen} autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={deal.error ? "error" : "success"}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {deal.error ? deal.error : deal.dealCreated ? "Deal created successfully" : deal.dealUpdated ? "Deal updated successfully" : admin.categoryUpdated?"Category Updated successfully": ""}
+        </Alert>
+      </Snackbar>
     </>
   )
 }
