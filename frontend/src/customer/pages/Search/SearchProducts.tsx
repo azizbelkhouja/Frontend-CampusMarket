@@ -4,6 +4,7 @@ import { searchProduct } from '../../../State/customer/ProductSlice';
 import ProductCard from '../Products/ProductCard';
 
 const SearchProducts = () => {
+  
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useAppDispatch();
   const { product } = useAppSelector(store => store)

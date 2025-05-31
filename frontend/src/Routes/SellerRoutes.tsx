@@ -18,7 +18,6 @@ const SellerRoutes = () => {
         <Route path='/transaction' element={<Transaction />} />
         <Route path='/add-product' element={<AddProduct />} />
         <Route path='/account' element={<Profile />} />
-
       </Routes>
   )
 }

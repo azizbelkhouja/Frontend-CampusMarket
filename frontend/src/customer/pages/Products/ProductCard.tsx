@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react'
 import './ProductCard.css'
 import { Button } from '@mui/material';
 import { Favorite, ModeComment } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = () => {
+const ProductCard = ({item}:{item:Product}) => {
 
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-
-  const images = [
-    "https://worldissmall.fr/wp-content/uploads/2024/12/Concept-iPhone-18-ultra-airpods-1024x790.webp",
-    "https://www.yankodesign.com/images/design_news/2025/03/auto-draft/iphone_18_concept_2.jpg"
-  ]
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -19,7 +16,7 @@ const ProductCard = () => {
 
     if(isHovered) {
         interval = setInterval(() => {
-          setCurrentImage((prevImage)=>(prevImage + 1) % images.length);
+          setCurrentImage((prevImage)=>(prevImage + 1) % item.images.length);
         }, 900);
     }
     else if(interval) {
@@ -27,17 +24,17 @@ const ProductCard = () => {
         interval = null;
     }
     return () => clearInterval(interval);
-  }, [images.length, isHovered])
+  }, [isHovered, item.images.length])
 
   return (
     <>
-      <div className='group px-4 relative'>
+      <div onClick={()=>navigate(`/product-details/${item.category?.categoryId}/${item.title}/${item.id}`)} className='group px-4 relative'>
         <div className='card' 
           onMouseEnter = {() => setIsHovered(true)}
           onMouseLeave = {() => setIsHovered(false)}
         >
-  
-          {images.map((item, index) => <img className='card-media object-top' src={item} alt="" 
+
+          {item.images.map((item, index) => <img className='card-media object-top' src={item} alt="" 
           style={{transform: `translateX(${(index-currentImage)*100}%)`}}/>)}
 
           { isHovered &&
@@ -56,13 +53,13 @@ const ProductCard = () => {
 
         <div className='details pt-3 space-y-1 group-hover-effect'>
           <div className='name'>
-            <h1>Aziz Store</h1>
-            <p>Iphone 18</p>
+            <h1>{item.seller?.businessDetails.businessName}</h1>
+            <p>{item.title}</p>
           </div>
           <div className='price flex items-center gap-3'>
-            <span className='font-sans text-gray-800'>2025€</span>
-            <span className='font-sans thin-line-through text-gray-400'>2000€</span>
-            <span className='text-red-500 font-semibold'>-12%</span>
+            <span className='font-sans text-gray-800'>{item.sellingPrice}€</span>
+            <span className='font-sans thin-line-through text-gray-400'>{item.mrpPrice}€</span>
+            <span className='text-red-500 font-semibold'>-{item.discountPercent}%</span>
           </div>
 
         </div>

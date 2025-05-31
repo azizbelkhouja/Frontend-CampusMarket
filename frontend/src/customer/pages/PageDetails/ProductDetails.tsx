@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import StarIcon from '@mui/icons-material/Star';
 import Divider from '@mui/material/Divider';
 import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wallet, WorkspacePremium } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import SimilarProduct from './SimilarProduct';
 import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchProductById } from '../../../State/customer/ProductSlice';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const {productId} = useParams();
   const [activeImage, setActiveImage] = useState(0);
+  const { product } = useAppSelector(store => store);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProductById(Number(productId)));
+  }
+  , [dispatch, productId]);
 
   const handleActiveImage = (value:number) => () => {
     setActiveImage(value)
@@ -20,15 +29,15 @@ const ProductDetails = () => {
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
         <section className="flex flex-col lg:flex-row gap-5">
           <div className='w-full lg:w-[15%] flex flex-wrap lg:flex-col gap-3'>
-            {[1,1,1,1].map((item) => <img className='lg:w-full w-[50px] cursor-pointer rounded-md' src="https://www.clcbike.com/156432-large_default/bici-elettrica-full-suspension-conway-xyron-s-29-bosch-smart-2024.jpg" alt=''/>)}
+            {product.product?.images.map((item, index) => <img onClick={handleActiveImage(index)} className='lg:w-full w-[50px] cursor-pointer rounded-md' src={item} alt=''/>)}
           </div>
           <div className="w-full lg:w-[85%]">
-            <img className='w-full rounded-md' src="https://www.clcbike.com/156430-large_default/bici-elettrica-full-suspension-conway-xyron-s-29-bosch-smart-2024.jpg" alt="" />
+            <img className='w-full rounded-md' src={product.product?.images[activeImage]} alt="" />
           </div>
         </section>
         <section className="">
-          <h1 className='font-bold text-lg text-primaryblue'>Stefano</h1>
-          <p className='text-darkblue font-semibold'>Bici Elettrica</p>
+          <h1 className='font-bold text-lg text-primaryblue'>{product.product?.seller?.businessDetails.businessName}</h1>
+          <p className='text-darkblue font-semibold'>{product.product?.title}</p>
           <div className="flex justify-between items-center py-2 border w-[180px] px-3 mt-5">
             <div className="flex gap-1 items-center">
               <span>4</span>
@@ -39,9 +48,9 @@ const ProductDetails = () => {
           </div>
           <div>
             <div className='price flex items-center gap-3 mt-5 text-2xl'>
-              <span className='font-sans text-gray-800'>2897€</span>
-              <span className='font-sans line-through text-gray-400'>4000€</span>
-              <span className='text-primaryblue font-semibold'>25% OFF</span>
+              <span className='font-sans text-gray-800'>{product.product?.sellingPrice}€</span>
+              <span className='font-sans line-through text-gray-400'>{product.product?.mrpPrice}€</span>
+              <span className='text-primaryblue font-semibold'>-{product.product?.discountPercent}%</span>
             </div>
             <p className='text-sm text-personalgrey'>IVA included</p>
           </div>
@@ -52,7 +61,7 @@ const ProductDetails = () => {
             </div>
             <div className="flex items-center gap-4">
               <WorkspacePremium sx={{color:"#00B1D3"}}/>
-              <p>100% Buyer Protection - Your Money Back if Unsatisfied</p>
+              <p>100% Buyer Protection - Money Back if Unsatisfied</p>
             </div>
             <div className="flex items-center gap-4">
               <LocalShipping sx={{color:"#00B1D3"}}/>
@@ -64,20 +73,6 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className='mt-7 space-y-2'>
-            <h1>QUANTITY</h1>
-            <div className="flex items-center gap-2 w-[140px]">
-              <Button disabled={quantity == 1} onClick={() => setQuantity(quantity-1)}>
-                <Remove/>
-              </Button>
-              <span>
-                {quantity}
-              </span>
-              <Button onClick={() => setQuantity(quantity+1)} sx={{color:"#00B1D3"}}>
-                <Add/>
-              </Button>
-            </div>
-          </div>
           <div className="mt-12 flex items-center gap-5">
             <Button
               fullWidth
@@ -95,7 +90,7 @@ const ProductDetails = () => {
             </Button>
           </div>
           <div className="mt-5">
-            <p>The Stefano Electric Bike is a high-performance, full-suspension e-bike designed for both urban commuting and off-road adventures. Equipped with a powerful Bosch Smart motor, it ensures a smooth and efficient ride. Its premium build quality, advanced features, and stylish design make it a perfect choice for eco-conscious riders seeking reliability and comfort.</p>
+            <p>{product.product?.description}</p>
           </div>
         </section>
       </div>

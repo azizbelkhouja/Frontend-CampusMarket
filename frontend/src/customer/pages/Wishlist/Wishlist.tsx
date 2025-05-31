@@ -3,6 +3,7 @@ import WishlistProductCard from './WishlistProductCard';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
 
 const Wishlist = () => {
+    
     const dispatch = useAppDispatch();
     const { wishlist } = useAppSelector(store => store)
 
