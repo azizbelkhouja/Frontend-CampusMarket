@@ -6,6 +6,7 @@ import PersonalDetailsForm from "./PersonalDetailsForm";
 import BusinessDetailsForm from "./BusinessDetailsForm";
 import PickupAddressForm from "./PickupAddressForm";
 import BankDetailsForm from "./BankDetailsForm";
+import { useAppSelector } from "../../../State/Store";
 
 export const style = {
   position: "absolute" as "absolute",
@@ -22,6 +23,7 @@ const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const [selectedForm, setSelectedForm] = useState("personalDetails");
   const handleClose = () => setOpen(false);
+  const { sellers } = useAppSelector((store) => store);
 
   const handleOpen = (formName: string) => {
     setOpen(true);
@@ -42,12 +44,6 @@ const Profile = () => {
         return null;
     }
   };
-
-  
-
-  useEffect(() => {
-    
-  }, []);
 
   return (
     <div className="lg:p-20 space-y-20">
@@ -105,18 +101,18 @@ const Profile = () => {
         </div>
         <div className="">
           <ProfileFieldCard
-            keys={"Business Name/Brand Name"}
-            value={"Aziz The Seller"}
+            keys={"Displayed Name"}
+            value={sellers.profile?.businessDetails?.businessName}
           />
           <Divider />
           <ProfileFieldCard
             keys={"FISCAL CODE"}
-            value={"BLKMMD222222Z352W"}
+            value={sellers.profile?.cf}
           />
           <Divider />
           <ProfileFieldCard
             keys={"Account Status"}
-            value={"Active"}
+            value={sellers.profile?.accountStatus}
           />
         </div>
       </div>
@@ -139,22 +135,22 @@ const Profile = () => {
           <div className="">
             <ProfileFieldCard
               keys={"Address"}
-              value={"123 Main St"}
+              value={sellers.profile?.pickupAddress?.address}
             />
             <Divider />
             <ProfileFieldCard
               keys={"City"}
-              value={"New York"}
+              value={sellers.profile?.pickupAddress?.city || "Not Provided"}
             />
             <Divider />
             <ProfileFieldCard
               keys={"State"}
-              value={"NY"}
+              value={sellers.profile?.pickupAddress?.state}
             />
             <Divider />
             <ProfileFieldCard
               keys={"Mobile"}
-              value={"123-456-7890"}
+              value={sellers.profile?.pickupAddress?.mobile}
             />
           </div>
         </div>
@@ -179,17 +175,17 @@ const Profile = () => {
           <div className="">
             <ProfileFieldCard
               keys={"Account Holder Name"}
-              value={"Aziz The Seller"}
+              value={sellers.profile?.bankDetails?.accountHolderName}
             />
             <Divider />
             <ProfileFieldCard
               keys={"Account Number"}
-              value={"1234567890"}
+              value={sellers.profile?.bankDetails?.accountNumber || "Not Provided"}
             />
             <Divider />
             <ProfileFieldCard
               keys={"IBAN"}
-              value={"IT25689654781234567890"}
+              value={sellers.profile?.bankDetails?.ifscCode}
             />
           </div>
         </div>

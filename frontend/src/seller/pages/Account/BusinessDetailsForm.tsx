@@ -2,32 +2,49 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../../State/Store";
+import { updateSeller } from "../../../State/seller/sellerSlice";
 
 export interface UpdateDetailsFormProps {
   onClose: () => void;
 }
 const BusinessDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
+
+  const dispatch = useAppDispatch();
+  const { sellers } = useAppSelector((store) => store);
  
   const formik = useFormik({
     initialValues: {
       businessName: "",
-      gstin: "",
+      cf: "",
       accountStatus: "",
     },
     validationSchema: Yup.object({
       businessName: Yup.string().required("Business Name is required"),
-      gstin: Yup.string().required("CF is required"),
+      cf: Yup.string().required("CF is required"),
       accountStatus: Yup.string().required("Account Status is required"),
     }),
     onSubmit: (values) => {
       console.log(values);
+      dispatch(
+        updateSeller({
+          ...values,
+          businessDetails: { businessName: values.businessName },
+        })
+      );
       onClose();
     },
   });
 
   useEffect(() => {
-    
-  }, [formik,]);
+    if (sellers.profile) {
+      formik.setValues({
+        businessName: sellers.profile?.businessDetails?.businessName,
+        cf: sellers.profile?.cf,
+        accountStatus: sellers.profile?.accountStatus ?? "",
+      });
+    }
+  }, [formik, sellers.profile]);
 
   return (
     <>
@@ -39,7 +56,7 @@ const BusinessDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
           fullWidth
           id="businessName"
           name="businessName"
-          label="Business Name"
+          label="Displayed Name"
           value={formik.values.businessName}
           onChange={formik.handleChange}
           error={
@@ -52,10 +69,10 @@ const BusinessDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
           id="fiscalCode"
           name="fiscalCode"
           label="fiscalCode"
-          value={formik.values.gstin}
+          value={formik.values.cf}
           onChange={formik.handleChange}
-          error={formik.touched.gstin && Boolean(formik.errors.gstin)}
-          helperText={formik.touched.gstin && formik.errors.gstin}
+          error={formik.touched.cf && Boolean(formik.errors.cf)}
+          helperText={formik.touched.cf && formik.errors.cf}
         />
         <TextField
           fullWidth
@@ -72,9 +89,7 @@ const BusinessDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
           }
         />
         <Button
-          sx={{ py: ".9rem" }}
-          color="primary"
-          variant="contained"
+          className="my-main-button"
           fullWidth
           type="submit"
         >

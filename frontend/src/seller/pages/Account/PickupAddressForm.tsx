@@ -3,8 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button } from "@mui/material";
 import type { UpdateDetailsFormProps } from "./BusinessDetailsForm";
+import { useAppDispatch, useAppSelector } from "../../../State/Store";
+import { updateSeller } from "../../../State/seller/sellerSlice";
 
 const PickupAddressForm = ({ onClose }: UpdateDetailsFormProps) => {
+
+  const { sellers } = useAppSelector((store) => store);
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -21,13 +26,25 @@ const PickupAddressForm = ({ onClose }: UpdateDetailsFormProps) => {
     }),
     onSubmit: (values) => {
       console.log(values);
+      dispatch(
+        updateSeller({
+          pickupAddress: values,
+        })
+      );
       onClose();
     },
   });
 
   useEffect(() => {
-    
-  }, [formik]);
+    if (sellers.profile) {
+      formik.setValues({
+        address: sellers.profile.pickupAddress.address,
+        city: sellers.profile.pickupAddress.city,
+        state: sellers.profile.pickupAddress.state,
+        mobile: sellers.profile.pickupAddress.mobile,
+      });
+    }
+  }, [formik, sellers.profile]);
 
   return (
     <>
@@ -76,9 +93,7 @@ const PickupAddressForm = ({ onClose }: UpdateDetailsFormProps) => {
           helperText={formik.touched.mobile && formik.errors.mobile}
         />
         <Button
-          sx={{ py: ".9rem" }}
-          color="primary"
-          variant="contained"
+          className="my-main-button"
           fullWidth
           type="submit"
         >

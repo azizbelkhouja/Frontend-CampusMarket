@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { red } from '@mui/material/colors';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchSellerOrders, updateOrderStatus } from '../../../State/seller/sellerOrderSlice';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,6 +53,8 @@ const orderStatusColor = {
 export default function OrderTable() {
 
   const [anchorEl, setAnchorEl] = React.useState<{ [key: number]: HTMLElement | null }>({});
+  const { sellerOrder } = useAppSelector(store => store);
+  const dispatch = useAppDispatch();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>, orderId: number) => {
     setAnchorEl((prev) => ({ ...prev, [orderId]: event.currentTarget }));
@@ -61,8 +65,17 @@ export default function OrderTable() {
   };
 
 
-  const handleUpdateOrder = () => {
-    console.log('Order updated');
+  React.useEffect(() => {
+    dispatch(fetchSellerOrders(localStorage.getItem("jwt") || ""));
+  }, [dispatch]);
+
+  const handleUpdateOrder = (orderId: number, orderStatus: any) => {
+    dispatch(updateOrderStatus({
+      jwt: localStorage.getItem("jwt") || "",
+      orderId,
+      orderStatus,
+    }));
+    handleClose(orderId);
   };
 
   return (
@@ -79,41 +92,61 @@ export default function OrderTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {[1,1,1,1,1].map(() => (
-              <StyledTableRow key="1">
-                <StyledTableCell align="left">1</StyledTableCell>
+            {sellerOrder.orders.map((item: Order) => (
+              <StyledTableRow key={item.id}>
+                <StyledTableCell align="left">{item.id}</StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <div className='flex gap-1 flex-wrap'>
-                    <div key="" className='flex gap-5'>
-                      <img className='w-20 rounded-md' src="https://files.refurbed.com/ii/samsung-galaxy-s24-ultra-1705563165.jpg" alt="" />
-                      <div className='flex flex-col justify-between py-2'>
-                        <h1>Title: S24 Ultra</h1>
-                        <h1>Price: 999€</h1>
-                        <h1>Color: Phantom Black</h1>
-                        <h1>Size: 256GB</h1>
+                    {item.orderItems.map((orderItem: OrderItem) =>
+                      <div key={orderItem.id} className='flex gap-5'>
+                        <img className='w-20 rounded-md' src={orderItem.product.images[0]} alt="" />
+                        <div className='flex flex-col justify-between py-2'>
+                          <h1>Title: {orderItem.product.title}</h1>
+                          <h1>Price: {orderItem.product.sellingPrice}€</h1>
+                          <h1>Color: {orderItem.product.color}</h1>
+                          <h1>Size: {orderItem.size}</h1>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </StyledTableCell>
                 <StyledTableCell>
                   <div className='flex flex-col gap-y-2'>
-                    <h1>Stefano</h1>
-                    <h1>Via Roma, Milano</h1>
-                    <h1>Lombardia - 20100</h1>
-                    <h1><strong>Mobile:</strong> 1234567890</h1>
+                    <h1>{item.shippingAddress.name}</h1>
+                    <h1>{item.shippingAddress.address}, {item.shippingAddress.city}</h1>
+                    <h1>{item.shippingAddress.state} - {item.shippingAddress.pinCode}</h1>
+                    <h1><strong>Mobile:</strong> {item.shippingAddress.mobile}</h1>
                   </div>
                 </StyledTableCell>
-                <StyledTableCell
-                  sx={{ color: red[500] }}
-                  align="center"> <Box sx={{ borderColor: red[500] }} className={`border px-2 py-1 rounded-full text-xs`}>
-                    Pending</Box>
-                </StyledTableCell>
+                <StyledTableCell 
+                 sx={{color:orderStatusColor[item.orderStatus].color}} 
+                 align="center"> <Box sx={{ borderColor: orderStatusColor[item.orderStatus]?.color }} className={`border px-2 py-1 rounded-full text-xs`}>
+                  {item.orderStatus}</Box> 
+                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <Button
                     size='small'
+                    onClick={(e) => handleClick(e, item.id)}
                     className='bg-black text-white hover:bg-gray-800'>
                     Status
                   </Button>
+                  <Menu
+                    id={`status-menu ${item.id}`}
+                    anchorEl={anchorEl[item.id]}
+                    open={Boolean(anchorEl[item.id])}
+                    onClose={() => handleClose(item.id)}
+                    MenuListProps={{
+                      'aria-labelledby': `status-menu ${item.id}`,
+                    }}
+                  >
+                    {orderStatus.map((status) =>
+                      <MenuItem 
+                        key={status.label} 
+                        onClick={() => handleUpdateOrder(item.id, status.label)}>
+                        {status.label}
+                      </MenuItem>
+                    )}
+                  </Menu>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

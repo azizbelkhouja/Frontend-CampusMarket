@@ -69,6 +69,7 @@ const ProductForm = () => {
     },
     onSubmit: (values) => {
       console.log(values);
+      dispatch(createProduct({ request:values, jwt:localStorage.getItem("jwt") }));
     },
   });
 
@@ -96,7 +97,7 @@ const ProductForm = () => {
 
   return (
     <div>
-      <form className="space-y-4 p-4">
+      <form onSubmit={formik.handleSubmit} className="space-y-4 p-4">
         <Grid container spacing={2}>
           <Grid className="flex flex-wrap gap-5" size={{xs:12}}>
             <input

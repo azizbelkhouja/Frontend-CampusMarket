@@ -3,8 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button } from "@mui/material";
 import type { UpdateDetailsFormProps } from "./BusinessDetailsForm";
+import { useAppDispatch, useAppSelector } from "../../../State/Store";
+import { updateSeller } from "../../../State/seller/sellerSlice";
 
 const BankDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
+
+  const { sellers } = useAppSelector((store) => store);
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -21,13 +26,25 @@ const BankDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
     }),
     onSubmit: (values) => {
       console.log(values);
+      dispatch(
+        updateSeller({
+          bankDetails: values,
+         
+        })
+      );
       onClose();
     },
   });
 
   useEffect(() => {
-    
-  }, [formik]);
+    if (sellers.profile) {
+      formik.setValues({
+        accountHolderName: sellers.profile.bankDetails?.accountHolderName || "",
+        accountNumber: sellers.profile.bankDetails?.accountNumber || "",
+        ifscCode: sellers.profile.bankDetails?.ifscCode || "",
+      });
+    }
+  }, [formik, sellers.profile]);
 
   return (
     <>
@@ -75,9 +92,7 @@ const BankDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
           helperText={formik.touched.ifscCode && formik.errors.ifscCode}
         />
         <Button
-          sx={{ py: ".9rem" }}
-          color="primary"
-          variant="contained"
+          className="my-main-button"
           fullWidth
           type="submit"
         >

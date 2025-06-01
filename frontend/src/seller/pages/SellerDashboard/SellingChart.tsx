@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchRevenueChart } from '../../../State/seller/revenueChartSlice';
 
 
 const SellingChart = ({chartType}:{chartType:string}) => {
+
+  const dispatch=useAppDispatch()
+  const {revenueChart}=useAppSelector(store=>store)
+
+  useEffect(()=>{
+    if(chartType){
+      dispatch(fetchRevenueChart({type:chartType}))
+    }
+  },[chartType, dispatch])
 
   return (
     <ResponsiveContainer width="100%" height="100%">

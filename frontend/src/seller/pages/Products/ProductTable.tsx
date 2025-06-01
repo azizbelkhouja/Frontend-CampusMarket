@@ -9,6 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchSellerProducts } from '../../../State/seller/sellerProductSlice';
+import type { Product } from '../../../types/productTypes';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,6 +35,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ProductTable() {
 
+  const dispatch = useAppDispatch();
+  const {sellerProduct} = useAppSelector(store=>store);
+
+  React.useEffect(() => {
+    dispatch(fetchSellerProducts(localStorage.getItem("jwt")))
+  }, [dispatch])
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -46,17 +56,17 @@ export default function ProductTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {[1,1,1,1,1].map(() => (
-            <StyledTableRow key={1}>
+          {sellerProduct.products.map((item:Product) => (
+            <StyledTableRow key={item.id}>
               <StyledTableCell component="th" scope="row">
                 <div className="flex gap-1 flex-wrap">
-                  {[1,1,1].map(()=><img src="https://files.refurbed.com/ii/samsung-galaxy-s24-ultra-1705563165.jpg" alt="" className='w-20 rounded-md' />)}
+                  {item.images.map((image)=><img src={image} alt="" className='w-20 rounded-md' />)}
                 </div>
               </StyledTableCell>
-              <StyledTableCell align="right">s24 ultra</StyledTableCell>
-              <StyledTableCell align="right">999€</StyledTableCell>
-              <StyledTableCell align="right">899€</StyledTableCell>
-              <StyledTableCell align="right">Phantom Black</StyledTableCell>
+              <StyledTableCell align="right">{item.title}</StyledTableCell>
+              <StyledTableCell align="right">{item.mrpPrice}</StyledTableCell>
+              <StyledTableCell align="right">{item.sellingPrice}</StyledTableCell>
+              <StyledTableCell align="right">{item.color}</StyledTableCell>
               <StyledTableCell align="right">{
                 <Button size='small' sx={{backgroundColor:"black",color:"white"}}>
                   in stock

@@ -3,8 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button } from "@mui/material";
 import type { UpdateDetailsFormProps } from "./BusinessDetailsForm";
+import { useAppDispatch, useAppSelector } from "../../../State/Store";
+import { updateSeller } from "../../../State/seller/sellerSlice";
 
 const PersonalDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
+
+    const { sellers } = useAppSelector(store => store)
+    const dispatch = useAppDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -19,13 +24,20 @@ const PersonalDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
         }),
         onSubmit: (values) => {
             console.log("data ----- ",values);
+            dispatch(updateSeller(values))
             onClose();
         },
     });
 
     useEffect(() => {
-       
-    }, [formik])
+        if (sellers.profile) {
+            formik.setValues({
+                sellerName: sellers.profile?.sellerName,
+                email: sellers.profile?.email,
+                mobile: sellers.profile?.mobile,
+            })
+        }
+    }, [formik, sellers.profile])
 
     return (
         <>
@@ -63,8 +75,12 @@ const PersonalDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
                     error={formik.touched.mobile && Boolean(formik.errors.mobile)}
                     helperText={formik.touched.mobile && formik.errors.mobile}
                 />
-                <Button sx={{ py: ".9rem" }} color="primary" variant="contained" fullWidth type="submit">
-                    Save
+                <Button 
+                    className="my-main-button" 
+                    fullWidth 
+                    type="submit"
+                >
+                  Save
                 </Button>
             </form>
         </>
