@@ -76,12 +76,13 @@ const SignupForm = () => {
 
     return (
         <div>
-            <h1 className='text-center font-bold text-xl text-primary-color pb-5'>Signup</h1>
+            <h1 className='text-center font-bold text-xl text-[#213D72] pb-5'>Signup</h1>
             <form className="space-y-5">
 
 
 
                 <TextField
+                    sx={{ mb: 2 }}
                     fullWidth
                     name="email"
                     label="Enter Your Email"
@@ -140,10 +141,10 @@ const SignupForm = () => {
 
                 {!auth.otpSent && <Button
                     fullWidth
-                    variant='contained'
+                    className='my-main-button'
                     onClick={handleSentOtp}
                     disabled={auth.loading}
-                    sx={{ py: "11px", backgroundColor: "black", color: "white" }}>
+                    >
                     {auth.loading ? <CircularProgress size="small"
                         sx={{ width: "27px", height: "27px" }} /> : "send otp"}
 

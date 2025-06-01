@@ -79,10 +79,11 @@ const LoginForm = () => {
 
     return (
         <div>
-            <h1 className='text-center font-bold text-xl text-primary-color pb-5'>Login</h1>
+            <h1 className='text-center font-bold text-xl text-[#213D72] pb-5'>Login</h1>
             <form className="space-y-5">
 
                 <TextField
+                    sx={{ mb: 2 }}
                     fullWidth
                     name="email"
                     label="Enter Your Email"
@@ -129,9 +130,9 @@ const LoginForm = () => {
                 {!auth.otpSent && <Button
                 disabled={auth.loading}
                     fullWidth
-                    variant='contained'
+                    className='my-main-button'
                     onClick={handleSentOtp}
-                    sx={{ py: "11px", backgroundColor: "black", color: "white" }}>{
+                    >{
                         auth.loading ? <CircularProgress  />: "send otp"}</Button>
                 }
 

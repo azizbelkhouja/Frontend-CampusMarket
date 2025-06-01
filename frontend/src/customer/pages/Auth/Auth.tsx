@@ -20,8 +20,8 @@ const Auth = () => {
     }, [auth.otpSent,auth.error])
 
     return (
-        <div className='flex justify-center h-[90vh] items-center'>
-            <div className='max-w-md h-[85vh] rounded-md border shadow-lg '>
+        <div className='flex justify-center h-[90vh] items-center mt-20'>
+            <div className='max-w-md h-[75vh] rounded-md border shadow-lg'>
                 <img className='w-full rounded-t-md' src="https://i.ibb.co/xK505dxR/banner.png" alt="Banner" />
                 <div className='mt-8 px-10'>
                     {isLoginPage ? <LoginForm /> : <SignupForm />}
