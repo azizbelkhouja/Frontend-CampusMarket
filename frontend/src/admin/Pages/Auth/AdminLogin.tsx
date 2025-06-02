@@ -52,8 +52,6 @@ const AdminLoginForm = () => {
         formik.handleSubmit()
     }
 
-  
-
     useEffect(() => {
         let interval: number | undefined;
 
@@ -74,8 +72,6 @@ const AdminLoginForm = () => {
             if (interval) clearInterval(interval);
         };
     }, [isTimerActive]);
-
-
 
     return (
         <div>
@@ -108,7 +104,7 @@ const AdminLoginForm = () => {
                                 Didn't receive OTP?{" "}
                                 <span
                                     onClick={handleResendOTP}
-                                    className="text-teal-600 cursor-pointer hover:text-teal-800 font-semibold"
+                                    className="text-[#00B1D3] cursor-pointer hover:text-[#213D72] font-semibold"
                                 >
                                     Resend OTP
                                 </span>
@@ -126,11 +122,11 @@ const AdminLoginForm = () => {
 
                 {!auth.otpSent && 
                     <Button
-                    disabled={auth.loading}
+                        disabled={auth.loading}
                         fullWidth
-                        className='my-main-button'
+                        className='my-main-button mt-2'
                         onClick={handleSentOtp}
-                        sx={{ py: "11px" }}>{auth.loading ? <CircularProgress  />: "send otp"}
+                    > {auth.loading ? <CircularProgress  />: "send otp"}
                     </Button>
                 }
             </form>
