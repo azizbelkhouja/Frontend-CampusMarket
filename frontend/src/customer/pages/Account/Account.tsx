@@ -33,18 +33,14 @@ const Account = () => {
 
 
   return (
-    <div className='lg:px-22 min-h-screen mt-10'>
-      <div>
-        <h1 className='text-xl font-bold pb-5'>Aziz</h1>
-      </div>
-      <Divider />
+    <div className='lg:px-22 min-h-screen mt-20'>
       <div className="grid grid-cols-1 lg:grid-cols-3 lg:min-h-[78vh]">
         <section className="left col-span-1 lg:border-r lg:pr-5 py-5 h-full">
           {
             menu.map((item) => (
               <div onClick={() => handleClick(item)} key={item.name}
-              className={` ${item.path === location.pathname ? 'bg-black text-white' : 'text-black'}
-                  py-3 cursor-pointer hover:bg-black hover:bg-opacity-80 hover:text-white px-5 rounded-md`}>
+              className={` ${item.path === location.pathname ? 'bg-[#213D72] text-white' : 'text-black'}
+                  py-3 cursor-pointer hover:bg-[#213D72] hover:bg-opacity-80 hover:text-white px-5 rounded-md`}>
                 <p>{item.name}</p>
               </div>
             ))

@@ -107,7 +107,7 @@ const SignupForm = () => {
                             <span>Resend OTP in {timer} seconds</span>
                         ) : (
                             <>
-                                Didn’t receive OTP?{" "}
+                                Didn't receive OTP?{" "}
                                 <span
                                     onClick={handleResendOTP}
                                     className="text-gray-700 cursor-pointer hover:text-black font-semibold"
@@ -135,8 +135,11 @@ const SignupForm = () => {
                     <Button
                         disabled={auth.loading}
                         onClick={handleLogin}
-                        fullWidth variant='contained' sx={{ py: "11px" }}> {auth.loading ? <CircularProgress size="small"
-                            sx={{ width: "27px", height: "27px" }} /> : " Signup "}  </Button>
+                        fullWidth className='my-main-button'> 
+                        {auth.loading ? <CircularProgress size="small"
+                            sx={{ width: "27px", height: "27px" }} /> : " Signup "
+                        }
+                    </Button>
                 </div>}
 
                 {!auth.otpSent && <Button

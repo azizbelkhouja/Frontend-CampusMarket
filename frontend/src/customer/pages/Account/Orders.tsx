@@ -15,8 +15,8 @@ const Orders = () => {
   return (
     <div className='text-sm min-h-screen'>
       <div className='pb-5'>
-        <h1 className='font-semibold'>Your Orders</h1>
-        <p>All Orders</p>
+        <h1 className='font-bold text-xl my-dark-blue'>Your Orders</h1>
+        <p className='my-light-blue'>All Orders</p>
       </div>
       <div className='space-y-2'>
       {orders?.orders?.map((order)=>order?.orderItems.map((item)=><OrderItemCard item={item} order={order}/>))}

@@ -16,8 +16,6 @@ const UserDetails = () => {
             <div className="space-y-5">
                 <ProfileFieldCard keys="Name" value={user.user?.fullName || ''} />
                 <Divider />
-                <ProfileFieldCard keys="Mobile" value={user.user?.mobile || ''} />
-                <Divider />
                 <ProfileFieldCard keys="E-mail" value={user.user?.email || ''} />
             </div>
         </div>

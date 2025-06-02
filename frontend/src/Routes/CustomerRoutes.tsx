@@ -30,7 +30,6 @@ const CustomerRoutes = () => {
 
     return (
         <>
-            <Navbar />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/products/:categoryId' element={<Products />} />
@@ -44,7 +43,6 @@ const CustomerRoutes = () => {
                 <Route path='/payment-success/:orderId' element={<PaymentSuccessHandler/>} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
-            <Footer />
         </>
     )
 
