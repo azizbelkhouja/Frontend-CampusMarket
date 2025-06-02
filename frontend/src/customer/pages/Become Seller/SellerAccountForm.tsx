@@ -21,15 +21,11 @@ const SellerAccountForm = () => {
   const dispatch = useAppDispatch();
   const { sellerAuth } = useAppSelector(store => store);
 
-  const handleStep = (value:number) => () => {
-    (activeStep < steps.length-1 || (activeStep > 0 && value==-1)) && setActiveStep(activeStep + value);
-    activeStep == (steps.length-1) && handleCreateAccount();
-  } 
-  const handleCreateAccount=()=>{
-    console.log("Create Account")
-  }
+  const handleStep = (value: number) => {
+    setActiveStep(activeStep + value);
+  };
 
-  const [otp, setOpt] = useState<any>();
+  const [otp, setOtp] = useState<any>();
 
   const formik = useFormik ({
     initialValues: {
@@ -49,6 +45,7 @@ const SellerAccountForm = () => {
         accountHolderName: "",
         accountNumber: "",
         ifscCode: "",
+        fiscalCode: "",
       },
       sellerName: "",
       email: "",
@@ -64,12 +61,12 @@ const SellerAccountForm = () => {
     },
     onSubmit: (values) => {
       console.log(values, "formik submitted");
-      dispatch(createSeller(formik.values));
+      dispatch(createSeller(values));
     },
   });
 
   const handleOtpChange = (otpValue: string) => {
-    setOpt(otpValue);
+    setOtp(otpValue);
     console.log(otpValue);
   };
 
@@ -105,15 +102,24 @@ const SellerAccountForm = () => {
 
       <section className='mt-10 space-y-9'>
         <div className="">
-          { activeStep==0?<BecomeSellerFormStep1 formik={formik} handleOtpChange={handleOtpChange} /> : null  }
-          { activeStep==1?<BecomeSellerFormStep2 formik={formik}/>:null }
-          { activeStep==2?<BecomeSellerFormStep3 formik={formik}/>:null }
-          { activeStep==3?<BecomeSellerFormStep4 formik={formik}/>:null }
+          {activeStep === 0 ? (
+                        <BecomeSellerFormStep1
+                            formik={formik}
+                            handleOtpChange={handleOtpChange}
+                        />
+                    ) : activeStep === 1 ? (
+                        <BecomeSellerFormStep2 formik={formik} />
+                    ) : activeStep === 2 ? (
+                        <BecomeSellerFormStep3 formik={formik} />
+                    ) : (
+                        <BecomeSellerFormStep4 formik={formik} />
+                    )}
         </div>
         <div className="flex items-center justify-between">
           <Button
             className='my-main-button'
-            disabled={activeStep === 0} onClick={handleStep(-1)}
+            disabled={activeStep === 0} 
+            onClick={() => handleStep(-1)}
           >
             Back
           </Button>
@@ -121,9 +127,9 @@ const SellerAccountForm = () => {
             className='my-main-button'
             disabled={sellerAuth.loading}
             onClick={
-                activeStep === steps.length - 1
-                    ? handleSubmit
-                    : () => handleStep(1)
+              activeStep === steps.length - 1
+                  ? handleSubmit
+                  : () => handleStep(1)
             }
           >
             {activeStep == (steps.length - 1) ? "Finish" : "Next"}

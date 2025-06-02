@@ -6,13 +6,13 @@ const BecomeSellerFormStep1 = ({formik}:any) => {
     <div className=''>
         <Box>
             <div className="flex flex-col gap-5">
-                <TextField fullWidth label="mobile" name="Mobile" 
+                <TextField fullWidth label="mobile" name="mobile" 
                         value={formik.values.mobile} onChange={formik.handleChange} 
                         error={formik.touched.mobile && Boolean(formik.errors.mobile)}
                         helperText={formik.touched.mobile && formik.errors.mobile} 
                 />
 
-                <TextField fullWidth label="Fiscal Code" name="Fiscal Code" 
+                <TextField fullWidth label="Fiscal Code" name="cf"
                         value={formik.values.cf} onChange={formik.handleChange} 
                         error={formik.touched.cf && Boolean(formik.errors.cf)}
                         helperText={formik.touched.cf && formik.errors.cf} 
