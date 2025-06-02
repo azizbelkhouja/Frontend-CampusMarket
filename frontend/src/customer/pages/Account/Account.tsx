@@ -1,4 +1,3 @@
-import { Divider } from '@mui/material'
 import React from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Orders from './Orders'
@@ -6,6 +5,8 @@ import OrderDetails from './OrderDetails'
 import UserDetails from './UserDetails'
 import Address from './Address'
 import SavedCards from './SavedCards'
+import { useAppDispatch } from '../../../State/Store'
+import { performLogout } from '../../../State/AuthSlice'
 
 const menu = [
   {name: "Orders", path: "/account/orders"},
@@ -21,16 +22,18 @@ const Account = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+    const dispatch = useAppDispatch();
 
-  
+  const handleLogout = () => {
+    dispatch(performLogout());
+    navigate("/");
+  };
+
   const handleClick = (item: any) => {
-    if (item.path === "/") {
-      
-    } else {
-      navigate(item.path);
-    }
-  }
-
+    if (item.name === "Logout") {
+      handleLogout();
+    } else navigate(`${item.path}`);
+  };
 
   return (
     <div className='lg:px-22 min-h-screen mt-20'>

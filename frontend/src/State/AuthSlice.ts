@@ -88,20 +88,6 @@ export const resetPasswordRequest = createAsyncThunk<ApiResponse, { email: strin
     }
 );
 
-export const logout = createAsyncThunk<any,any>('auth/logout', async (navigate, {rejectWithValue}) => {
-    try {
-        const response = await api.post(`${API_URL}/logout`);
-        console.log("logout success", response.data)
-        localStorage.clear()
-        navigate("/")
-        return response.data;
-    } catch (error:any) {
-        console.log("error",error.response)
-        return rejectWithValue('Logout failed');
-    }
-    
-}
-);
 
 const authSlice = createSlice({
     name: 'auth',
@@ -178,9 +164,12 @@ const authSlice = createSlice({
     },
 });
 
+export const { logout } = authSlice.actions;
+
 export default authSlice.reducer;
 
 export const performLogout = () => async (dispatch:any) => {
+    dispatch(logout());
     dispatch(resetUserState());
     dispatch(resetCartState());
 };
