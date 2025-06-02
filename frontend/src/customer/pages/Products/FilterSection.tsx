@@ -36,7 +36,7 @@ const FilterSection = () => {
     <div className='space-y-5 bg-white'>
       <div className='flex items-center justify-between h-[40px] px-9 lg:border-r'>
         <p className="text-lg font-semibold">Filters</p>
-        <Button onClick={clearAllFilters} size='small' sx={{color:'black',  border: '1px solid black'}} className='cursor-pointer font-semibold' >Clear All</Button>
+        <Button onClick={clearAllFilters} size='small' className='cursor-pointer my-main-button-outlined' >Clear All</Button>
       </div>
       <Divider/>
       <div className='p-9 space-y-6'>

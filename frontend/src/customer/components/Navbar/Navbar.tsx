@@ -57,16 +57,16 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex gap-1 lg:gap-4 items-center">
-            <IconButton>
+            <IconButton onClick={() => navigate("/search-products")}>
               <SearchIcon sx={{ color: 'black' }} />
             </IconButton>
 
               {user.user ? <Button onClick={() => navigate("/account/orders")} className="flex items-center gap-2">
-                <Avatar sx={{ width: 29, height: 29 }} src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" />
+                <p>Welcome,</p>
                 <h1 className="font-semibold hidden lg:block text-black">{user.user.fullName}</h1>
-              </Button> : <Button onClick={() => navigate("/login")} className='my-main-button-outlined' >Login</Button>}
+              </Button> : <Button onClick={() => navigate("/login")} className='my-main-button-outlined'>Login</Button>}
 
-            <IconButton>
+            <IconButton onClick={() => navigate("/wishlist")}>
               <FavoriteBorderIcon sx={{ fontSize: 29, color: 'black' }} />
             </IconButton>
             <IconButton onClick={() => navigate("/cart")}>

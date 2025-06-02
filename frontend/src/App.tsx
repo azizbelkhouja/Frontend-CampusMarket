@@ -8,7 +8,7 @@ import ProductDetails from './customer/pages/PageDetails/ProductDetails'
 import Cart from './customer/pages/Cart/Cart'
 import Checkout from './customer/pages/Checkout/Checkout'
 import Account from './customer/pages/Account/Account'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import BecomeSeller from './customer/pages/Become Seller/BecomeSeller'
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
@@ -22,6 +22,7 @@ import { fetchUserProfile } from './State/customer/UserSlice'
 import { fetchSellerProfile } from './State/seller/sellerSlice'
 import { createHomeCategories } from './State/customer/Customer/AsyncThunk'
 import { homeCategories } from './data/homeCategories'
+import NotFound from './customer/pages/NotFound/NotFound'
 
 function App() {
 
@@ -41,10 +42,17 @@ function App() {
   useEffect(() => {
     dispatch(createHomeCategories(homeCategories))
   }, [dispatch])
+
+  const location = useLocation();
+  const isNotFound = location.pathname === '/not-found';
+
+  
   return (
     <>
-      <Navbar />
+      {!isNotFound && <Navbar />}
+
       <Routes>
+        {/* your regular routes */}
         <Route path="/" element={<Home />} />
         <Route path="/products/:category" element={<Products />} />
         <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
@@ -52,16 +60,22 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/become-seller" element={<BecomeSeller />} />
         <Route path="/account/*" element={<Account />} />
-        {sellers.profile && <Route path='/seller/*' element={<SellerDashboard />} />}
-        {user.user?.role === "ROLE_ADMIN" && <Route path='/admin/*' element={<AdminDashboard />} />}
-        <Route path='/admin-login' element={<AdminAuth />} />
-        <Route path='*' element={<CustomerRoutes />} />
-        <Route path='/verify-seller/:otp' element={<SellerAccountVerification />} />
-        <Route path='/seller-account-verified' element={<SellerAccountVerified />} />
+        <Route path="/admin-login" element={<AdminAuth />} />
+        <Route path="/verify-seller/:otp" element={<SellerAccountVerification />} />
+        <Route path="/seller-account-verified" element={<SellerAccountVerified />} />
+        {sellers.profile && <Route path="/seller/*" element={<SellerDashboard />} />}
+        {user.user?.role === "ROLE_ADMIN" && <Route path="/admin/*" element={<AdminDashboard />} />}
+
+        {/* NotFound route with a real path */}
+        <Route path="/not-found" element={<NotFound />} />
+
+        {/* Catch-all to redirect to NotFound */}
+        <Route path="*" element={<Navigate to="/not-found" />} />
       </Routes>
-      <Footer />
+
+      {!isNotFound && <Footer />}
     </>
-  )
+  );
 }
 
 export default App

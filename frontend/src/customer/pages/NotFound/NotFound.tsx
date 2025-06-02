@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NotFound: React.FC = () => {
   return (
-    <section className="py-10 px-4">
+    <section className="py-10 px-4 mt-10">
       <div className="container mx-auto">
         <div className="flex justify-center">
           <div className="text-center max-w-3xl">
@@ -19,7 +19,7 @@ const NotFound: React.FC = () => {
 
             <div className="mt-[-50px]">
               <h3 className="text-2xl md:text-3xl font-semibold mb-4">
-                Look like you're lost
+                Looks like you're lost
               </h3>
               <p className="mb-6 text-lg">
                 The page you are looking for is not available!

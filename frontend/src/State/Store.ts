@@ -27,7 +27,7 @@ user: UserSlice,
 product: ProductSlice,
 cart: CartSlice,
 orders: OrderSlice,
-coupone: CouponSlice,
+coupon: CouponSlice,
 wishlist: WishlistSlice,
 homePage:CustomerSlice,
 

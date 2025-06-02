@@ -22,7 +22,7 @@ const Wishlist = () => {
                 </section> :
                 <div className="h-full flex justify-center items-center flex-col">
                     <div className="text-center py-5">
-                        <h1 className="text-lg font-medium">its so empty here!</h1>
+                        <h1 className="text-xl font-bold my-dark-blue">Its so empty here!</h1>
                         <p className="text-gray-500 text-sm">
                             there is nothing in your wishlist, Add items
                         </p>

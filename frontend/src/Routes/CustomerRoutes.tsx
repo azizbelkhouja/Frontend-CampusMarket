@@ -6,13 +6,10 @@ import SearchProducts from '../customer/pages/Search/SearchProducts'
 import { useAppDispatch, useAppSelector } from '../State/Store'
 import { fetchUserCart } from '../State/customer/CartSlice'
 import { getWishlistByUserId } from '../State/customer/WishlistSlice'
-import Navbar from '../customer/components/Navbar/Navbar'
-import Footer from '../customer/components/Footer/Footer'
 import Cart from '../customer/pages/Cart/Cart'
 import Address from '../customer/pages/Account/Address'
 import Auth from '../customer/pages/Auth/Auth'
 import PaymentSuccessHandler from '../customer/pages/Payment/PaymentSuccessHandler'
-import NotFound from '../customer/pages/NotFound/NotFound'
 import Products from '../customer/pages/Products/Products'
 import ProductDetails from '../customer/pages/PageDetails/ProductDetails'
 import Account from '../customer/pages/Account/Account'
@@ -41,7 +38,6 @@ const CustomerRoutes = () => {
                 <Route path='/account/*' element={<Account />} />
                 <Route path='/login' element={<Auth/>} />
                 <Route path='/payment-success/:orderId' element={<PaymentSuccessHandler/>} />
-                <Route path='*' element={<NotFound />} />
             </Routes>
         </>
     )

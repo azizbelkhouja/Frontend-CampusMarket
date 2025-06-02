@@ -125,12 +125,12 @@ const Cart = () => {
       ) : (
         <div className="h-[85vh] flex justify-center items-center flex-col">
           <div className="text-center py-5">
-            <h1 className="text-lg font-medium">hay its feels so light!</h1>
+            <h1 className="text-lg font-medium">Hay, it feels so light!</h1>
             <p className="text-gray-500 text-sm">
-              there is nothing in your bag, lets add some items
+              There is nothing in your bag, let's add some items
             </p>
           </div>
-          <Button className='my-main-button-outlined' sx={{ py: "11px" }}>
+          <Button onClick={() => navigate("/wishlist")} className='my-main-button-outlined' sx={{ py: "11px" }}>
             Add From Wishlist
           </Button>
         </div>
