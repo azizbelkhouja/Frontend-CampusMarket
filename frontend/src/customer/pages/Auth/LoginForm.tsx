@@ -81,7 +81,6 @@ const LoginForm = () => {
         <div>
             <h1 className='text-center font-bold text-xl text-[#213D72] pb-5'>Login</h1>
             <form className="space-y-5">
-
                 <TextField
                     sx={{ mb: 2 }}
                     fullWidth
@@ -123,7 +122,8 @@ const LoginForm = () => {
 
                 {auth.otpSent && <div>
                     <Button disabled={auth.loading} onClick={handleLogin}
-                        fullWidth variant='contained' sx={{ py: "11px" }}>{
+                        fullWidth className='my-main-button'>
+                        {
                             auth.loading ? <CircularProgress  />: "Login"}</Button>
                 </div>}
 
