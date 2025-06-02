@@ -8,11 +8,10 @@ import ProductDetails from './customer/pages/PageDetails/ProductDetails'
 import Cart from './customer/pages/Cart/Cart'
 import Checkout from './customer/pages/Checkout/Checkout'
 import Account from './customer/pages/Account/Account'
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import BecomeSeller from './customer/pages/Become Seller/BecomeSeller'
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
-import { fetchProducts } from './State/fetchProduct'
 import AdminAuth from './admin/Pages/Auth/AdminAuth'
 import CustomerRoutes from './Routes/CustomerRoutes'
 import SellerAccountVerification from './seller/pages/SellerAccountVerification'
@@ -22,7 +21,6 @@ import { fetchUserProfile } from './State/customer/UserSlice'
 import { fetchSellerProfile } from './State/seller/sellerSlice'
 import { createHomeCategories } from './State/customer/Customer/AsyncThunk'
 import { homeCategories } from './data/homeCategories'
-import NotFound from './customer/pages/NotFound/NotFound'
 
 function App() {
 
@@ -49,7 +47,7 @@ function App() {
   
   return (
     <>
-      {!isNotFound && <Navbar />}
+      <Navbar />
 
       <Routes>
         {/* your regular routes */}
@@ -65,15 +63,10 @@ function App() {
         <Route path="/seller-account-verified" element={<SellerAccountVerified />} />
         {sellers.profile && <Route path="/seller/*" element={<SellerDashboard />} />}
         {user.user?.role === "ROLE_ADMIN" && <Route path="/admin/*" element={<AdminDashboard />} />}
-
-        {/* NotFound route with a real path */}
-        <Route path="/not-found" element={<NotFound />} />
-
-        {/* Catch-all to redirect to NotFound */}
-        <Route path="*" element={<Navigate to="/not-found" />} />
+        <Route path="*" element={<CustomerRoutes />} />
       </Routes>
 
-      {!isNotFound && <Footer />}
+      <Footer />
     </>
   );
 }

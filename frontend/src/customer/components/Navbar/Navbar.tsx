@@ -47,9 +47,8 @@ const Navbar = () => {
               {mainCategory.map((item) => (
                 <li
                   onMouseEnter={() => handleMouseEnter(item.categoryId)}
-                  onMouseLeave={handleMouseLeave}
                   key={item.categoryId}
-                  className="mainCategories px-4 flex items-center cursor-pointer hover:text-gray-600"
+                  className="mainCategories px-4 flex items-center h-full cursor-pointer hover:text-gray-600"
                 >
                   {item.name}
                 </li>
@@ -86,7 +85,6 @@ const Navbar = () => {
         </div>
 
         <div
-          onMouseEnter={() => setShowCategorySheet(true)}
           onMouseLeave={handleMouseLeave}
           className="categorySheet absolute pt-[1.5rem] top-[2.95rem] left-20 right-20"
         >

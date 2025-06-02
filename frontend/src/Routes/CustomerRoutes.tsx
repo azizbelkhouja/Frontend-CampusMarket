@@ -13,6 +13,7 @@ import PaymentSuccessHandler from '../customer/pages/Payment/PaymentSuccessHandl
 import Products from '../customer/pages/Products/Products'
 import ProductDetails from '../customer/pages/PageDetails/ProductDetails'
 import Account from '../customer/pages/Account/Account'
+import NotFound from '../customer/pages/NotFound/NotFound'
 
 
 const CustomerRoutes = () => {
@@ -38,6 +39,7 @@ const CustomerRoutes = () => {
                 <Route path='/account/*' element={<Account />} />
                 <Route path='/login' element={<Auth/>} />
                 <Route path='/payment-success/:orderId' element={<PaymentSuccessHandler/>} />
+                <Route path='*' element={<NotFound />} />
             </Routes>
         </>
     )
