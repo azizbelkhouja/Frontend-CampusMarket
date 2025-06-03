@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <>
-        <Box className="fixed top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
+        <Box className="sticky top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
         <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] bg-white border-b-black border-b">
           <div className="flex items-center gap-9">
             <div onClick={() => navigate("/")} className="flex items-center gap-2">
@@ -47,6 +47,7 @@ const Navbar = () => {
               {mainCategory.map((item) => (
                 <li
                   onMouseEnter={() => handleMouseEnter(item.categoryId)}
+                  onMouseLeave={handleMouseLeave}
                   key={item.categoryId}
                   className="mainCategories px-4 flex items-center h-full cursor-pointer hover:text-gray-600"
                 >
@@ -85,6 +86,7 @@ const Navbar = () => {
         </div>
 
         <div
+          onMouseEnter={() => setShowCategorySheet(true)}
           onMouseLeave={handleMouseLeave}
           className="categorySheet absolute pt-[1.5rem] top-[2.95rem] left-20 right-20"
         >

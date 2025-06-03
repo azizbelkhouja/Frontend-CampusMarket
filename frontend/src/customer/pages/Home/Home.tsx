@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <>
       {(!homePage.loading)?
-      <><div className="space-y-5 lg:space-y-10 relative pt-20">
+      <><div className="space-y-5 lg:space-y-10 relative">
           {homePage.homePageData?.electricCategories && <ElectronicsCategory />}
         </div><div className='space-y-5 lg:space-y-10 relative p-15'>
             <CategoryGrid />

@@ -76,8 +76,9 @@ const AdminLoginForm = () => {
     return (
         <div>
             <h1 className='text-center font-bold text-xl text-[#213D72] pb-8'>Login</h1>
-            <form className="space-y-5 ">
+            <form className="space-y-2">
                 <TextField
+                sx={{ mb: "10px" }}
                 fullWidth
                 name="email"
                 label="Enter Your Email"
@@ -116,7 +117,8 @@ const AdminLoginForm = () => {
 
                 {auth.otpSent && <div>
                     <Button disabled={auth.loading} onClick={handleLogin}
-                        fullWidth className='my-main-button' sx={{ py: "11px" }}>{auth.loading ? <CircularProgress  />: "Login"}
+                        fullWidth className='my-main-button'>{auth.loading ? <CircularProgress  size="small"
+                            sx={{ width: "27px", height: "27px" }}/>: "Login"}
                     </Button>
                 </div>}
 
@@ -124,9 +126,10 @@ const AdminLoginForm = () => {
                     <Button
                         disabled={auth.loading}
                         fullWidth
-                        className='my-main-button mt-2'
+                        className='my-main-button'
                         onClick={handleSentOtp}
-                    > {auth.loading ? <CircularProgress  />: "send otp"}
+                    > {auth.loading ? <CircularProgress size="small"
+                        sx={{ width: "27px", height: "27px" }} />: "send otp"}
                     </Button>
                 }
             </form>

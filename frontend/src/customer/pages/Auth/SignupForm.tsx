@@ -124,6 +124,7 @@ const SignupForm = () => {
                     fullWidth
                     name="name"
                     label="Enter Your Name"
+                    sx={{ mb: 2 }}
                     value={formik.values.name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -142,16 +143,16 @@ const SignupForm = () => {
                     </Button>
                 </div>}
 
-                {!auth.otpSent && <Button
-                    fullWidth
-                    className='my-main-button'
-                    onClick={handleSentOtp}
-                    disabled={auth.loading}
-                    >
-                    {auth.loading ? <CircularProgress size="small"
-                        sx={{ width: "27px", height: "27px" }} /> : "send otp"}
-
-                </Button>
+                {!auth.otpSent && 
+                    <Button
+                        fullWidth
+                        className='my-main-button'
+                        onClick={handleSentOtp}
+                        disabled={auth.loading}
+                        >
+                        {auth.loading ? <CircularProgress size="small"
+                            sx={{ width: "27px", height: "27px" }} /> : "send otp"}
+                    </Button>
                 }
 
 

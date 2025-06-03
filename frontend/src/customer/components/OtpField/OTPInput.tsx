@@ -46,7 +46,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, onChange, error = false }) 
                     onChange={(e) => handleChange(e, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     maxLength={1}
-                    className={`mt-1 block w-full px-3 py-2 border ${error ? 'border-red-500' : 'border-gray-300'
+                    className={`mt-1 block w-10 h-8 px-3 py-2 border ${error ? 'border-red-500' : 'border-gray-300'
                         } rounded-md shadow-sm focus:outline-none sm:text-sm h-10 w-10 flex justify-center items-center text-center focus:border-teal-500`}
                 />
             ))}
