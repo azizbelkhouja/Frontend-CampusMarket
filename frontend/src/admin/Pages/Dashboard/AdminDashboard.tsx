@@ -24,7 +24,7 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <div className="lg:flex lg:h-[90vh] py-25">
+      <div className="lg:flex lg:h-[90vh]">
         <section className="lg:flex lg:h-[90vh]">
           <div className="hidden lg:block h-full">
             <AdminDrawerList />

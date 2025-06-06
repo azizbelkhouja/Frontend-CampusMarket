@@ -14,7 +14,7 @@ interface menuItem {
 interface DrawerListProp {
   menu:menuItem[],
   menu2:menuItem[],
-  toggleDrawer:()=>void
+  toggleDrawer?:any;
 }
 
 const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
@@ -23,8 +23,16 @@ const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleLogout =()=>[
-    dispatch(logout(navigate))
+    dispatch(logout())
   ]
+
+  const handleClick = (item: any)=>() => {
+        if (item.name === "Logout") {
+          handleLogout()
+        }
+        navigate(item.path);
+        if(toggleDrawer) toggleDrawer(false)();
+    }
 
   return (
     <div className='h-full '>
@@ -32,7 +40,7 @@ const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
         <div className="space-y-2">
           {
             menu.map((item, index:number) =>
-              <div onClick={() => navigate(item.path)} className='pr-9 cursor-pointer' key={index}>
+              <div onClick={handleClick(item)} className='pr-9 cursor-pointer' key={index}>
                 <div className={`${item.path==location.pathname?"bg-[#213D72] text-white":"text-[#213D72]"} flex items-center px-5 py-3 rounded-r-full`}>
                   <ListItemIcon>
                     {item.path==location.pathname?item.activeIcon:item.icon}
@@ -47,15 +55,7 @@ const DrawerList = ({menu, menu2, toggleDrawer}:DrawerListProp) => {
         <div className="space-y-2">
           {
             menu2.map((item, index:number) =>
-              <div onClick={
-                () => {
-                  if(item.path =="/"){
-                    handleLogout()
-                  }else{
-                    navigate(item.path)
-                  }
-                }} 
-                className='pr-9 cursor-pointer ' key={index}>
+              <div onClick={handleClick(item)} className='pr-9 cursor-pointer ' key={index}>
                   <div className={`${item.path==location.pathname?"bg-[#213D72] text-white":"text-[#213D72]"} flex items-center px-5 py-3 rounded-r-full`}>
                     <ListItemIcon>
                       {item.path==location.pathname?item.activeIcon:item.icon}
