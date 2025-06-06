@@ -8,7 +8,7 @@ const BecomeSellerFormStep4 = ({formik}:any) => {
         <TextField
             fullWidth
             name="businessDetails.businessName"
-            label="Preferred Name"
+            label="Public Name"
             value={formik.values.businessDetails.businessName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -19,7 +19,7 @@ const BecomeSellerFormStep4 = ({formik}:any) => {
         <TextField
         fullWidth
         name="email"
-        label="Displayed Email"
+        label="Email"
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -31,6 +31,7 @@ const BecomeSellerFormStep4 = ({formik}:any) => {
         fullWidth
         name="password"
         label="Password"
+        type="password"
         value={formik.values.password}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}

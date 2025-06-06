@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import OTPInput from '../../components/OtpField/OTPInput';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
-import { sendLoginOtp } from '../../../State/seller/sellerAuthenticationSlice';
+import { sellerLogin, sendLoginOtp } from '../../../State/seller/sellerAuthenticationSlice';
 
 const SellerLoginForm = () => {
 
@@ -25,9 +25,10 @@ const SellerLoginForm = () => {
     }
   })
 
-  const handleSendOtp=() => {
-    console.log("Send Otp")
-  }
+  const handleSendOtp=()=>{
+        setIsOtpSent(true);
+        handleResendOTP();
+    }
 
   dispatch(sendLoginOtp(formik.values.email))
 
@@ -43,17 +44,12 @@ const handleResendOTP = () => {
     setIsTimerActive(true);
 };
 
-const handleSentOtp=()=>{
-    setIsOtpSent(true);
-    handleResendOTP();
-}
-
 const handleLogin=()=>{
     formik.handleSubmit()
 }
 
 useEffect(() => {
-    let interval: NodeJS.Timeout | undefined;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     if (isTimerActive) {
         interval = setInterval(() => {
@@ -124,9 +120,10 @@ useEffect(() => {
           {!sellerAuth.otpSent && <Button
           disabled={sellerAuth.loading}
           fullWidth
-          onClick={handleSentOtp}
+          sx={{ mt: 2 }}
+          onClick={handleSendOtp}
           className='my-main-button'>{
-              sellerAuth.loading ? <CircularProgress  />: "send otp"}</Button>
+              sellerAuth.loading ? <CircularProgress size={24} /> : "send otp"}</Button>
           }
       </form>
     </div>
