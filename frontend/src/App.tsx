@@ -24,7 +24,6 @@ import { homeCategories } from './data/homeCategories'
 
 function App() {
 
-
   const dispatch = useAppDispatch()
   const { auth, sellerAuth, sellers, user } = useAppSelector(store => store)
   const navigate = useNavigate();
@@ -41,10 +40,6 @@ function App() {
     dispatch(createHomeCategories(homeCategories))
   }, [dispatch])
 
-  const location = useLocation();
-  const isNotFound = location.pathname === '/not-found';
-
-  
   return (
     <>
       <Navbar />
