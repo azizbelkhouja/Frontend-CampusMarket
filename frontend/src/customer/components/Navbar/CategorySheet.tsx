@@ -25,10 +25,22 @@ const categoryThree: { [key: string]: any[] } = {
   furniture_dorm: furnitureAndDormItems,
 };
 
-const CategorySheet = ({ selectedCategory }: { selectedCategory: string }) => {
+const CategorySheet = ({ selectedCategory,toggleDrawer,setShowCategorySheet }: any) => {
 
   const navigate=useNavigate();
   const childCategory = (category: any, parentCategoryId: any) => category.filter((child: any) => child.parentCategoryId === parentCategoryId);
+
+  const handleCategoryClick = (category:string) => {
+
+      if(toggleDrawer){
+          toggleDrawer(false)()
+      }
+      if(setShowCategorySheet){
+          setShowCategorySheet(false)
+      }
+
+      navigate("/products/"+category)
+  }
   
   return (
     <Box sx={{ zIndex: 2 }} className="bg-white shadow-lg lg:h-[500px] overflow-y-auto">

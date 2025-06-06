@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { Button, Drawer, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -10,6 +10,7 @@ import CategorySheet from './CategorySheet';
 import { mainCategory } from '../../../data/category/mainCategory';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../State/Store';
+import DrawerList from '../../../component/DrawerList';
 
 const Navbar = () => {
 
@@ -19,15 +20,6 @@ const Navbar = () => {
     const [showCategorySheet, setShowCategorySheet] = useState(false);
     const navigate = useNavigate();
     const { user } = useAppSelector(store => store)
-
-    const handleMouseEnter = (categoryId: string) => {
-      setSelectedCategory(categoryId.toLowerCase());
-      setShowCategorySheet(true);
-    };
-
-    const handleMouseLeave = () => {
-      setShowCategorySheet(false);
-    };
 
     const [open, setOpen] = React.useState(false);
 
@@ -51,8 +43,10 @@ const Navbar = () => {
             <ul className="flex items-center text-black font-light relative">
               {mainCategory.map((item) => (
                 <li
-                  onMouseEnter={() => handleMouseEnter(item.categoryId)}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={() => {
+                    setSelectedCategory(item.categoryId);
+                    setShowCategorySheet(true);
+                  }}
                   key={item.categoryId}
                   className="mainCategories px-4 flex items-center h-full cursor-pointer hover:text-gray-600"
                 >
@@ -89,20 +83,21 @@ const Navbar = () => {
             )}
           </div>
         </div>
-
+        <Drawer open={open} onClose={toggleDrawer(false)}>
+        {<DrawerList toggleDrawer={toggleDrawer} />}
+        </Drawer>
+        {showCategorySheet && selectedCategory && (
         <div
+          onMouseLeave={() => setShowCategorySheet(false)}
           onMouseEnter={() => setShowCategorySheet(true)}
-          onMouseLeave={handleMouseLeave}
-          className="categorySheet absolute pt-[1.5rem] top-[2.95rem] left-20 right-20"
+          className="categorySheet absolute top-[4.41rem] left-20 right-20 "
         >
-          <div>
-            { showCategorySheet && (
-            <div className="absolute top-full left-0 w-full">
-              <CategorySheet selectedCategory={selectedCategory} />
-            </div>
-            )}
-          </div>
+          <CategorySheet
+            setShowCategorySheet={setShowCategorySheet}
+            selectedCategory={selectedCategory}
+          />
         </div>
+      )}
       </Box>
   )
 }

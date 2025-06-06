@@ -30,14 +30,11 @@ const SellerLoginForm = () => {
         handleResendOTP();
     }
 
-  dispatch(sendLoginOtp(formik.values.email))
-
   const handleOtpChange = (otp: any) => {
     setOtp(otp);
   };
 
 const handleResendOTP = () => {
-    // Implement OTP resend logic
     dispatch(sendLoginOtp(formik.values.email));
     console.log('Resend OTP');
     setTimer(30);
@@ -57,7 +54,7 @@ useEffect(() => {
                 if (prev === 1) {
                     clearInterval(interval);
                     setIsTimerActive(false);
-                    return 30; // Reset timer for next OTP request
+                    return 30;
                 }
                 return prev - 1;
             });
@@ -123,7 +120,7 @@ useEffect(() => {
           sx={{ mt: 2 }}
           onClick={handleSendOtp}
           className='my-main-button'>{
-              sellerAuth.loading ? <CircularProgress size={24} /> : "send otp"}</Button>
+              sellerAuth.loading ? <CircularProgress size={24} /> : "Send Otp"}</Button>
           }
       </form>
     </div>
