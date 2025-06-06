@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import React, { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Button, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { Button, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -29,14 +29,19 @@ const Navbar = () => {
       setShowCategorySheet(false);
     };
 
+    const [open, setOpen] = React.useState(false);
+
+    const toggleDrawer = (newOpen: boolean) => () => {
+      setOpen(newOpen);
+    };
+
   return (
-    <>
-        <Box className="sticky top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
+      <Box className="sticky top-0 left-0 right-0 bg-black" sx={{ zIndex: 2 }}>
         <div className="flex items-center justify-between px-5 lg:px-20 h-[70px] bg-white border-b-black border-b">
           <div className="flex items-center gap-9">
             <div onClick={() => navigate("/")} className="flex items-center gap-2">
               { !isLarge && (
-                <IconButton>
+                <IconButton onClick={() => toggleDrawer(true)}>
                   <MenuIcon sx={{ color: 'black' }} />
                 </IconButton>
               )}
@@ -99,7 +104,6 @@ const Navbar = () => {
           </div>
         </div>
       </Box>
-    </>
   )
 }
 
