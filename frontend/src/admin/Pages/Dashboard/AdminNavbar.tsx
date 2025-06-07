@@ -3,28 +3,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = ({DrawerList}:any) => {
-  const navigate = useNavigate()
-  const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen: any)=>() => {
-    setOpen(newOpen);
-    
-  };
-
+const Navbar = () => {
   return (
     <div className='h-[10vh] flex items-center px-5 border-b'>
       <div className='flex items-center gap-3 '>
-        <IconButton onClick={toggleDrawer(true)} sx={{ backgroundColor: "white", color: "black", display: { xs: "block", lg: "none" } }}>
-          <MenuIcon sx={{ backgroundColor: "white", color: "black", display: { xs: "block", lg: "none" } }} />
-        </IconButton>
-        <h1 onClick={() => navigate("/")} className='logo text-xl cursor-pointer'>Welcome, Aziz Belkhouja</h1>
+        <h1 className='logo text-xl cursor-pointer'>Welcome To The Admin Dashboard, Aziz Belkhouja</h1>
       </div>
-
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        <DrawerList toggleDrawer={toggleDrawer} />
-      </Drawer>
-
     </div>
   )
 }

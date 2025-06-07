@@ -43,9 +43,7 @@ function App() {
 
   return (
     <>
-
       {user.user?.role === "ROLE_ADMIN" ? <AdminNavbar /> : <Navbar />}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:category" element={<Products />} />
@@ -60,9 +58,7 @@ function App() {
         {sellers.profile && <Route path="/seller/*" element={<SellerDashboard />} />}
         {user.user?.role === "ROLE_ADMIN" && <Route path="/admin/*" element={<AdminDashboard />} />}
         <Route path="*" element={<CustomerRoutes />} />
-
       </Routes>
-
       <Footer />
     </>
   );
