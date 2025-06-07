@@ -7,6 +7,7 @@ import Transaction from '../seller/pages/Payment/Transaction'
 import Payment from '../seller/pages/Payment/Payment'
 import AddProduct from '../seller/pages/Products/AddProduct'
 import Profile from '../seller/pages/Account/Profile'
+import SellerAccountVerified from '../seller/pages/SellerAccountVerified'
 
 const SellerRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const SellerRoutes = () => {
         <Route path='/transaction' element={<Transaction />} />
         <Route path='/add-product' element={<AddProduct />} />
         <Route path='/account' element={<Profile />} />
+        <Route path='/verify-seller' element={<SellerAccountVerified />} />
       </Routes>
   )
 }

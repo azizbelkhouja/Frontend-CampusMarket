@@ -8,7 +8,7 @@ import ProductDetails from './customer/pages/PageDetails/ProductDetails'
 import Cart from './customer/pages/Cart/Cart'
 import Checkout from './customer/pages/Checkout/Checkout'
 import Account from './customer/pages/Account/Account'
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import BecomeSeller from './customer/pages/Become Seller/BecomeSeller'
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
@@ -21,6 +21,7 @@ import { fetchUserProfile } from './State/customer/UserSlice'
 import { fetchSellerProfile } from './State/seller/sellerSlice'
 import { createHomeCategories } from './State/customer/Customer/AsyncThunk'
 import { homeCategories } from './data/homeCategories'
+import AdminNavbar from './admin/Pages/Dashboard/AdminNavbar'
 
 function App() {
 
@@ -42,10 +43,10 @@ function App() {
 
   return (
     <>
-      <Navbar />
+
+      {user.user?.role === "ROLE_ADMIN" ? <AdminNavbar /> : <Navbar />}
 
       <Routes>
-        {/* your regular routes */}
         <Route path="/" element={<Home />} />
         <Route path="/products/:category" element={<Products />} />
         <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
@@ -59,6 +60,7 @@ function App() {
         {sellers.profile && <Route path="/seller/*" element={<SellerDashboard />} />}
         {user.user?.role === "ROLE_ADMIN" && <Route path="/admin/*" element={<AdminDashboard />} />}
         <Route path="*" element={<CustomerRoutes />} />
+
       </Routes>
 
       <Footer />

@@ -23,7 +23,7 @@ const Deal = () => {
                 {tab.map((item) => <Button sx={{ backgroundColor: "white", color: "black", border: "black", borderRadius: "0" }} onClick={() => handleActiveTab(item)} variant={activeTab === item.name ? "contained" : "outlined"}>{item.name}</Button>)}
             </div>
             <div className='mt-5'>
-                {activeTab === "Deals" ? <DealTable /> : activeTab==="Categories"? <DealCategoryTable />:<div className='mt-5 border-t flex flex-col justify-center items-center h-[70vh]'>
+                {activeTab === "Deals" ? <DealTable /> : activeTab==="Categories"? <DealCategoryTable />:<div className='mt-5 border-t h-[70vh]'>
                 <CreateDealForm/></div>}
             </div>
           </div>

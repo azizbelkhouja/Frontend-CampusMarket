@@ -65,7 +65,11 @@ const menu2 = [
 
 ]
 
-const AdminDrawerList = ({toggleDrawer}:any) => {
+interface DrawerListProps{
+    toggleDrawer?:any;
+}
+
+const AdminDrawerList = ({toggleDrawer}:DrawerListProps) => {
   return (
     <DrawerList menu={menu} menu2={menu2} toggleDrawer={toggleDrawer} />
   )

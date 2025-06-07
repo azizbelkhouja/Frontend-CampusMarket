@@ -18,7 +18,7 @@ const Navbar = ({DrawerList}:any) => {
         <IconButton onClick={toggleDrawer(true)} sx={{ backgroundColor: "white", color: "black", display: { xs: "block", lg: "none" } }}>
           <MenuIcon sx={{ backgroundColor: "white", color: "black", display: { xs: "block", lg: "none" } }} />
         </IconButton>
-        <h1 onClick={() => navigate("/")} className='logo text-xl cursor-pointer'>Aziz Belkhouja</h1>
+        <h1 onClick={() => navigate("/")} className='logo text-xl cursor-pointer'>Welcome, Aziz Belkhouja</h1>
       </div>
 
       <Drawer open={open} onClose={toggleDrawer(false)}>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import AdminDrawerList from '../../components/AdminDrawerList'
-import Navbar from './Navbar'
 import AdminRoutes from '../../../Routes/AdminRoutes';
 import { useAppSelector } from '../../../State/Store';
 import { Alert, Snackbar } from '@mui/material';

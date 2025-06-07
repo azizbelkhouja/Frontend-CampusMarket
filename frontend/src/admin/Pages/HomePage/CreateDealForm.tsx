@@ -38,7 +38,6 @@ const CreateDealForm = () => {
             component="form"
             onSubmit={formik.handleSubmit}
             sx={{ maxWidth: 500, margin: "auto", padding: 3 }}
-            className="space-y-6"
         >
             <Typography className='text-center' variant="h4" gutterBottom>
                 New Deal
@@ -61,6 +60,7 @@ const CreateDealForm = () => {
                 fullWidth
                 error={formik.touched.category && Boolean(formik.errors.category)}
                 required
+                sx={{ marginTop: 2 }}
             >
                 <InputLabel id="category-label">Category</InputLabel>
                 <Select
@@ -70,9 +70,10 @@ const CreateDealForm = () => {
                     value={formik.values.category}
                     onChange={formik.handleChange}
                     label="Category"
+                    
                 >
                     {homePage.homePageData?.dealCategories.map((item) => (
-                        <MenuItem value={item.id}>{item.categoryId}</MenuItem>
+                        <MenuItem key={item.id} value={item.id}>{item.categoryId}</MenuItem>
                     ))}
                     </Select>
                     {formik.touched.category && formik.errors.category && (
@@ -84,6 +85,7 @@ const CreateDealForm = () => {
                 fullWidth
                 type="submit"
                 className='my-main-button'
+                sx={{ marginTop: 2 }}
             >
                 Add
             </Button>
