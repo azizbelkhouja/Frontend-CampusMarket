@@ -60,25 +60,30 @@ const Navbar = () => {
               <SearchIcon sx={{ color: 'black' }} />
             </IconButton>
 
-              {user.user ? <Button onClick={() => navigate("/account/orders")} className="flex items-center gap-2">
-                <p>Welcome,</p>
-                <h1 className="font-semibold hidden lg:block text-black">{user.user.fullName}</h1>
-              </Button> : <Button onClick={() => navigate("/login")} className='my-main-button-outlined'>Login</Button>}
+              {user.user?.role === "ROLE_CUSTOMER" ?
+              <div>
+                <Button onClick={() => navigate("/account/orders")} className="flex items-center gap-2">
+                  <p>Welcome,</p>
+                  <h1 className="font-semibold hidden lg:block text-black">aziz</h1>
+                </Button>
+                <IconButton onClick={() => navigate("/wishlist")}>
+                  <FavoriteBorderIcon sx={{ fontSize: 29, color: 'black' }} />
+                </IconButton>
+                <IconButton onClick={() => navigate("/cart")}>
+                  <AddShoppingCartIcon sx={{ fontSize: 29, color: 'black' }} />
+                </IconButton>
+              </div>
+              :
+              <Button onClick={() => navigate("/login")} className='my-main-button-outlined'>Log In</Button>
+              }
 
-            <IconButton onClick={() => navigate("/wishlist")}>
-              <FavoriteBorderIcon sx={{ fontSize: 29, color: 'black' }} />
-            </IconButton>
-            <IconButton onClick={() => navigate("/cart")}>
-              <AddShoppingCartIcon sx={{ fontSize: 29, color: 'black' }} />
-            </IconButton>
-
-            { isLarge && (
+            { user.user?.role === "ROLE_CUSTOMER" && (
               <Button
                 onClick={() => navigate("/become-seller")}
                 startIcon={<StorefrontIcon />}
                 className='my-main-button'
               >
-                Sell
+                Become Seller
               </Button>
             )}
           </div>
