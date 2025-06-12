@@ -8,12 +8,11 @@ const SimilarProductCard = ({ product }: any) => {
   return (
     <div onClick={()=> navigate(`/product-details/${product.category?.categoryId}/${product.title}/${product.id}`)} className='group px-2 relative'>
       <div className=''>
-        <img className='object-cover object-top h-full w-full' src="https://m.media-amazon.com/images/I/71T6TGVtutL.jpg" alt="" />
+        <img className='object-cover object-top h-full w-full' src={product.images[0]} alt="" />
       </div>
 
       <div className='details pt-3 space-y-1 group-hover-effect rounded-md '>
         <div className='name'>
-          <h1>{product.seller?.businessDetails.businessName}</h1>
           <p>{product.title}</p>
         </div>
         <div className='price flex items-center gap-3'>

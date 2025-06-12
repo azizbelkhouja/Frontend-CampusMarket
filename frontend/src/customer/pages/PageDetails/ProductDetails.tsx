@@ -73,7 +73,7 @@ const ProductDetails = () => {
         </section>
         <section className="">
           <p className='font-bold text-3xl'>{product.product?.title}</p>
-          <h1><strong>Seller:</strong> {product.product?.seller?.preferredname}</h1>
+          <h1><strong>Seller:</strong> {product.product?.seller?.sellerName}</h1>
           <div>
             <div className='price flex items-center gap-3 mt-5 text-2xl'>
               <span className='font-sans text-gray-800'>{product.product?.sellingPrice}€</span>

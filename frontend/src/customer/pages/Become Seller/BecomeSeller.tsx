@@ -2,14 +2,20 @@ import React, { useState } from 'react'
 import SellerAccountForm from './SellerAccountForm';
 import SellerLoginForm from './SellerLoginForm';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const BecomeSeller = () => {
 
     const [isLogin, setIsLogin] = useState(false);
+    const navigate = useNavigate();
 
     const handleShowPage = () => {
-        setIsLogin(!isLogin);
-    }
+        if (!isLogin) {
+            navigate('/login');
+        } else {
+            setIsLogin(true);
+        }
+    };
 
   return (
     <div className='grid md:gap-10 grid-cols-3 min-h-screen'>

@@ -7,13 +7,13 @@ import { useAppDispatch, useAppSelector } from '../State/Store'
 import { fetchUserCart } from '../State/customer/CartSlice'
 import { getWishlistByUserId } from '../State/customer/WishlistSlice'
 import Cart from '../customer/pages/Cart/Cart'
-import Address from '../customer/pages/Account/Address'
 import Auth from '../customer/pages/Auth/Auth'
 import PaymentSuccessHandler from '../customer/pages/Payment/PaymentSuccessHandler'
 import Products from '../customer/pages/Products/Products'
 import ProductDetails from '../customer/pages/PageDetails/ProductDetails'
 import Account from '../customer/pages/Account/Account'
 import NotFound from '../customer/pages/NotFound/NotFound'
+import Checkout from '../customer/pages/Checkout/Checkout'
 
 
 const CustomerRoutes = () => {
@@ -35,7 +35,7 @@ const CustomerRoutes = () => {
                 <Route path='/product-details/5' element={<ProductDetails />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/wishlist' element={<Wishlist />} />
-                <Route path='/checkout/address' element={<Address />} />
+                <Route path='/checkout/address' element={<Checkout />} />
                 <Route path='/account/*' element={<Account />} />
                 <Route path='/login' element={<Auth/>} />
                 <Route path='/payment-success/:orderId' element={<PaymentSuccessHandler/>} />

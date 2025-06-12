@@ -62,9 +62,7 @@ const ProductCard = ({item}:{item:Product}) => {
             <span className='font-sans thin-line-through text-gray-400'>{item.mrpPrice}€</span>
             <span className='text-red-500 font-semibold'>-{item.discountPercent}%</span>
           </div>
-
         </div>
-
       </div>
     </>
   )

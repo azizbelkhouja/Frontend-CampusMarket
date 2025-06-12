@@ -33,13 +33,12 @@ const CartItemCard : React.FC<CartItemProps> = ({ item }) => {
         </div>
 
         <div className='space-y-2'>
-        <h1 className="font-semibold text-lg">{item.product?.seller?.businessDetails.businessName}</h1>
+        <h1 className="font-semibold text-lg">{item.product?.title}</h1>
         <p className='text-gray-600 font-medium text-sm'>
           {item.product.description}
         </p>
-        <p className='text-xs text-gray-400'><strong>Sold By: </strong>{item.product?.seller?.businessDetails.businessName}</p>
+        <p className='text-xs text-gray-400'><strong>Sold By: </strong>{item.product?.seller?.sellerName}</p>
         <p className='text-sm'>3 days return available</p>
-        <p className='text-sm text-gray-500'><strong>Quantity: </strong>{item.quantity}</p>
         </div>
       </div>
 
@@ -47,23 +46,10 @@ const CartItemCard : React.FC<CartItemProps> = ({ item }) => {
 
       <div className="flex justify-between items-center">
         <div className="px-5 py-2 flex justify-between items-center">
-
-          <div className='flex items-center gap-2 w-[140px] justify-between'>
-
-            <Button disabled={item.quantity == 1} onClick={() => handleUpdateQuantity(-1)}>
-                <Remove/>
-              </Button>
-              <span>
-                {item.quantity}
-              </span>
-              <Button onClick={() => handleUpdateQuantity(1)}>
-                <Add sx={{color: 'black'}}/>
-              </Button>
-          </div>
+          PRICE : 
         </div>
-
         <div className="pr-5">
-        <p className='font-medium text-gray-700 '>{item.sellingPrice}€</p>
+        <p className='font-medium text-gray-700 '>{item.sellingPrice} €</p>
         </div>
 
       </div>

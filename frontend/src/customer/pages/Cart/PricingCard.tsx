@@ -12,29 +12,29 @@ const PricingCard = () => {
       <div className="space-y-3 p-5">
         <div className="flex justify-between items-center">
           <span>Subtotal</span>
-          <span>{cart.cart?.totalMrpPrice}€</span>
+          <span>{sumCartItemMrpPrice(cart.cart?.cartItems || [])} €</span>
         </div>
         <div className="flex justify-between items-center">
           <span>Discount</span>
           <span>
+            - {sumCartItemMrpPrice(cart.cart?.cartItems || []) - sumCartItemSellingPrice(cart.cart?.cartItems || [])}
             {" "}€
-            {sumCartItemMrpPrice(cart.cart?.cartItems || []) - sumCartItemSellingPrice(cart.cart?.cartItems || [])}
           </span>
         </div>
         <div className="flex justify-between items-center">
           <span>Shipping</span>
-          <span>2.75€</span>
+          <span>2.75 €</span>
         </div>
         <div className="flex justify-between items-center">
           <span>Plateform fee</span>
-          <span className="text-teal-600">0.00€</span>
+          <span className="text-teal-600">0.00 €</span>
         </div>
       </div>
       <Divider />
 
       <div className="font-medium px-5 py-2 flex justify-between items-center">
         <span>Total</span>
-        <span>{cart.cart?.totalSellingPrice}€</span>
+        <span>{cart.cart?.totalSellingPrice + 2.75} €</span>
       </div>
     </div>
   );

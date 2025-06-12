@@ -50,7 +50,7 @@ const Cart = () => {
   
   return (
     <>
-      <div className="pt-30 px-5 sm:px-10 md:px-60 lg:px-60 min-h-screen">
+      <div className="pt-5 px-5 sm:px-10 md:px-60 lg:px-60 min-h-screen">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 ">
           <div className="lg:col-span-2 space-y-3 ">
             {cart.cart?.cartItems.map((item: CartItem) => (

@@ -101,9 +101,6 @@ const Products = () => {
             </FormControl>
           </div>
             <Divider/>
-            <section className='products_section mt-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-5 px-5 justify-center cursor-pointer'>
-              {product.products.map((item) => <ProductCard item={item} />)}
-            </section>
             {product.products?.length > 0 ? (
                 <section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-5 px-5 justify-center">
                   {product.products.map((item: any, index: number) => (
