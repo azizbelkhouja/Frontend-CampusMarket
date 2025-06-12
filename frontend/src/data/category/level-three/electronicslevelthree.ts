@@ -36,16 +36,17 @@ export const electronicsItems = [
     { name: "Pentax K", categoryId: "Pentax K", parentCategoryId: "Cameras" },
   
     // Smart Home Devices
-    { name: "Amazon Echo", categoryId: "Amazon Echo", parentCategoryId: "Smart Home Devices" },
-    { name: "Google Nest Hub", categoryId: "Google Nest Hub", parentCategoryId: "Smart Home Devices" },
-    { name: "Ring Doorbell", categoryId: "Ring Doorbell", parentCategoryId: "Smart Home Devices" },
-    { name: "Philips Hue", categoryId: "Philips Hue", parentCategoryId: "Smart Home Devices" },
-    { name: "Arlo Security Cameras", categoryId: "Arlo Security Cameras", parentCategoryId: "Smart Home Devices" },
-    { name: "August Smart Lock", categoryId: "August Smart Lock", parentCategoryId: "Smart Home Devices" },
-    { name: "Wyze Cam", categoryId: "Wyze Cam", parentCategoryId: "Smart Home Devices" },
-    { name: "Ecobee Thermostat", categoryId: "Ecobee Thermostat", parentCategoryId: "Smart Home Devices" },
-    { name: "TP-Link Smart Plug", categoryId: "TP-Link Smart Plug", parentCategoryId: "Smart Home Devices" },
-    { name: "Lutron Smart Switch", categoryId: "Lutron Smart Switch", parentCategoryId: "Smart Home Devices" },
+    { name: "Apple", categoryId: "Apple", parentCategoryId: "Phones" },
+    { name: "Samsung", categoryId: "Samsung", parentCategoryId: "Phones" },
+    { name: "Google", categoryId: "Google", parentCategoryId: "Phones" },
+    { name: "OnePlus", categoryId: "OnePlus", parentCategoryId: "Phones" },
+    { name: "Xiaomi", categoryId: "Xiaomi", parentCategoryId: "Phones" },
+    { name: "Sony", categoryId: "Sony", parentCategoryId: "Phones" },
+    { name: "Motorola", categoryId: "Motorola", parentCategoryId: "Phones" },
+    { name: "Asus", categoryId: "Asus", parentCategoryId: "Phones" },
+    { name: "Realme", categoryId: "Realme", parentCategoryId: "Phones" },
+    { name: "Nokia", categoryId: "Nokia", parentCategoryId: "Phones" },
+
   
     // Televisions
     { name: "LG OLED TV", categoryId: "LG OLED TV", parentCategoryId: "Televisions" },

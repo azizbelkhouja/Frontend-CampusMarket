@@ -10,8 +10,9 @@ import Paper from '@mui/material/Paper';
 import { Button, IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
-import { fetchSellerProducts } from '../../../State/seller/sellerProductSlice';
+import { fetchSellerProducts, updateProductStock } from '../../../State/seller/sellerProductSlice';
 import type { Product } from '../../../types/productTypes';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,21 +38,27 @@ export default function ProductTable() {
 
   const dispatch = useAppDispatch();
   const {sellerProduct} = useAppSelector(store=>store);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     dispatch(fetchSellerProducts(localStorage.getItem("jwt")))
   }, [dispatch])
+
+  const handleUpdateStack = (id: number | undefined)=>() => {
+    dispatch(updateProductStock(id))
+  }
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Images</StyledTableCell>
+            <StyledTableCell>Image(s)</StyledTableCell>
             <StyledTableCell align="right">Title</StyledTableCell>
-            <StyledTableCell align="right">MRP</StyledTableCell>
+            <StyledTableCell align="right">Original Price</StyledTableCell>
             <StyledTableCell align="right">Selling Price</StyledTableCell>
-            <StyledTableCell align="right">Update Stock</StyledTableCell>
+            <StyledTableCell align="right">Color</StyledTableCell>
+            <StyledTableCell align="right">Stock Status</StyledTableCell>
             <StyledTableCell align="right">Update</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -68,12 +75,10 @@ export default function ProductTable() {
               <StyledTableCell align="right">{item.sellingPrice}</StyledTableCell>
               <StyledTableCell align="right">{item.color}</StyledTableCell>
               <StyledTableCell align="right">{
-                <Button size='small' sx={{backgroundColor:"black",color:"white"}}>
-                  in stock
-                </Button>
+                <Button onClick={handleUpdateStack(item.id)} size='small'>{item.in_stock?"in_stock":"out_stock"}</Button>
               }</StyledTableCell>
               <StyledTableCell align="right">{
-                <IconButton size='small' sx={{backgroundColor:"white",color:"black", border:"1px solid black"}}>
+                <IconButton onClick={(()=>navigate("/seller/update-product/"+item.id))} size='small' sx={{backgroundColor:"white",color:"black", border:"1px solid black"}}>
                   <Edit/>
               </IconButton>
               }</StyledTableCell>

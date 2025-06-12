@@ -34,8 +34,6 @@ const Profile = () => {
     switch (selectedForm) {
       case "personalDetails":
         return <PersonalDetailsForm onClose={handleClose} />;
-      case "businessDetails":
-        return <BusinessDetailsForm onClose={handleClose} />;
       case "pickupAddress":
         return <PickupAddressForm onClose={handleClose} />;
       case "bankDetails":
@@ -69,51 +67,19 @@ const Profile = () => {
           <div>
             <ProfileFieldCard
               keys={"Seller Name"}
-              value="Aziz The Seller"
+              value={sellers.profile?.name || "Not Provided"}
             />
             <Divider />
             <ProfileFieldCard
               keys={"Seller Email"}
-              value="seller_aziz@seller.com"
+              value={sellers.profile?.email || "Not Provided"}
             />
             <Divider />
             <ProfileFieldCard
               keys={"Seller Mobile"}
-              value="+39seller258552"
+              value={sellers.profile?.mobile || "Not Provided"}
             />
           </div>
-        </div>
-      </div>
-
-      <div className="mt-10 lg:w-[70%]">
-        <div className="flex items-center pb-3 justify-between">
-          <h1 className="text-2xl text-black ">Business Details</h1> {/* Fixed typo here */}
-          <div>
-            <Button
-              onClick={() => handleOpen("businessDetails")}
-              size="small"
-              sx={{ color: "black" }}
-              className="w-10 h-10"
-            >
-              <EditIcon />
-            </Button>
-          </div>
-        </div>
-        <div className="">
-          <ProfileFieldCard
-            keys={"Displayed Name"}
-            value={sellers.profile?.businessDetails?.businessName}
-          />
-          <Divider />
-          <ProfileFieldCard
-            keys={"FISCAL CODE"}
-            value={sellers.profile?.cf}
-          />
-          <Divider />
-          <ProfileFieldCard
-            keys={"Account Status"}
-            value={sellers.profile?.accountStatus}
-          />
         </div>
       </div>
 

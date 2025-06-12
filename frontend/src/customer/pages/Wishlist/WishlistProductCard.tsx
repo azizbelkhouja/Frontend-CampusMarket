@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, type MouseEvent } from 'react';
 import { red } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';

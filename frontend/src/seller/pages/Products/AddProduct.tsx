@@ -1,17 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AddPhotoAlternate as AddPhotoAlternateIcon, Close as CloseIcon } from '@mui/icons-material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from "formik";
-import * as Yup from 'yup';
 import { furnitureAndDormItems } from '../../../data/category/level-three/furnitureslevelthree';
 import { electronicsItems } from '../../../data/category/level-three/electronicslevelthree';
 import { clothingItems } from '../../../data/category/level-three/clothinglevelthree';
 import { electronicsleveltwo } from '../../../data/category/level-two/electronicsleveltwo';
 import { clothingleveltwo } from '../../../data/category/level-two/clothingleveltwo';
-import { Button, CircularProgress, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Alert, Button, CircularProgress, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 import { mainCategory } from '../../../data/category/mainCategory';
 import { studyresourcesleveltwo } from '../../../data/category/level-two/studyresourcesleveltwo';
 import { colors } from '../../../data/Filter/color';
 import { uploadToCloudinary } from '../../../util/uploadToCloudinary';
+import { createProduct } from '../../../State/seller/sellerProductSlice';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
 
 const categoryTwo: { [key: string]: any[] } = {
   men: clothingleveltwo,
@@ -27,31 +30,10 @@ const categoryThree: { [key: string]: any[] } = {
   electronics: electronicsItems,
 };
 
-const validationSchema = Yup.object({
-  title: Yup.string()
-  .min(5, "Title must be at least 5 characters")
-  .required('Title is required'),
-  description: Yup.string()
-  .min(10, "Description must be at least 10 characters")
-  .required('Description is required'),
-  price: Yup.number()
-  .positive("Price must be greater than zero")
-  .required("Price is required"),
-  discountedPrice: Yup.number()
-  .positive("Discounted Price must be greater than zero")
-  .required("Discounted Price is required"),
-  discountPercent: Yup.number()
-  .positive("Discount Percent must be greater than zero")
-  .required("Discount Percent is required"),
-  quantity: Yup.number()
-  .positive("Quantity must be greater than zero")
-  .required("Quantity is required"),
-  color: Yup.string().required("Color is required"),
-  Category: Yup.string().required("Category is required"),
-  sizes: Yup.string().required("Sizes are required"),
-})
-
 const ProductForm = () => {
+
+  const dispatch = useAppDispatch();
+  const [snackbarOpen, setOpenSnackbar] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -68,10 +50,16 @@ const ProductForm = () => {
       sizes: "",
     },
     onSubmit: (values) => {
-      console.log(values);
       dispatch(createProduct({ request:values, jwt:localStorage.getItem("jwt") }));
+      console.log(values);
     },
   });
+
+  const handleSubmit = () => {
+    //submit form data to server
+    formik.handleSubmit();
+    console.log("Product Added");
+  };
 
   const [uploadImage, setUploadingImage] = useState(false);
 
@@ -94,6 +82,18 @@ const ProductForm = () => {
       return child.parentCategoryId == parentCategoryId;
     });
   };
+
+  const { sellers, sellerProduct } = useAppSelector(store => store);
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  }
+
+  useEffect(() => {
+    if (sellerProduct.productCreated || sellerProduct.error) {
+      setOpenSnackbar(true)
+    }
+  }, [sellerProduct.productCreated,sellerProduct.error])
 
   return (
     <div>
@@ -197,7 +197,7 @@ const ProductForm = () => {
               fullWidth
               id="mrp_price"
               name="mrpPrice"
-              label="MRP Price"
+              label="Original Price"
               type="number"
               sx={{
                 '& label.Mui-focused': { color: 'black' },
@@ -346,6 +346,9 @@ const ProductForm = () => {
                 onChange={formik.handleChange}
                 label="Second Category"
               >
+                <MenuItem value="">
+                  <em>ANY</em>
+                </MenuItem>
                 {formik.values.category &&
                   categoryTwo[formik.values.category]?.map((item) => (
                     <MenuItem value={item.categoryId}>{item.name}</MenuItem>
@@ -372,7 +375,7 @@ const ProductForm = () => {
                 label="Third Category"
               >
                 <MenuItem value="">
-                  <em>None</em>
+                  <em>ANY</em>
                 </MenuItem>
                 {formik.values.category2 &&
                   childCategory(
@@ -388,12 +391,27 @@ const ProductForm = () => {
             </FormControl>
           </Grid>
           <Grid  size={{xs:12}}>
-            <Button className='my-main-button w-full'>Add Product</Button>
+            <Button className='my-main-button w-full' disabled={sellerProduct.loading} onClick={handleSubmit}>
+              {sellerProduct.loading ? <CircularProgress size={24} /> : "Create Product"}
+            </Button>
           </Grid>
         </Grid>
       </form>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={snackbarOpen} autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={sellerProduct.error ? "error" : "success"}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {sellerProduct.error ? sellerProduct.error : "Product created successfully"}
+        </Alert>
+      </Snackbar>
     </div>
-
   );
 };
 

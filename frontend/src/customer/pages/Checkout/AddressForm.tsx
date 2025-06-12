@@ -145,7 +145,7 @@ const AddressForm:React.FC<AddressFormProp> = ({handleClose,paymentGateway}) => 
 
                 <Grid size={{xs:12}}>
                     <Button className='my-main-button' type="submit" fullWidth>
-                    Add Address
+                        Add Address
                     </Button>
                 </Grid>
                 

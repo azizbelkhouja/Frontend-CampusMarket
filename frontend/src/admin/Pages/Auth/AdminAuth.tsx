@@ -3,9 +3,9 @@ import AdminLoginForm from './AdminLogin'
 
 const AdminAuth = () => {
   return (
-    <div className='flex justify-center items-center h-screen'>
+    <div className='flex justify-center items-center h-[65.8vh]'>
         <div className='max-w-4xl border rounded-md px-5 py-20'>
-            <AdminLoginForm/>
+            <AdminLoginForm />
         </div>
     </div>
   )

@@ -14,10 +14,6 @@ export interface BankDetails {
     accountHolderName: string;
 }
 
-export interface BusinessDetails {
-    businessName: string;
-}
-
 export interface Seller {
     id?:number;
     mobile: string;
@@ -27,7 +23,7 @@ export interface Seller {
     bankDetails: BankDetails;
     sellerName: string;
     email: string;
-    businessDetails: BusinessDetails;
+    preferredname: string;
     password: string;
     accountStatus?:string;
 }

@@ -32,7 +32,7 @@ const CustomerRoutes = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/products/:categoryId' element={<Products />} />
                 <Route path='/search-products' element={<SearchProducts />} />
-                <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetails />} />
+                <Route path='/product-details/5' element={<ProductDetails />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/wishlist' element={<Wishlist />} />
                 <Route path='/checkout/address' element={<Address />} />

@@ -3,6 +3,7 @@ import './ProductCard.css'
 import { Button } from '@mui/material';
 import { Favorite, ModeComment } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import type { Product } from '../../../types/productTypes';
 
 const ProductCard = ({item}:{item:Product}) => {
 
@@ -53,7 +54,7 @@ const ProductCard = ({item}:{item:Product}) => {
 
         <div className='details pt-3 space-y-1 group-hover-effect'>
           <div className='name'>
-            <h1>{item.seller?.businessDetails.businessName}</h1>
+            <h1>{item.seller?.preferredname}</h1>
             <p>{item.title}</p>
           </div>
           <div className='price flex items-center gap-3'>

@@ -1,24 +1,67 @@
 import React, { useEffect, useState } from 'react'
-import StarIcon from '@mui/icons-material/Star';
-import Divider from '@mui/material/Divider';
-import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wallet, WorkspacePremium } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { AddShoppingCart, Close, FavoriteBorder, LocalShipping, Shield, Wallet, WorkspacePremium } from '@mui/icons-material';
+import { Button, IconButton, Snackbar } from '@mui/material';
 import SimilarProduct from './SimilarProduct';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
-import { fetchProductById } from '../../../State/customer/ProductSlice';
+import { fetchProductById, getAllProducts } from '../../../State/customer/ProductSlice';
+import { addItemToCart } from '../../../State/customer/CartSlice';
 
 const ProductDetails = () => {
-  const [quantity, setQuantity] = useState(1);
-  const {productId} = useParams();
+  const {productId,categoryId} = useParams();
   const [activeImage, setActiveImage] = useState(0);
   const { product } = useAppSelector(store => store);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchProductById(Number(productId)));
+    if (productId) {
+        dispatch(fetchProductById(Number(productId)))
+    }
+      dispatch(getAllProducts({ category: categoryId }));
+  }, [categoryId, dispatch, productId])
+
+  const handleAddCart = () => {
+    dispatch(addItemToCart({
+        jwt: localStorage.getItem('jwt'),
+        request: {
+          productId: Number(productId), size: "FREE",
+          quantity: 1
+        }
+    }))
+    setOpen(true);
   }
-  , [dispatch, productId]);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event: any, reason: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={(event) => handleClose(event, 'buttonClick')}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={(event) => handleClose(event, 'iconButtonClick')}
+      >
+        <Close fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   const handleActiveImage = (value:number) => () => {
     setActiveImage(value)
@@ -29,28 +72,20 @@ const ProductDetails = () => {
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
         <section className="flex flex-col lg:flex-row gap-5">
           <div className='w-full lg:w-[15%] flex flex-wrap lg:flex-col gap-3'>
-            {product.product?.images.map((item, index) => <img onClick={handleActiveImage(index)} className='lg:w-full w-[50px] cursor-pointer rounded-md' src={item} alt=''/>)}
+            {product.product?.images.map((item, index) => <img onClick={() => setSelectedImage(index)} className='lg:w-full w-[50px] cursor-pointer rounded-md' src={item} alt="" />)}
           </div>
           <div className="w-full lg:w-[85%]">
-            <img className='w-full rounded-md' src={product.product?.images[activeImage]} alt="" />
+            <img className='w-full rounded-md' src={product.product?.images[selectedImage]} alt="" />
           </div>
         </section>
         <section className="">
-          <h1 className='font-bold text-lg text-primaryblue'>{product.product?.seller?.businessDetails.businessName}</h1>
-          <p className='text-darkblue font-semibold'>{product.product?.title}</p>
-          <div className="flex justify-between items-center py-2 border w-[180px] px-3 mt-5">
-            <div className="flex gap-1 items-center">
-              <span>4</span>
-              <StarIcon sx={{color:"#00B1D3", fontSize:"17px"}}/>
-            </div>
-            <Divider orientation="vertical" flexItem />
-            <span>234 Ratings</span>
-          </div>
+          <p className='font-bold text-3xl'>{product.product?.title}</p>
+          <h1><strong>Seller:</strong> {product.product?.seller?.preferredname}</h1>
           <div>
             <div className='price flex items-center gap-3 mt-5 text-2xl'>
               <span className='font-sans text-gray-800'>{product.product?.sellingPrice}€</span>
               <span className='font-sans line-through text-gray-400'>{product.product?.mrpPrice}€</span>
-              <span className='text-primaryblue font-semibold'>-{product.product?.discountPercent}%</span>
+              <span className='text-red-500 font-semibold'>-{Math.round(((product.product?.mrpPrice - product.product?.sellingPrice) / product.product?.mrpPrice) * 100)}%</span>
             </div>
             <p className='text-sm text-personalgrey'>IVA included</p>
           </div>
@@ -78,6 +113,7 @@ const ProductDetails = () => {
               fullWidth
               startIcon={<AddShoppingCart/>}
               className='my-main-button'
+              onClick={handleAddCart}
             >
               Add To Cart
             </Button>
@@ -85,12 +121,27 @@ const ProductDetails = () => {
               fullWidth
               startIcon={<FavoriteBorder/>}
               className='my-main-button-outlined'
+              onClick={handleClick}
             >
               WishList
             </Button>
+            <Snackbar
+              open={open}
+              autoHideDuration={6000}
+              onClose={handleClose}
+              message="Added Successfully"
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+              action={action}
+              sx={{
+                '& .MuiSnackbarContent-root': {
+                  backgroundColor: '#4caf50',
+                  color: '#fff'
+                }
+              }}
+            />
           </div>
           <div className="mt-5">
-            <p>{product.product?.description}</p>
+            <p></p>
           </div>
         </section>
       </div>

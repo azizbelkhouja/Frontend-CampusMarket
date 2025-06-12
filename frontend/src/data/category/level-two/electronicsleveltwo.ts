@@ -18,8 +18,8 @@ export const electronicsleveltwo = [
       level: 2,
     },
     {
-      name: "Smart Home Devices",
-      categoryId: "Smart Home Devices",
+      name: "Phones",
+      categoryId: "Phones",
       parentCategoryId: "electronics",
       level: 2,
     },

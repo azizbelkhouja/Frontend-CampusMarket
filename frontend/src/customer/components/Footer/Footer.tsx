@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="text-center md:text-left">
               <h5 className="text-lg font-semibold">CampusMarket</h5>
               <p className="text-sm mt-2">
-                © {new Date().getFullYear()} CampusMarket. All rights reserved.
+                © 2025 CampusMarket. All rights reserved.
               </p>
             </div>
             <div className="text-center mt-4 md:mt-0">

@@ -4,8 +4,8 @@ import { useAppSelector } from '../../../State/Store';
 
 const DealCategoryTable = () => {
 
-  const { homePage} = useAppSelector((store) => store);
-  
+  const homePage = useAppSelector((store) => store.homePage);
+
   return (
     <div>
         <HomeCategoryTable categories={homePage.homePageData?.dealCategories}/>

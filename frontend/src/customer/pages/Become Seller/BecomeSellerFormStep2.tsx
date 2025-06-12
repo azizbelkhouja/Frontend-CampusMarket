@@ -4,7 +4,7 @@ import React from 'react';
 const BecomeSellerFormStep2 = ({ formik }: any) => {
   return (
     <Box>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-1">
         <TextField
           fullWidth
           name="pickupAddress.name"

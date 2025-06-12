@@ -30,14 +30,12 @@ const AdminLoginForm = () => {
     });
 
     const handleOtpChange = (otp: any) => {
-
         setOtp(otp);
-
     };
 
     const handleResendOTP = () => {
         // Implement OTP resend logic
-        dispatch(sendLoginSignupOtp({ email: "signing_"+formik.values.email }))
+        dispatch(sendLoginSignupOtp({ email:"signing_"+formik.values.email }));
         console.log('Resend OTP');
         setTimer(30);
         setIsTimerActive(true);
@@ -75,19 +73,20 @@ const AdminLoginForm = () => {
 
     return (
         <div>
-            <h1 className='text-center font-bold text-xl text-[#213D72] pb-8'>Login</h1>
-            <form className="space-y-2">
+            <h1 className='text-center font-bold text-xl text-[#213D72] pb-5'>Login</h1>
+            <form className="space-y-5">
                 <TextField
-                sx={{ mb: "10px" }}
-                fullWidth
-                name="email"
-                label="Enter Your Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email ? formik.errors.email as string : undefined}
+                    sx={{ mb: 2 }}
+                    fullWidth
+                    name="email"
+                    label="Enter Your Email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email ? formik.errors.email as string : undefined}
                 />
+
                 {auth.otpSent && <div className="space-y-2">
                     <p className="font-medium text-sm">
                         * Enter OTP sent to your mobile number
@@ -105,7 +104,7 @@ const AdminLoginForm = () => {
                                 Didn't receive OTP?{" "}
                                 <span
                                     onClick={handleResendOTP}
-                                    className="text-[#00B1D3] cursor-pointer hover:text-[#213D72] font-semibold"
+                                    className="text-gray-700 cursor-pointer hover:text-black font-semibold"
                                 >
                                     Resend OTP
                                 </span>
@@ -117,20 +116,18 @@ const AdminLoginForm = () => {
 
                 {auth.otpSent && <div>
                     <Button disabled={auth.loading} onClick={handleLogin}
-                        fullWidth className='my-main-button'>{auth.loading ? <CircularProgress  size="small"
-                            sx={{ width: "27px", height: "27px" }}/>: "Login"}
-                    </Button>
+                        fullWidth className='my-main-button'>
+                        {
+                            auth.loading ? <CircularProgress  />: "Login"}</Button>
                 </div>}
 
-                {!auth.otpSent && 
-                    <Button
-                        disabled={auth.loading}
-                        fullWidth
-                        className='my-main-button'
-                        onClick={handleSentOtp}
-                    > {auth.loading ? <CircularProgress size="small"
-                        sx={{ width: "27px", height: "27px" }} />: "send otp"}
-                    </Button>
+                {!auth.otpSent && <Button
+                disabled={auth.loading}
+                    fullWidth
+                    className='my-main-button'
+                    onClick={handleSentOtp}
+                    >{
+                        auth.loading ? <CircularProgress  />: "send otp"}</Button>
                 }
             </form>
         </div>

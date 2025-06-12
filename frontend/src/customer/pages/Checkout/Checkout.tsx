@@ -83,11 +83,9 @@ const Checkout = () => {
                         }
                         </div>
                     </div>
-
                     <div>
                         <Button fullWidth sx={{ color: 'black', border: 'black solid 1px' }} onClick={handleOpen}>Add New Address</Button>
                     </div>
-
                 </div>
 
                 <div>
@@ -108,7 +106,7 @@ const Checkout = () => {
                     <div className='border rounded-md'>
                         <PricingCard />
                         <div className="p-5">
-                            <Button fullWidth className='my-main-button-outlined' >Checkout</Button>
+                            <Button onClick={handleCreateOrder} fullWidth className='my-main-button-outlined'>Checkout</Button>
                         </div>
                     </div>
                 </div>

@@ -4,16 +4,16 @@ import React from 'react'
 const BecomeSellerFormStep4 = ({formik}:any) => {
   
   return (
-    <div className='space-y-5 flex flex-col gap-2'>
+    <div className='space-y-5 flex flex-col gap-3'>
         <TextField
-            fullWidth
-            name="businessDetails.businessName"
-            label="Public Name"
-            value={formik.values.businessDetails.businessName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched?.businessDetails?.businessName && Boolean(formik.errors?.businessDetails?.businessName)}
-            helperText={formik.touched?.businessDetails?.businessName && formik.errors?.businessDetails?.businessName}
+          fullWidth
+          name="preferredname"
+          label="Display Name"
+          value={formik.values.preferredname}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.preferredname && Boolean(formik.errors.preferredname)}
+          helperText={formik.touched.preferredname && formik.errors.preferredname}
         />
 
         <TextField

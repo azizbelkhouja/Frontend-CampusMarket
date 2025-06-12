@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NotFound: React.FC = () => {
   return (
-    <section className="py-10 px-4 mt-10">
+    <section className="py-10 px-4">
       <div className="container mx-auto">
         <div className="flex justify-center">
           <div className="text-center max-w-3xl">

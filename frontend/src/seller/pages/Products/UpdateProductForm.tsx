@@ -14,7 +14,6 @@ import {
     Alert,
     Grid,
 } from "@mui/material";
-import "tailwindcss/tailwind.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "../../../State/Store";
@@ -36,8 +35,8 @@ interface FormValues {
     category: any;
     sizes: string;
     seller: Seller | undefined,
-    createdAt:any,
-    numRatings:number;
+    createdAt: any,
+    numRatings: number;
     in_stock: boolean;
 }
 const UpdateProductForm = () => {
@@ -301,9 +300,7 @@ const UpdateProductForm = () => {
                
                     <Grid size={{xs:12}}>
                         <Button
-                            sx={{ p: "14px" }}
-                            color="primary"
-                            variant="contained"
+                            className="my-main-button"
                             fullWidth
                             type="submit"
                             disabled={sellerProduct.loading}

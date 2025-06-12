@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export { uploadToCloudinary };
 
 const uploadToCloudinary = async(pics:any) => {
@@ -12,12 +13,13 @@ const uploadToCloudinary = async(pics:any) => {
         data.append("cloud_name", cloud_name);
 
         const res = await fetch(`https://api.cloudinary.com/v1_1/dxzjfd0ak/image/upload`, {
-            method: "POST",
+            method: "post",
             body: data
         })
 
         // store url in backend
         const fileData = await res.json();
+        console.log("url : ", fileData);
         return fileData.url;
     }
     else {

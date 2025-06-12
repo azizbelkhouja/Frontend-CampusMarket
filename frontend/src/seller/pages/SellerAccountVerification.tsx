@@ -4,13 +4,14 @@ import { useAppDispatch } from '../../State/Store';
 import { verifySellerEmail } from '../../State/seller/sellerSlice';
 
 const SellerAccountVerification = () => {
-  const{ otp}=useParams();
-  const navigate=useNavigate()
-  const dispatch=useAppDispatch();
+  const { otp } = useParams();
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
 
-  useEffect(()=>{
-    dispatch(verifySellerEmail({otp:Number(otp),navigate}))
-  },[dispatch, navigate, otp])
+  useEffect(() => {
+    dispatch(verifySellerEmail({ otp: Number(otp), navigate }))
+  }, [otp])
+
 
   return (
     <div>SellerAccountVerification</div>

@@ -17,9 +17,6 @@ const AdminDashboard = () => {
       setOpenSnackbar(true)
     }
   }, [deal.dealCreated, deal.dealUpdated, deal.error,admin.categoryUpdated])
-  useEffect(() => {
-    
-  }, [])
 
   return (
     <>
@@ -28,9 +25,9 @@ const AdminDashboard = () => {
           <div className="hidden lg:block h-full">
             <AdminDrawerList />
           </div>
-          <div className="p-10 w-full lg:w-[80%]  overflow-y-auto">
-          <AdminRoutes />
-        </div>
+          <div className="p-10 w-full lg:w-[80%] overflow-y-auto">
+            <AdminRoutes />
+          </div>
         </section>
       </div>
 

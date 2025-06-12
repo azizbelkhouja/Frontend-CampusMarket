@@ -99,11 +99,7 @@ export const fetchSellers = createAsyncThunk<Seller[], string>(
   }
 );
 
-export const fetchSellerReport = createAsyncThunk<
-  SellerReport,
-  string, // JWT token type
-  { rejectValue: string }
->("sellers/fetchSellerReport", async (jwt: string, { rejectWithValue }) => {
+export const fetchSellerReport = createAsyncThunk<SellerReport, string, { rejectValue: string }>("sellers/fetchSellerReport", async (jwt: string, { rejectWithValue }) => {
   try {
     const response = await api.get<SellerReport>(`${API_URL}/report`, {
       headers: {
@@ -120,6 +116,32 @@ export const fetchSellerReport = createAsyncThunk<
     return rejectWithValue("Failed to fetch seller report");
   }
 });
+
+export const verifySellerEmail = createAsyncThunk<
+  any,
+  { otp: number; navigate: any }
+>(
+  "sellers/verifySellerEmail",
+  async ({ otp, navigate }, { rejectWithValue }) => {
+    try {
+      const response = await api.patch(`${API_URL}/verify/${otp}`);
+      navigate("/seller-account-verified");
+      console.log("verifiy seller email ", response.data);
+      return response.data;
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(
+          "Update seller error response data:",
+          error.response.data
+        );
+        return rejectWithValue(error.message);
+      } else {
+        console.error("Update seller error message:", error.message);
+        return rejectWithValue("Failed to update seller");
+      }
+    }
+  }
+);
 
 export const fetchSellerById = createAsyncThunk<Seller, number>(
   "sellers/fetchSellerById",
@@ -150,9 +172,7 @@ export const fetchSellerById = createAsyncThunk<Seller, number>(
   }
 );
 
-export const updateSeller = createAsyncThunk<
-  Seller, any 
->(
+export const updateSeller = createAsyncThunk<Seller, any>(
   "sellers/updateSeller",
   async (
       seller : any,
@@ -182,11 +202,7 @@ export const updateSeller = createAsyncThunk<
   }
 );
 
-export const updateSellerAccountStatus = createAsyncThunk<
-  Seller,
-  { id: number; status: string }
->(
-  "sellers/updateSellerAccountStatus",
+export const updateSellerAccountStatus = createAsyncThunk<Seller, { id: number; status: string }>("sellers/updateSellerAccountStatus",
   async (
     { id, status }: { id: number; status: string },
     { rejectWithValue }
@@ -202,32 +218,6 @@ export const updateSellerAccountStatus = createAsyncThunk<
           error.response.data
         );
 
-        return rejectWithValue(error.message);
-      } else {
-        console.error("Update seller error message:", error.message);
-        return rejectWithValue("Failed to update seller");
-      }
-    }
-  }
-);
-
-export const verifySellerEmail = createAsyncThunk<
-  any,
-  { otp: number; navigate: any }
->(
-  "sellers/verifySellerEmail",
-  async ({ otp, navigate }, { rejectWithValue }) => {
-    try {
-      const response = await api.patch(`${API_URL}/verify/${otp}`);
-      navigate("/seller-account-verified");
-      console.log("verifiy seller email ", response.data);
-      return response.data;
-    } catch (error: any) {
-      if (axios.isAxiosError(error) && error.response) {
-        console.error(
-          "Update seller error response data:",
-          error.response.data
-        );
         return rejectWithValue(error.message);
       } else {
         console.error("Update seller error message:", error.message);

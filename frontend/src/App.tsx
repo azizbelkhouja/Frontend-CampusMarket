@@ -14,14 +14,14 @@ import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard'
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard'
 import AdminAuth from './admin/Pages/Auth/AdminAuth'
 import CustomerRoutes from './Routes/CustomerRoutes'
-import SellerAccountVerification from './seller/pages/SellerAccountVerification'
-import SellerAccountVerified from './seller/pages/SellerAccountVerified'
 import { useAppDispatch, useAppSelector } from './State/Store'
 import { fetchUserProfile } from './State/customer/UserSlice'
 import { fetchSellerProfile } from './State/seller/sellerSlice'
 import { createHomeCategories } from './State/customer/Customer/AsyncThunk'
 import { homeCategories } from './data/homeCategories'
 import AdminNavbar from './admin/Pages/Dashboard/AdminNavbar'
+import SellerAccountVerification from './seller/pages/SellerAccountVerification'
+import SellerAccountVerified from './seller/pages/SellerAccountVerified'
 
 function App() {
 
@@ -43,18 +43,19 @@ function App() {
 
   return (
     <>
-      {user.user?.role === "ROLE_ADMIN" ? <AdminNavbar /> : <Navbar />}
+      {user.user?.role === "ROLE_ADMIN" || user.user?.role === "ROLE_SELLER" ? <AdminNavbar /> : <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:category" element={<Products />} />
         <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        
+          <Route path='/verify-seller/:otp' element={<SellerAccountVerification />} />
+          <Route path='/seller-account-verified' element={<SellerAccountVerified />} />
         <Route path="/become-seller" element={<BecomeSeller />} />
         <Route path="/account/*" element={<Account />} />
         <Route path="/admin-login" element={<AdminAuth />} />
-        <Route path="/verify-seller/:otp" element={<SellerAccountVerification />} />
-        <Route path="/seller-account-verified" element={<SellerAccountVerified />} />
         {sellers.profile && <Route path="/seller/*" element={<SellerDashboard />} />}
         {user.user?.role === "ROLE_ADMIN" && <Route path="/admin/*" element={<AdminDashboard />} />}
         <Route path="*" element={<CustomerRoutes />} />

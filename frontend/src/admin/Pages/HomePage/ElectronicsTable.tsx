@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../State/Store';
 
 const ElectronicsTable = () => {
 
-  const { homePage} = useAppSelector((store) => store);
+  const homePage= useAppSelector((store) => store.homePage);
 
   return (
     <div>

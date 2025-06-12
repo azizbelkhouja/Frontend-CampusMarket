@@ -7,6 +7,7 @@ import BecomeSellerFormStep4 from './BecomeSellerFormStep4';
 import BecomeSellerFormStep3 from './BecomeSellerFormStep3';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { createSeller } from '../../../State/seller/sellerAuthenticationSlice';
+import { useNavigate } from 'react-router-dom';
 
 const steps=[
   "Mobile & Tax Details",
@@ -20,12 +21,12 @@ const SellerAccountForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const dispatch = useAppDispatch();
   const { sellerAuth } = useAppSelector(store => store);
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState<any>();
 
   const handleStep = (value: number) => {
     setActiveStep(activeStep + value);
   };
-
-  const [otp, setOtp] = useState<any>();
 
   const formik = useFormik ({
     initialValues: {
@@ -49,14 +50,7 @@ const SellerAccountForm = () => {
       },
       sellerName: "",
       email: "",
-      businessDetails: {
-        businessName: "",
-        businessEmail: "",
-        businessMobile: "",
-        logo: "",
-        banner: "",
-        businessAddress: ""
-      },
+      preferredname: "",
       password:""
     },
     onSubmit: (values) => {
@@ -70,10 +64,10 @@ const SellerAccountForm = () => {
     console.log(otpValue);
   };
 
-  const handleSubmit = () => {
-    //submit form data to server
-    formik.handleSubmit();
+  const handleSubmit = async () => {
+    await formik.handleSubmit(); // Ensure submission is awaited
     console.log("Form Submitted");
+    navigate("/login"); // Redirect to seller login form
   };
 
   return (

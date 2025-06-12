@@ -39,7 +39,7 @@ const CategorySheet = ({ selectedCategory,toggleDrawer,setShowCategorySheet }: a
           setShowCategorySheet(false)
       }
 
-      navigate("/products/"+category)
+      navigate("/products/" + category)
   }
   
   return (
@@ -53,7 +53,7 @@ const CategorySheet = ({ selectedCategory,toggleDrawer,setShowCategorySheet }: a
             <p className="text-black mb-5 font-semibold">{item.name}</p>
             <ul className="space-y-3">
               {childCategory(categoryThree[selectedCategory], item.categoryId).map((item: any) => (
-                <li onClick={() => navigate("/products/" + item.categoryId)} key={item.categoryId} className="hover:text-gray-400 cursor-pointer text-black font-light">
+                <li onClick={()=>handleCategoryClick(item.categoryId)} className="hover:text-gray-400 cursor-pointer text-black font-light">
                   {item.name}
                 </li>
               ))}

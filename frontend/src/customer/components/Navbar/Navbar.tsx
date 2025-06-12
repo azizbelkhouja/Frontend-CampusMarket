@@ -19,8 +19,7 @@ const Navbar = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [showCategorySheet, setShowCategorySheet] = useState(false);
     const navigate = useNavigate();
-    const { user } = useAppSelector(store => store)
-
+    const { user } = useAppSelector(store => store);
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -64,7 +63,7 @@ const Navbar = () => {
               <div>
                 <Button onClick={() => navigate("/account/orders")} className="flex items-center gap-2">
                   <p>Welcome,</p>
-                  <h1 className="font-semibold hidden lg:block text-black">aziz</h1>
+                  <h1 className="font-semibold hidden lg:block text-black">{user.user?.fullName}</h1>
                 </Button>
                 <IconButton onClick={() => navigate("/wishlist")}>
                   <FavoriteBorderIcon sx={{ fontSize: 29, color: 'black' }} />
@@ -77,7 +76,7 @@ const Navbar = () => {
               <Button onClick={() => navigate("/login")} className='my-main-button-outlined'>Log In</Button>
               }
 
-            { user.user?.role === "ROLE_CUSTOMER" && (
+            { (!user.user || user.user?.role === "ROLE_CUSTOMER") && (
               <Button
                 onClick={() => navigate("/become-seller")}
                 startIcon={<StorefrontIcon />}

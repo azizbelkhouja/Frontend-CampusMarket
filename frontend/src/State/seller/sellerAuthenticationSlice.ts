@@ -23,7 +23,7 @@ const API_URL = '/sellers';
 
 export const sendLoginOtp = createAsyncThunk('otp/sendLoginOtp', async (email: string, { rejectWithValue }) => {
     try {
-        const {data}=await api.post('/sellers/sent/login-top', { email });
+        const {data}=await api.post('/sellers/sent/login-otp', { email });
         console.log("otp sent - ", email, data)
         return { email };
     } catch (error:any) {
@@ -33,17 +33,17 @@ export const sendLoginOtp = createAsyncThunk('otp/sendLoginOtp', async (email: s
 });
 
 export const verifyLoginOtp = createAsyncThunk('otp/verifyLoginOtp', 
-    async (data: { email: string; otp: string, navigate:any }, { rejectWithValue }) => {
-    try {
-        const response = await api.post('/sellers/verify/login-top', data);
-        console.log("login seller success - ", response.data)
-        localStorage.setItem("jwt",response.data.jwt)
-        data.navigate("/seller")
-        return response.data;
-    } catch (error:any) {
-        console.log("error",error.response?.data)
-        return rejectWithValue(error.response?.data?.message || 'Failed to verify OTP');
-    }
+    async (data: { email: string; otp: string; navigate: any }, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/sellers/verify/login-otp', data);
+            console.log("login seller success - ", response.data)
+            localStorage.setItem("jwt", response.data.jwt)
+            data.navigate("/seller")
+            return response.data;
+        } catch (error: any) {
+            console.log("error", error.response?.data)
+            return rejectWithValue(error.response?.data?.message || 'Failed to verify OTP');
+        }
 });
 
 export const createSeller = createAsyncThunk<Seller, Seller>(
@@ -66,17 +66,6 @@ export const createSeller = createAsyncThunk<Seller, Seller>(
         }
     }
 );
-
-export const sellerLogin=createAsyncThunk<any, any>('/sellerAuth/sellerLogin', async (LoginRequest, { rejectWithValue }) => {
-    try {
-        const response = await api.post('/sellers/login', LoginRequest);
-        console.log("login seller success - ", response.data)
-        localStorage.setItem("jwt",response.data.jwt)
-    }
-    catch (error:any) {
-        console.log("error",error.response?.data)
-    }
-});
 
 const sellerAuthSlice = createSlice({
     name: 'sellerAuth',

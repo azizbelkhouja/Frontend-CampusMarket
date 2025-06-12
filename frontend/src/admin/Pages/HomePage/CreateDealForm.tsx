@@ -7,7 +7,7 @@ import { createDeal } from '../../../State/admin/DealSlice';
 
 const CreateDealForm = () => {
 
-    const { homePage } = useAppSelector(store => store);
+    const homePage = useAppSelector(store => store.homePage);
     const dispatch = useAppDispatch();
 
     const formik = useFormik({

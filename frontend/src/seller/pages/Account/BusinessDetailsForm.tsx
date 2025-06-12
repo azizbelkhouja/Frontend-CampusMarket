@@ -39,7 +39,7 @@ const BusinessDetailsForm = ({ onClose }: UpdateDetailsFormProps) => {
   useEffect(() => {
     if (sellers.profile) {
       formik.setValues({
-        businessName: sellers.profile?.businessDetails?.businessName,
+        businessName: sellers.profile?.preferredname,
         cf: sellers.profile?.cf,
         accountStatus: sellers.profile?.accountStatus ?? "",
       });

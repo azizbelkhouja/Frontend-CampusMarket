@@ -30,14 +30,12 @@ const LoginForm = () => {
     });
 
     const handleOtpChange = (otp: any) => {
-
         setOtp(otp);
-
     };
 
     const handleResendOTP = () => {
         // Implement OTP resend logic
-        dispatch(sendLoginSignupOtp({ email: "signing_"+formik.values.email }))
+        dispatch(sendLoginSignupOtp({ email:"signing_"+formik.values.email }));
         console.log('Resend OTP');
         setTimer(30);
         setIsTimerActive(true);
@@ -51,8 +49,6 @@ const LoginForm = () => {
     const handleLogin = () => {
         formik.handleSubmit()
     }
-
-  
 
     useEffect(() => {
         let interval: number | undefined;
@@ -74,8 +70,6 @@ const LoginForm = () => {
             if (interval) clearInterval(interval);
         };
     }, [isTimerActive]);
-
-
 
     return (
         <div>

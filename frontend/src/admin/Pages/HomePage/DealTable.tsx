@@ -39,7 +39,7 @@ const style = {
 
 const DealTable = () => {
 
-  const { homePage, deal } = useAppSelector(store => store);
+  const deal = useAppSelector(store => store.deal);
   const [selectedDealId, setSelectedDealId] = useState<number>();
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
