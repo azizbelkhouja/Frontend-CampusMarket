@@ -12,8 +12,8 @@ const ProductDetails = () => {
   const [activeImage, setActiveImage] = useState(0);
   const { product } = useAppSelector(store => store);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     if (productId) {
@@ -33,8 +33,6 @@ const ProductDetails = () => {
     setOpen(true);
   }
 
-  const [open, setOpen] = React.useState(false);
-
   const handleClick = () => {
     setOpen(true);
   };
@@ -43,7 +41,6 @@ const ProductDetails = () => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
@@ -63,10 +60,6 @@ const ProductDetails = () => {
     </React.Fragment>
   );
 
-  const handleActiveImage = (value:number) => () => {
-    setActiveImage(value)
-  }
-  
   return (
     <div className='px-5 lg:px-20 pt-20'>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
@@ -85,7 +78,11 @@ const ProductDetails = () => {
             <div className='price flex items-center gap-3 mt-5 text-2xl'>
               <span className='font-sans text-gray-800'>{product.product?.sellingPrice}€</span>
               <span className='font-sans line-through text-gray-400'>{product.product?.mrpPrice}€</span>
-              <span className='text-red-500 font-semibold'>-{Math.round(((product.product?.mrpPrice - product.product?.sellingPrice) / product.product?.mrpPrice) * 100)}%</span>
+              <span className='text-red-500 font-semibold'>
+                {product.product?.mrpPrice && product.product?.sellingPrice
+                  ? `-${Math.round(((product.product.mrpPrice - product.product.sellingPrice) / product.product.mrpPrice) * 100)}%`
+                  : ''}
+              </span>
             </div>
             <p className='text-sm text-personalgrey'>IVA included</p>
           </div>

@@ -34,6 +34,7 @@ const ProductForm = () => {
 
   const dispatch = useAppDispatch();
   const [snackbarOpen, setOpenSnackbar] = useState(false);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -346,9 +347,6 @@ const ProductForm = () => {
                 onChange={formik.handleChange}
                 label="Second Category"
               >
-                <MenuItem value="">
-                  <em>ANY</em>
-                </MenuItem>
                 {formik.values.category &&
                   categoryTwo[formik.values.category]?.map((item) => (
                     <MenuItem value={item.categoryId}>{item.name}</MenuItem>
@@ -374,9 +372,6 @@ const ProductForm = () => {
                 onChange={formik.handleChange}
                 label="Third Category"
               >
-                <MenuItem value="">
-                  <em>ANY</em>
-                </MenuItem>
                 {formik.values.category2 &&
                   childCategory(
                     categoryThree[formik.values.category],

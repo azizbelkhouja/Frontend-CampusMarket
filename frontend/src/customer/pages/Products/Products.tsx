@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Favorite, FilterAlt, ModeComment } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import FilterSection from './FilterSection'
