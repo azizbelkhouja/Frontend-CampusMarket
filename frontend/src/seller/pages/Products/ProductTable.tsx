@@ -67,7 +67,7 @@ export default function ProductTable() {
             <StyledTableRow key={item.id}>
               <StyledTableCell component="th" scope="row">
                 <div className="flex gap-1 flex-wrap">
-                  {item.images.map((image)=><img src={image} alt="" className='w-20 rounded-md' />)}
+                  {item.images.map((image, index)=><img key={index} src={image} alt="" className='w-20 rounded-md' />)}
                 </div>
               </StyledTableCell>
               <StyledTableCell align="right">{item.title}</StyledTableCell>

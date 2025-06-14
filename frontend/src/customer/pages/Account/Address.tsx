@@ -9,11 +9,11 @@ const Address = () => {
   return (
     <>
       <div className='space-y-3'>
-        hi
         {user.user?.addresses?.map((item, index) =>
               <UserAddressCard
                   key={item.id}
-                  item = {item} />)}
+                  item={item} />
+        )}
       </div>
     </>
   )

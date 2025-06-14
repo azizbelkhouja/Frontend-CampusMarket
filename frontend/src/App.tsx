@@ -22,6 +22,8 @@ import { homeCategories } from './data/homeCategories'
 import AdminNavbar from './admin/Pages/Dashboard/AdminNavbar'
 import SellerAccountVerification from './seller/pages/SellerAccountVerification'
 import SellerAccountVerified from './seller/pages/SellerAccountVerified'
+import AdminRoutes from './Routes/AdminRoutes'
+import GridTable from './admin/Pages/HomePage/GridTable'
 
 function App() {
 
@@ -50,9 +52,8 @@ function App() {
         <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
-        
-          <Route path='/verify-seller/:otp' element={<SellerAccountVerification />} />
-          <Route path='/seller-account-verified' element={<SellerAccountVerified />} />
+        <Route path='/verify-seller/:otp' element={<SellerAccountVerification />} />
+        <Route path='/seller-account-verified' element={<SellerAccountVerified />} />
         <Route path="/become-seller" element={<BecomeSeller />} />
         <Route path="/account/*" element={<Account />} />
         <Route path="/admin-login" element={<AdminAuth />} />

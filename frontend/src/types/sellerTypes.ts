@@ -17,7 +17,6 @@ export interface BankDetails {
 export interface Seller {
     id?:number;
     mobile: string;
-    otp: string;
     cf: string;
     pickupAddress: PickupAddress;
     bankDetails: BankDetails;

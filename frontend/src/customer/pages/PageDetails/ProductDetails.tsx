@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { AddShoppingCart, Close, FavoriteBorder, LocalShipping, Shield, Wallet, WorkspacePremium } from '@mui/icons-material';
 import { Button, IconButton, Snackbar } from '@mui/material';
 import SimilarProduct from './SimilarProduct';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { fetchProductById, getAllProducts } from '../../../State/customer/ProductSlice';
 import { addItemToCart } from '../../../State/customer/CartSlice';
 
 const ProductDetails = () => {
+
   const {productId,categoryId} = useParams();
-  const [activeImage, setActiveImage] = useState(0);
   const { product } = useAppSelector(store => store);
   const dispatch = useAppDispatch();
   const [selectedImage, setSelectedImage] = useState(0);
   const [open, setOpen] = React.useState(false);
+  const { user } = useAppSelector(store => store);
 
   useEffect(() => {
     if (productId) {
@@ -105,7 +106,8 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className="mt-12 flex items-center gap-5">
+          {user.user && (
+            <div className="mt-12 flex items-center gap-5">
             <Button
               fullWidth
               startIcon={<AddShoppingCart/>}
@@ -136,10 +138,7 @@ const ProductDetails = () => {
                 }
               }}
             />
-          </div>
-          <div className="mt-5">
-            <p></p>
-          </div>
+          </div>)}
         </section>
       </div>
 

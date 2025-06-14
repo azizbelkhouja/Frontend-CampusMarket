@@ -19,7 +19,7 @@ const initialValues = {
 };
 
 const UpdateDealForm = ({ id }: { id: number }) => {
-    const { admin } = useAppSelector((store) => store);
+    
     const dispatch = useAppDispatch();
     const formik = useFormik({
         initialValues,

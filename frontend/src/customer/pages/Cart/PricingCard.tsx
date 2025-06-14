@@ -34,7 +34,7 @@ const PricingCard = () => {
 
       <div className="font-medium px-5 py-2 flex justify-between items-center">
         <span>Total</span>
-        <span>{cart.cart?.totalSellingPrice + 2.75} €</span>
+        <span>{sumCartItemSellingPrice(cart.cart?.cartItems || []) + 2.75} €</span>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import { colors } from '../../../data/Filter/color';
 import { uploadToCloudinary } from '../../../util/uploadToCloudinary';
 import { createProduct } from '../../../State/seller/sellerProductSlice';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { useNavigate } from 'react-router-dom';
 
 const categoryTwo: { [key: string]: any[] } = {
   men: clothingleveltwo,

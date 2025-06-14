@@ -1,14 +1,13 @@
 import { Box, Button, Divider } from '@mui/material'
 import React, { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { OrderStepper } from './OrderStepper';
 import { Payments } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
-import { cancelOrder, fetchOrderById, fetchOrderItemById } from '../../../State/customer/OrderSlice';
+import { fetchOrderById, fetchOrderItemById } from '../../../State/customer/OrderSlice';
 
 const OrderDetails = () => {
 
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { auth, orders } = useAppSelector(store => store);
     const { orderItemId, orderId } = useParams();
@@ -22,20 +21,19 @@ const OrderDetails = () => {
           orderId: Number(orderId),
           jwt: localStorage.getItem("jwt") || ""
         }))
-      }, [auth.jwt, dispatch, orderId, orderItemId])
+    }, [auth.jwt, dispatch, orderId, orderItemId])
     
     if (!orders.orders || !orders.orderItem) {
     return <div className='h-[80vh] flex justify-center items-center'>
         No Order Found
     </div>;
     }
-    
+
     return (
         <Box className='space-y-5'>
             <section className='flex flex-col gap-5 justify-center items-center'>
-                <img className='w-[100px]' src="https://spesaonline.conad.it/assets/products/conad-acqua-minerale-naturale-6-x-15-l--400100/Parte-anteriore-planogramma.jpeg/renditions/cq5dam.web.1280.1280.jpeg" alt="" />
+                <img className='w-[100px]' src={orders.orderItem?.product.images[0]} alt="" />
                 <div className='text-sm space-y-1 text-center'>
-                <h1 className='font-bold'>{orders.orderItem?.product.seller?.businessDetails.businessName}</h1>
                 <p>{orders.orderItem?.product.title}</p>
                 <p><strong>Size: </strong>STANDARD</p>
                 </div>
@@ -79,13 +77,6 @@ const OrderDetails = () => {
 
                 <Divider />
 
-                <div className='px-5 pb-5'>
-                <p className='text-xs'>
-                    <strong>Sold by : </strong>
-                    {orders.orderItem?.product.seller?.businessDetails.businessName}
-                </p>
-                </div>
-
                 <div className='p-10'>
                 <Button
                     disabled={false}
@@ -106,7 +97,7 @@ const OrderDetails = () => {
                 </div>
             </div>
         </Box>
-  )
+    )
 }
 
 export default OrderDetails

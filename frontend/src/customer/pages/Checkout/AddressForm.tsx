@@ -21,7 +21,7 @@ interface AddressFormProp {
     paymentGateway:string
 }
 
-const AddressForm:React.FC<AddressFormProp> = ({handleClose,paymentGateway}) => {
+const AddressForm:React.FC<AddressFormProp> = ({handleClose, paymentGateway}) => {
 
     const dispatch=useAppDispatch();
     const formik = useFormik({
@@ -43,7 +43,7 @@ const AddressForm:React.FC<AddressFormProp> = ({handleClose,paymentGateway}) => 
     });
 
     const handleCreateOrder=(address:Address)=>{
-        dispatch(createOrder({address,jwt:localStorage.getItem('jwt')|| "",paymentGateway}))
+        dispatch(createOrder({address,jwt:localStorage.getItem('jwt')|| "", paymentGateway}))
     }
 
   return (

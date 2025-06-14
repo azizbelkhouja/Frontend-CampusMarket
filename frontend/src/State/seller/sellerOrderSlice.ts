@@ -20,7 +20,7 @@ export const fetchSellerOrders = createAsyncThunk<Order[], string>(
   'sellerOrders/fetchSellerOrders',
   async (jwt, { rejectWithValue }) => {
     try {
-      const response = await api.get('/seller/orders', {
+      const response = await api.get('/api/seller/orders', {
         headers: { Authorization: `Bearer ${jwt}` },
       });
 

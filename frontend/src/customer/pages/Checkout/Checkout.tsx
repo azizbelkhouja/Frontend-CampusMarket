@@ -6,6 +6,7 @@ import PricingCard from '../Cart/PricingCard';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { createOrder } from '../../../State/customer/OrderSlice';
+import UserAddressCard from '../Account/UserAddressCard';
 
 const style = {
     position: 'absolute',
@@ -73,12 +74,9 @@ const Checkout = () => {
                     <div className="text-xs font-medium space-y-5">
                         <p>Saved Addresses</p>
                         <div className="space-y-3">
-                        {user.user?.addresses?.map((item, index) => <AddressCard
-                            key={item.id}
-                            item={item}
-                            selectedValue={value} value={index}
-                            handleChange={handleChange} />)
-                        }
+                        {user.user?.addresses?.map((item, index) =>
+                            <UserAddressCard key={item.id} item={item} />
+                        )}
                         </div>
                     </div>
                     <div>

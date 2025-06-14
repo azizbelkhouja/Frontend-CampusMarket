@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Orders from './Orders'
@@ -15,14 +16,13 @@ const menu = [
 
   {name: "Addresses", path: "/account/addresses"},
   {name: "Logout", path: "/"}
-
 ]
 
 const Account = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     dispatch(performLogout());
@@ -36,13 +36,13 @@ const Account = () => {
   };
 
   return (
-    <div className='lg:px-22 min-h-screen mt-20'>
+    <div className='lg:px-22 min-h-screen mt-5'>
       <div className="grid grid-cols-1 lg:grid-cols-3 lg:min-h-[78vh]">
         <section className="left col-span-1 lg:border-r lg:pr-5 py-5 h-full">
           {
             menu.map((item) => (
               <div onClick={() => handleClick(item)} key={item.name}
-              className={` ${item.path === location.pathname ? 'bg-[#213D72] text-white' : 'text-black'}
+                className={` ${item.path === location.pathname ? 'bg-[#213D72] text-white' : 'text-black'}
                   py-3 cursor-pointer hover:bg-[#213D72] hover:bg-opacity-80 hover:text-white px-5 rounded-md`}>
                 <p>{item.name}</p>
               </div>
@@ -59,7 +59,6 @@ const Account = () => {
             <Route path="/saved-cards" element={<SavedCards />} />
           </Routes>
         </section>
-
       </div>
     </div>
   )

@@ -84,40 +84,6 @@ export default function CouponTable () {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {/**temporary */}
-                      <StyledTableRow key={1}>
-                        <StyledTableCell component="th" scope="row">
-                          SAVE10
-                        </StyledTableCell>
-                        <StyledTableCell>2025-06-01</StyledTableCell>
-                        <StyledTableCell>2025-07-01</StyledTableCell>
-                        <StyledTableCell>50</StyledTableCell>
-                        <StyledTableCell>10</StyledTableCell>
-                        <StyledTableCell align="right">Active</StyledTableCell>
-                        <StyledTableCell align="right">
-                          <IconButton onClick={() => handleDeleteCoupon(1)}>
-                            <DeleteOutline className='text-red-700 cursor-pointer' />
-                          </IconButton>
-                        </StyledTableCell>
-                      </StyledTableRow>
-
-                      <StyledTableRow key={2}>
-                        <StyledTableCell component="th" scope="row">
-                          FREESHIP
-                        </StyledTableCell>
-                        <StyledTableCell>2025-06-08</StyledTableCell>
-                        <StyledTableCell>2025-08-01</StyledTableCell>
-                        <StyledTableCell>30</StyledTableCell>
-                        <StyledTableCell>100</StyledTableCell>
-                        <StyledTableCell align="right">Active</StyledTableCell>
-                        <StyledTableCell align="right">
-                          <IconButton onClick={() => handleDeleteCoupon(2)}>
-                            <DeleteOutline className='text-red-700 cursor-pointer' />
-                          </IconButton>
-                        </StyledTableCell>
-                      </StyledTableRow>
-
-                      {/**temporary */}
                       {adminCoupon.coupons?.map((coupon: Coupon) => (
                         <StyledTableRow key={coupon.id}>
                           <StyledTableCell component="th" scope="row">

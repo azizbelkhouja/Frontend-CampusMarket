@@ -1,10 +1,12 @@
-import React from 'react'
-import { Box, Button, Grid, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Alert, Box, Button, CircularProgress, Grid, Snackbar, TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Dayjs } from 'dayjs';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { createCoupon } from '../../../State/admin/AdminCouponSlice';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
 
 interface CouponFormValues {
   code: string;
@@ -15,6 +17,10 @@ interface CouponFormValues {
 }
 
 const CreateCouponForm = () => {
+
+  const dispatch = useAppDispatch();
+  const { coupon, adminCoupon } = useAppSelector((store) => store);
+  const [snackbarOpen, setOpenSnackbar] = useState(false);
 
   const formik = useFormik<CouponFormValues> ({
     initialValues: {
@@ -60,9 +66,24 @@ const CreateCouponForm = () => {
           : null,
       };
       console.log("Form Values:", formattedValues);
+      dispatch(
+        createCoupon({
+          coupon: formattedValues,
+          jwt: localStorage.getItem("jwt") || "",
+        })
+      );
     },
   });
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
+  useEffect(() => {
+    if (adminCoupon.couponCreated) {
+      setOpenSnackbar(true);
+    }
+  }, [adminCoupon.couponCreated]);
 
   return (
     <div>
@@ -151,14 +172,37 @@ const CreateCouponForm = () => {
                 type="submit"
                 className='my-main-button'
                 fullWidth
+                disabled={adminCoupon.loading}
               >
-                  Create Coupon
+                {adminCoupon.loading ? (
+                  <CircularProgress
+                    size="small"
+                    sx={{ width: "27px", height: "27px" }}
+                  />
+                ) : (
+                  "create coupon"
+                )}
               </Button>
             </Grid>
           </Grid>
         </Box>
       </LocalizationProvider>
-    </div>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={adminCoupon.error ? "error" : "success"}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {adminCoupon.error ? adminCoupon.error : "Coupon created successfully"}
+        </Alert>
+      </Snackbar>
+      </div>
     </div>
   )
 }

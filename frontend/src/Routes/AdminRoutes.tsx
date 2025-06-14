@@ -7,6 +7,7 @@ import GridTable from '../admin/Pages/HomePage/GridTable'
 import ElectronicsTable from '../admin/Pages/HomePage/ElectronicsTable'
 import ShopByCategoryTable from '../admin/Pages/HomePage/ShopByCategoryTable'
 import Deal from '../admin/Pages/HomePage/Deal'
+import UserDetails from '../customer/pages/Account/UserDetails'
 
 const AdminRoutes = () => {
   return (
@@ -18,6 +19,8 @@ const AdminRoutes = () => {
       <Route path='/electronics-category' element={<ElectronicsTable/>}/>
       <Route path='/shop-by-category' element={<ShopByCategoryTable/>}/>
       <Route path='/deals' element={<Deal/>}/>
+      <Route path='/account' element={<UserDetails />} />
+      {/* Add more admin routes as needed */}
     </Routes>
   )
 }

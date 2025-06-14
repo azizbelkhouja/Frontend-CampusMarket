@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/slices/userSlice.ts
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import { type User, type UserState } from "../../types/userTypes";
