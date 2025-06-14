@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Favorite, FilterAlt, ModeComment } from '@mui/icons-material'
+import { FilterAlt } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import FilterSection from './FilterSection'
 import ProductCard from './ProductCard'
 import { Box, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, useMediaQuery, useTheme, Pagination, Button } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../State/Store'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { getAllProducts } from '../../../State/customer/ProductSlice'
 
 const Products = () => {
@@ -41,10 +41,6 @@ const Products = () => {
 
     dispatch(getAllProducts({ category: categoryId, sort, ...newFilters }));
   }, [searchParams, categoryId, sort, page, dispatch]);
-
-    const [imageIndexes, setImageIndexes] = useState<{ [key: string]: number }>({});
-    const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
     const [minPrice, maxPrice] = searchParams.get("price")?.split("-") || [];

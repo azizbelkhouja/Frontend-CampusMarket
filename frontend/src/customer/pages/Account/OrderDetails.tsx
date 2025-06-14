@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { OrderStepper } from './OrderStepper';
 import { Payments } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
-import { fetchOrderById, fetchOrderItemById } from '../../../State/customer/OrderSlice';
+import { cancelOrder, fetchOrderById, fetchOrderItemById } from '../../../State/customer/OrderSlice';
 
 const OrderDetails = () => {
 
@@ -26,8 +26,12 @@ const OrderDetails = () => {
     if (!orders.orders || !orders.orderItem) {
     return <div className='h-[80vh] flex justify-center items-center'>
         No Order Found
-    </div>;
-    }
+    </div>
+    };
+
+    const handleCancelOrder = () => {
+        dispatch(cancelOrder(orderId))
+    };
 
     return (
         <Box className='space-y-5'>
@@ -79,8 +83,9 @@ const OrderDetails = () => {
 
                 <div className='p-10'>
                 <Button
-                    disabled={false}
+                    disabled={orders.currentOrder?.orderStatus==="CANCELLED"}
                     color="error"
+                    onClick={handleCancelOrder}
                     sx={{
                         py: "0.7rem",
                         borderRadius: 0,

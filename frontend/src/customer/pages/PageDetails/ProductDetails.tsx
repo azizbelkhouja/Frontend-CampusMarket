@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { fetchProductById, getAllProducts } from '../../../State/customer/ProductSlice';
 import { addItemToCart } from '../../../State/customer/CartSlice';
+import { addProductToWishlist } from '../../../State/customer/WishlistSlice';
 
 const ProductDetails = () => {
 
@@ -15,6 +16,13 @@ const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [open, setOpen] = React.useState(false);
   const { user } = useAppSelector(store => store);
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+  const handleAddWishlist = (event: MouseEvent) => {
+    event.stopPropagation();
+    setIsFavorite((prev) => !prev);
+    setOpen(true);
+  };
 
   useEffect(() => {
     if (productId) {
@@ -33,10 +41,6 @@ const ProductDetails = () => {
     }))
     setOpen(true);
   }
-
-  const handleClick = () => {
-    setOpen(true);
-  };
 
   const handleClose = (event: any, reason: string) => {
     if (reason === 'clickaway') {
@@ -90,7 +94,7 @@ const ProductDetails = () => {
           <div className='mt-7 space-y-3'>
             <div className="flex items-center gap-4">
               <Shield sx={{color:"#00B1D3"}}/>
-              <p>Verified by CampusMarket for Quality & Authenticity</p>
+              <p>Verified by <strong>CampusMarket</strong> for Quality & Authenticity</p>
             </div>
             <div className="flex items-center gap-4">
               <WorkspacePremium sx={{color:"#00B1D3"}}/>
@@ -120,7 +124,7 @@ const ProductDetails = () => {
               fullWidth
               startIcon={<FavoriteBorder/>}
               className='my-main-button-outlined'
-              onClick={handleClick}
+              onClick={handleAddWishlist}
             >
               WishList
             </Button>

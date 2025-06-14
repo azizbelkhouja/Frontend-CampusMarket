@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import './ProductCard.css'
 import { Button } from '@mui/material';
-import { Favorite, ModeComment } from '@mui/icons-material';
+import { Favorite, FavoriteBorder, ModeComment } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import type { Product } from '../../../types/productTypes';
+import { red } from '@mui/material/colors';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { addProductToWishlist } from '../../../State/customer/WishlistSlice';
+import { isWishlisted } from '../../../util/isWishlisted';
 
 const ProductCard = ({item}:{item:Product}) => {
 
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { wishlist } = useAppSelector((store) => store);
+  const dispatch = useAppDispatch();
+
+  const handleAddWishlist = (event: MouseEvent) => {
+        event.stopPropagation();
+        setIsFavorite((prev) => !prev);
+        if (item.id) dispatch(addProductToWishlist({ productId: item.id }));
+  };
 
   useEffect(() => {
 
@@ -27,6 +40,7 @@ const ProductCard = ({item}:{item:Product}) => {
     return () => clearInterval(interval);
   }, [isHovered, item.images.length])
 
+
   return (
     <>
       <div onClick={()=>navigate(`/product-details/${item.category?.categoryId}/${item.title}/${item.id}`)} className='group px-4 relative'>
@@ -41,8 +55,12 @@ const ProductCard = ({item}:{item:Product}) => {
           { isHovered &&
             <div className='indicator flex flex-col items-center space-y-2'>
               <div className='flex gap-3'>
-                <Button variant='contained' sx={{backgroundColor: 'white', color: 'black', border: '1px solid black'}}>
-                  <Favorite/>
+                <Button variant='contained' sx={{backgroundColor: 'white', color: 'black', border: '1px solid black'}} onClick={handleAddWishlist} >
+                  {isWishlisted(wishlist.wishlist, item) ? (
+                          <Favorite sx={{ color: red[500] }} />
+                      ) : (
+                          <FavoriteBorder sx={{ color: "gray" }} />
+                      )}
                 </Button>
                 <Button variant='contained' sx={{backgroundColor: 'white', color: 'black', border: '1px solid black'}}>
                   <ModeComment/>

@@ -5,16 +5,16 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 
 const steps = [
-    { name: "Order Placed", description: "on Thu, 11 Jul", value: "PLACED" },
+    { name: "Order Placed", description: "on Sun, 15 Jun", value: "PLACED" },
     { name: "Packed", description: "Item Packed in Warehouse", value: "CONFIRMED" },
-    { name: "Shipped", description: "by Mon, 15 Jul", value: "SHIPPED" },
-    { name: "Arriving", description: "by 16 Jul - 18 Jul", value: "ARRIVING" },
-    { name: "Arrived", description: "by 16 Jul - 18 Jul", value: "DELIVERED" }
+    { name: "Shipped", description: "by Wed, 18 Jun", value: "SHIPPED" },
+    { name: "Arriving", description: "by 01 Jul - 03 Jul", value: "ARRIVING" },
+    { name: "Arrived", description: "NaN", value: "DELIVERED" }
 ];
   
   const canceledStep = [
-    { name: "Order Placed", description: "on Thu, 11 Jul", value: "PLACED" },
-    { name: "Order Canceled", description: "on Thu, 11 Jul", value: "CANCELLED" },
+    { name: "Order Placed", description: "on Sun, 15 Jun", value: "PLACED" },
+    { name: "Order Canceled", description: "on Sun, 15 Jun", value: "CANCELLED" },
 ];
   
   const currentStep = 2;

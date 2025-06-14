@@ -54,7 +54,7 @@ const Account = () => {
           <Routes>
             <Route path="/" element={<UserDetails />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/orders/:id" element={<OrderDetails />} />
+            <Route path="/orders/:orderId/:orderItemId" element={<OrderDetails />} />
             <Route path="/addresses" element={<Address />} />
             <Route path="/saved-cards" element={<SavedCards />} />
           </Routes>
